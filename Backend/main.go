@@ -2,11 +2,10 @@ package main
 
 import (
     "fmt"
-    "github.com/projetMobilePariDamis/Backend/controllers/controller"
-    L "./controller"
+    "github.com/adatechschool/projet-mobile-pari_damis/controllers"
 )
 
 func main() {
     fmt.Println("Hello, World!")
-    L.user()
+    controllers.User()
 }
