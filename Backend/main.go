@@ -9,6 +9,9 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 )
 
+func init() {
+	ConnectToDatabase()
+}
 func main() {
 	fmt.Println("Hello, World!")
 	r := chi.NewRouter()
