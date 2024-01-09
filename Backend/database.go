@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/Valgard/godotenv"
-	"github.com/adatechschool/projet-mobile-pari_damis/models"
+	// "github.com/adatechschool/projet-mobile-pari_damis/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -21,7 +21,8 @@ func ConnectToDatabase() {
 		panic(err)
 	} else {
 		fmt.Println("succed")
-		db.AutoMigrate(&models.User{})
+		// db.AutoMigrate(&models.User{})
+		db.Begin()
 	}
 
 }
