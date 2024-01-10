@@ -9,6 +9,6 @@ func Routes(r chi.Router) {
 
 	r.Group(func(r chi.Router) {
 		r.Get("/users", controllers.GetUser)
-		//saveALex
+		
 	})
 }

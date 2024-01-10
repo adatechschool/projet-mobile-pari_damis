@@ -1,11 +1,19 @@
 package models
 
+import "gorm.io/gorm"
+
+
+
+
 type User struct {
-	firstname string
-	lastname  string
-	pseudo    string
-	email     string
-	password  string
-	createdAt string
-	updateAt  string
+	gorm.Model
+	Firstname string
+	Lastname  string
+	Pseudo    string
+	Email     string
+	Password  string
+	Group []*Group `gorm:"many2many:group_user;"`
+	
 }
+
+
