@@ -6,10 +6,10 @@ import (
 	// "time"
 
 	// scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
+	
 	"github.com/adatechschool/projet-mobile-pari_damis/routes"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-
 	// "github.com/go-co-op/gocron"
 )
 
@@ -28,5 +28,5 @@ func main() {
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello World!"))
 	})
-http.ListenAndServe(":3000", r)
+	http.ListenAndServe(":3000", r)
 }
