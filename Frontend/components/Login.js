@@ -19,7 +19,7 @@ const Login = () => {
         <View style={styles.form}>
           <TextInput
             style={styles.text}
-            placeholder="Speudo"
+            placeholder="Pseudo"
             placeholderTextColor="gray"
           />
           <TextInput
