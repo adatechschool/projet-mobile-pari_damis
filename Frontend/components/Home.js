@@ -1,30 +1,56 @@
-import React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import React,{useEffect} from "react";
+import { View, Image, StyleSheet, Text } from "react-native";
+import nature from "../assets/nature.gif";
 
-const Home = () => {
-    return (
-      <View style={{ flex: 1, backgroundColor: "black" }}>
-        <View>
-          <Text style={styles.inscription}>Inscription</Text>
-        </View>
-          <TouchableOpacity style={styles.customButton} onPress={() => {}}>
-            <Text style={styles.buttonText}>Go to page Incription</Text>
-          </TouchableOpacity>
-          <Text style={{ color: "white", marginTop: 10 }}>
-            Vous avez déjà un compte ?&nbsp;&nbsp;
-            <Text style={{ color: "red" }} onPress={() => {}}>
-              Se connecter
-            </Text>
-          </Text>
-        </View>
-    );
-  };
-  
-  
-  export default Home;
+const Home = ({navigation}) => {
+    useEffect(() => {
+      
+        const delay = setTimeout(() => {
+         
+          navigation.navigate('Signup'); 
+        }, 2000);
+    
+        return () => clearTimeout(delay);
+      }, [navigation]);
+
+  return (
+    <View
+      style={{ backgroundColor: "black", flex: 1, justifyContent: "center" }}
+    >
+      <Image style={styles.Image} source={require("../assets/nature.gif")} />
+      <View style={styles.overlay}>
+        <Text
+          style={{
+            color: "red",
+            fontSize: 50,
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          pari amis
+        </Text>
+      </View>
+    </View>
+  );
+};
+const styles = StyleSheet.create({
+  Image: {
+    resizeMode: "cover",
+    position: "absolute",
+
+    height: "100%",
+    width: "100%",
+  },
+  splashScreenMasterInstance: {
+    width: "auto",
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0, 0, 0, .95)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+});
+
+export default Home;
