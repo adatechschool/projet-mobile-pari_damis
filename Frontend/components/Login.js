@@ -51,45 +51,7 @@ const Login = () => {
 };
 
 export default Login;
-    return (
-      <View style={{ flex: 1, backgroundColor: "black" }}>
-        <View>
-          <Text style={styles.inscription}>Inscription</Text>
-        </View>
-  
-        <View style={styles.form}>
-          <TextInput
-            style={styles.text}
-            placeholder="Pseudo"
-            placeholderTextColor="gray"
-          />
-          <TextInput
-            style={styles.text}
-            placeholder="Email"
-            placeholderTextColor="gray"
-          />
-          <TextInput
-            style={styles.text}
-            placeholder="Mot de passe"
-            placeholderTextColor="gray"
-            secureTextEntry={true}
-          />
-          <TouchableOpacity style={styles.customButton} onPress={() => {}}>
-            <Text style={styles.buttonText}>INSCRIPTION</Text>
-          </TouchableOpacity>
-          <Text style={{ color: "white", marginTop: 10 }}>
-            Vous avez déjà un compte ?&nbsp;&nbsp;
-            <Text style={{ color: "red" }} onPress={() => {}}>
-              Se connecter
-            </Text>
-          </Text>
-        </View>
-      </View>
-    );
-  };
-  
-  
-  export default Login;
+
 
 const styles = StyleSheet.create({
   inscription: {
