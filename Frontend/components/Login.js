@@ -19,36 +19,36 @@ const Login = ({ navigation }) => {
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "black",
-    
       }}
     >
       <View>
         <Text style={styles.Login}>Login</Text>
       </View>
-      <View style={styles.form }>
+      <View style={styles.form}>
         <TextInput
           style={styles.Email}
           placeholder="Email Address"
           placeholderTextColor="gray"
         />
 
-      <TextInput
-        style={styles.MotDePasse}
-        placeholder="Mot de passe"
-        placeholderTextColor="gray"
-        secureTextEntry
+        <TextInput
+          style={styles.MotDePasse}
+          placeholder="Mot de passe"
+          placeholderTextColor="gray"
+          secureTextEntry
         />
-      
+
         <TouchableOpacity style={styles.customButton} onPress={() => {}}>
           <Text style={styles.buttonText}>SE CONNECTER</Text>
         </TouchableOpacity>
-        {/* <Button title="SE CONNECTER" /> */}
-        <View style={{flexDirection:"row", justifyContent:"center",alignItems:"center"}}>
-
-        <Text style={{ color: "white", }}>
-          Vous n’avez pas de compte ?
-          {/* <Text style={{ fontWeight: 'bold' }}> S’inscrire</Text> */}
-        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ color: "white" }}>Vous n’avez pas de compte ?</Text>
           <Button
             title="S'inscrire"
             color="red"
@@ -56,21 +56,15 @@ const Login = ({ navigation }) => {
             onPress={() => navigation.navigate("Signup")}
           />
         </View>
-      <View style={{ marginVertical: 10 }}>
-        <Text style={{ color: "red" }}>
-          Mot de passe oublié
-        </Text>
-        {/* <Button title="Mot de passe oublié"
+        <View style={{ marginVertical: 10 }}>
+          <Text style={{ color: "red" }}>Mot de passe oublié</Text>
+          {/* <Button title="Mot de passe oublié"
         color="red"
        
         titleStyle={{left: 140, bottom: 270 }}
          /> */}
-         
-      </View>
         </View>
-
-
-      
+      </View>
     </View>
   );
 };
@@ -92,9 +86,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    // bottom: 70,
+
     width: "100%",
-    gap:20,
+    gap: 20,
   },
   Email: {
     borderWidth: 1,
@@ -106,7 +100,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20,
     textAlign: "center",
-    // bottom: 70,
   },
   MotDePasse: {
     borderWidth: 1,
@@ -118,7 +111,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20,
     textAlign: "center",
-    // bottom: 70,
   },
   customButton: {
     borderBottomColor: "red",
@@ -128,13 +120,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderRadius: 8,
     width: "90%",
-    // bottom: 300,
   },
   buttonText: {
     color: "white",
     fontWeight: "700",
     alignItems: "center",
     textAlign: "center",
-     
   },
 });

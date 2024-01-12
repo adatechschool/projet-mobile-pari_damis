@@ -1,6 +1,6 @@
 import React from "react";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   View,
   Text,
@@ -37,29 +37,28 @@ const Signup = ({ navigation }) => {
         <TouchableOpacity style={styles.customButton} onPress={() => {}}>
           <Text style={styles.buttonText}>INSCRIPTION</Text>
         </TouchableOpacity>
-        <Text style={{ color: "white", marginTop: 10 }}>
-          Vous avez déjà un compte ?&nbsp;&nbsp;
-          {/* <Text
-            style={{ color: "red" }}
-            onPress={() => {
-              navigation.navigate("Home");
-            }}
-          >
-            Se connecter
-          </Text> */}
-            <Button
-        title="Se connecter"
-        color="red"
-        onPress={() => navigation.navigate('Login')}
-      />
-        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ color: "white" }}>
+            Vous avez déjà un compte ?&nbsp;&nbsp;
+          </Text>
+          <Button
+            title="Se connecter"
+            color="red"
+            onPress={() => navigation.navigate("Login")}
+          />
+        </View>
       </View>
     </View>
   );
 };
 
 export default Signup;
-
 
 const styles = StyleSheet.create({
   inscription: {
@@ -90,8 +89,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    bottom: 100,
+
     width: "100%",
+    gap: 20,
   },
   text: {
     borderWidth: 1,
