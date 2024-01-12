@@ -19,6 +19,7 @@ const Login = ({ navigation }) => {
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "black",
+    
       }}
     >
       <View>
@@ -37,10 +38,26 @@ const Login = ({ navigation }) => {
         placeholderTextColor="gray"
         secureTextEntry
         />
-        </View>
+      
+        <TouchableOpacity style={styles.customButton} onPress={() => {}}>
+          <Text style={styles.buttonText}>SE CONNECTER</Text>
+        </TouchableOpacity>
+        {/* <Button title="SE CONNECTER" /> */}
+        <View style={{flexDirection:"row", justifyContent:"center",alignItems:"center"}}>
 
+        <Text style={{ color: "white", }}>
+          Vous n’avez pas de compte ?
+          {/* <Text style={{ fontWeight: 'bold' }}> S’inscrire</Text> */}
+        </Text>
+          <Button
+            title="S'inscrire"
+            color="red"
+            titleStyle={{ textAlignVertical: "center" }}
+            onPress={() => navigation.navigate("Signup")}
+          />
+        </View>
       <View style={{ marginVertical: 10 }}>
-        <Text style={{ color: "red", left: 110, bottom: 290 }}>
+        <Text style={{ color: "red" }}>
           Mot de passe oublié
         </Text>
         {/* <Button title="Mot de passe oublié"
@@ -50,23 +67,10 @@ const Login = ({ navigation }) => {
          /> */}
          
       </View>
+        </View>
 
-      <>
-        <TouchableOpacity style={styles.customButton} onPress={() => {}}>
-          <Text style={styles.buttonText}>SE CONNECTER</Text>
-        </TouchableOpacity>
-        {/* <Button title="SE CONNECTER" /> */}
-        <Text style={{ color: "white",bottom: 300, }}>
-          Vous n’avez pas de compte ?
-          <Button
-            title="S'inscrire"
-            color="red"
-            titleStyle={{ textAlignVertical: "center" }}
-            onPress={() => navigation.navigate("Signup")}
-          />
-          {/* <Text style={{ fontWeight: 'bold' }}> S’inscrire</Text> */}
-        </Text>
-      </>
+
+      
     </View>
   );
 };
@@ -88,8 +92,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    bottom: 70,
+    // bottom: 70,
     width: "100%",
+    gap:20,
   },
   Email: {
     borderWidth: 1,
@@ -123,7 +128,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderRadius: 8,
     width: "90%",
-    bottom: 300,
+    // bottom: 300,
   },
   buttonText: {
     color: "white",
