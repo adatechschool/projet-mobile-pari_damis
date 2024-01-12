@@ -1,17 +1,28 @@
-import React,{useEffect} from "react";
+import React from "react";
+import { useFocusEffect } from '@react-navigation/native';
 import { View, Image, StyleSheet, Text } from "react-native";
 import nature from "../assets/nature.gif";
 
 const Home = ({navigation}) => {
-    useEffect(() => {
-      
-        const delay = setTimeout(() => {
+  useFocusEffect(
+    React.useCallback(() => {
+      const delay = setTimeout(() => {
          
-          navigation.navigate('Signup'); 
-        }, 2000);
+        navigation.navigate('Signup'); 
+      }, 2000);
+  
+      return () => clearTimeout(delay);
+    }, [navigation])
+  );
+    // useEffect(() => {
+      
+    //     const delay = setTimeout(() => {
+         
+    //       navigation.navigate('Signup'); 
+    //     }, 2000);
     
-        return () => clearTimeout(delay);
-      }, [navigation]);
+    //     return () => clearTimeout(delay);
+    //   }, [navigation]);
 
   return (
     <View

@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     width: "90%",
     height: 50,
     color: "white",
-    fontSize: "20px",
+    fontSize: 20,
     textAlign: "center",
   },
 });
