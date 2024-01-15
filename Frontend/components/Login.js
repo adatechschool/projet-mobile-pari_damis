@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import { useFormik } from "formik";
 import {
   View,
   Text,
@@ -9,9 +9,38 @@ import {
   TouchableOpacity,
   StyleSheet,
   Button,
+  KeyboardAvoidingView,
 } from "react-native";
+import { Colors } from "react-native/Libraries/NewAppScreen";
 
 const Login = ({ navigation }) => {
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      MotDePasse: "",
+    },
+    validate: (values) => {
+      const errors = {};
+      if (!values.email) {
+        errors.email = "Veuillez entrer votre adresse e-mail";
+      }
+      if (!values.MotDePasse) {
+        errors.MotDePasse = "Veuillez entrer votre mot de passe";
+      }
+      return errors;
+    },
+    onSubmit: (values) => {
+      if (Object.keys(formik.errors).length === 0) {
+        console.log("Soumis", values.email, values.MotDePasse);
+        formik.resetForm();
+        navigation.navigate("MyTabs");
+      }
+    },
+  });
+  const onPress = () => {
+    formik.handleSubmit();
+  };
+
   return (
     <View
       style={{
@@ -24,21 +53,33 @@ const Login = ({ navigation }) => {
       <View>
         <Text style={styles.Login}>Login</Text>
       </View>
-      <View style={styles.form}>
+      <KeyboardAvoidingView behavior="padding" style={styles.form}>
         <TextInput
           style={styles.Email}
           placeholder="Email Address"
           placeholderTextColor="gray"
+          value={formik.values.email}
+          onChangeText={formik.handleChange("email")}
         />
+
+        <Text style={{ color: "red", marginBottom: 10 }}>
+          {formik.errors.email}
+        </Text>
 
         <TextInput
           style={styles.MotDePasse}
           placeholder="Mot de passe"
           placeholderTextColor="gray"
           secureTextEntry
+          value={formik.values.MotDePasse}
+          onChangeText={formik.handleChange("MotDePasse")}
         />
 
-        <TouchableOpacity style={styles.customButton} onPress={() => {navigation.navigate("MyTabs")}}>
+        <Text style={{ color: "red", marginBottom: 10 }}>
+          {formik.errors.MotDePasse}
+        </Text>
+
+        <TouchableOpacity style={styles.customButton} onPress={onPress}>
           <Text style={styles.buttonText}>SE CONNECTER</Text>
         </TouchableOpacity>
         <View
@@ -64,7 +105,7 @@ const Login = ({ navigation }) => {
         titleStyle={{left: 140, bottom: 270 }}
          /> */}
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </View>
   );
 };
