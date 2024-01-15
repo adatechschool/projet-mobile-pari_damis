@@ -1,14 +1,24 @@
 package routes
 
 import (
+	"github.com/adatechschool/projet-mobile-pari_damis/middleware"
 	"github.com/adatechschool/projet-mobile-pari_damis/controllers"
-	"github.com/go-chi/chi/v5"
+	"github.com/gin-gonic/gin"
 )
 
-func Routes(r chi.Router) {
-
-	r.Group(func(r chi.Router) {
-		r.Get("/users", controllers.GetUser)
-		r.Post("/user", controllers.CreateUser)
+func Routes(route *gin.Engine) {
+	user := route.Group("/")
+	user.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "bienvenue",
+		})
 	})
+	user.POST("/signUp", controllers.SignUp)
+	user.POST("/login", controllers.Login)
+	user.GET("/validate", middleware.RequireAuth, controllers.Validate)
+	user.POST("/addUser", controllers.AddUser)
+	user.GET("/allUsers", controllers.AllUsers)
+	user.GET("/oneUser/:id", controllers.OneUser)
+	user.PUT("/updateUser/:id", controllers.UpdateUser)
+	user.DELETE("/deleteOneUser/:id", controllers.DeleteOneUser)
 }

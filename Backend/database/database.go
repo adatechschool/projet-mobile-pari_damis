@@ -1,4 +1,4 @@
-package main
+package database
 
 import (
 	"fmt"
@@ -10,19 +10,22 @@ import (
 	"gorm.io/gorm"
 )
 
+var DB *gorm.DB
+
 func ConnectToDatabase() {
+	var err error
 	dotenv := godotenv.New()
 	if err := dotenv.Load(".env"); err != nil {
 		panic(err)
 	}
 	dsn := os.Getenv("DATABASE")
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	} else {
 		fmt.Println("succed")
 		// db.AutoMigrate(&models.User{})
-		db.Begin()
+		DB.Begin()
 	}
 
 }
