@@ -85,7 +85,7 @@ const Signup = ({ navigation }) => {
           onChangeText={formik.handleChange("MotDePasse")}
         />
         <Text style={{ color: "red"}}>
-          {formik.errors.pseudo}
+          {formik.errors.MotDePasse}
         </Text>
         <TouchableOpacity style={styles.customButton} onPress={onPress}>
           <Text style={styles.buttonText}>INSCRIPTION</Text>
