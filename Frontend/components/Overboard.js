@@ -13,9 +13,8 @@ const Home = ({ navigation }) => {
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
           {/* Votre composant carroussel */}
-          {/* Assurez-vous d'ajuster les styles et les propriétés d'image en conséquence */}
-          {/* Ajoutez votre composant Slides ici si nécessaire */}
-          {/* Votre composant Steps */}
+         
+        
           <View style={{ flexDirection: "row", top: 200 }}>
             <View
               style={{
