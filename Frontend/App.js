@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import Signup from "./components/Signup";
 import Login  from "./components/Login";
+import Home from "./components/Home";
 import Loading  from "./components/Loading";
 import MyTabs from "./Navigation/MyTabs";
 
@@ -14,7 +15,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Loading"  screenOptions={{
         headerStyle: {
-          // backgroundColor: 'black',
+          backgroundColor: 'black',
         }, headerBackTitleStyle:{fontSize:20},
         headerTitleStyle:{color:"black"},headerBackTitleVisible: false,
       }} >
@@ -23,7 +24,8 @@ export default function App() {
           },headerTintColor: 'black',
           }} />
         <Stack.Screen name="Signup" component={Signup} options={{headerBackTitle:"Accueil", title:null}} />
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Login" component={Login} options={{title:null}} />
+        <Stack.Screen name="Home" component={Home} />
        <Stack.Screen name="MyTabs"  options={{headerShown: false}} component={MyTabs}/>
       </Stack.Navigator>
     </NavigationContainer>
