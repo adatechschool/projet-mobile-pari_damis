@@ -8,11 +8,15 @@ import {
   TouchableOpacity,
   StyleSheet,
   Button,
+  StatusBar
 } from "react-native";
 
 const Signup = ({ navigation }) => {
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
+      <StatusBar 
+        hidden="Visible"
+      />
       <View>
         <Text style={styles.inscription}>Inscription</Text>
       </View>

@@ -12,9 +12,9 @@ export default function App() {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home"  screenOptions={{
+      <Stack.Navigator initialRouteName="Loading"  screenOptions={{
         headerStyle: {
-          backgroundColor: 'black',
+          // backgroundColor: 'black',
         }, headerBackTitleStyle:{fontSize:20},
         headerTitleStyle:{color:"black"},headerBackTitleVisible: false,
       }} >
@@ -22,7 +22,7 @@ export default function App() {
             backgroundColor: 'black'
           },headerTintColor: 'black',
           }} />
-        <Stack.Screen name="Signup" component={Signup} options={{headerBackTitle:"Accueil",}} />
+        <Stack.Screen name="Signup" component={Signup} options={{headerBackTitle:"Accueil", title:null}} />
         <Stack.Screen name="Login" component={Login} />
        <Stack.Screen name="MyTabs"  options={{headerShown: false}} component={MyTabs}/>
       </Stack.Navigator>
