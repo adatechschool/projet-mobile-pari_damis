@@ -10,8 +10,5 @@ type Group struct {
 	LimitMembers *uint8
 	Sports []string
 	User []*User `gorm:"many2many:group_user;"`
-
-
-
-
+	Bet []Bet
 }
