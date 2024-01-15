@@ -1,6 +1,8 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useFormik } from "formik";
+
 import {
   View,
   Text,
@@ -12,6 +14,39 @@ import {
 } from "react-native";
 
 const Signup = ({ navigation }) => {
+  const formik = useFormik({
+    initialValues: {
+      pseudo:"",
+      email: "",
+      MotDePasse: "",
+    },
+    validate: (values) => {
+      const errors = {};
+
+      if (!values.pseudo) {
+        errors.pseudo = "Veuillez entrer votre pseudo";
+      }
+      if (!values.email) {
+        errors.email = "Veuillez entrer votre adresse e-mail";
+      }
+      if (!values.MotDePasse) {
+        errors.MotDePasse = "Veuillez entrer votre mot de passe";
+      }
+      return errors;
+    },
+    onSubmit: (values) => {
+      if (Object.keys(formik.errors).length === 0) {
+        console.log("Soumis",values.pseudo, values.email, values.MotDePasse);
+        formik.resetForm();
+        navigation.navigate("Login");
+      }
+    },
+  });
+  const onPress = () => {
+    formik.handleSubmit();
+  };
+
+
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
       <StatusBar 
@@ -25,19 +60,34 @@ const Signup = ({ navigation }) => {
           style={styles.text}
           placeholder="Pseudo"
           placeholderTextColor="gray"
+          value={formik.values.pseudo}
+          onChangeText={formik.handleChange("pseudo")}
         />
+        <Text style={{ color: "red"}}>
+          {formik.errors.pseudo}
+        </Text>
         <TextInput
           style={styles.text}
-          placeholder="Email"
+          placeholder="Email adress"
           placeholderTextColor="gray"
+          value={formik.values.email}
+          onChangeText={formik.handleChange("email")}
         />
+        <Text style={{ color: "red"}}>
+          {formik.errors.email}
+        </Text>
         <TextInput
           style={styles.text}
           placeholder="Mot de passe"
           placeholderTextColor="gray"
           secureTextEntry={true}
+          value={formik.values.MotDePasse}
+          onChangeText={formik.handleChange("MotDePasse")}
         />
-        <TouchableOpacity style={styles.customButton} onPress={() => {}}>
+        <Text style={{ color: "red"}}>
+          {formik.errors.pseudo}
+        </Text>
+        <TouchableOpacity style={styles.customButton} onPress={onPress}>
           <Text style={styles.buttonText}>INSCRIPTION</Text>
         </TouchableOpacity>
         <View

@@ -62,7 +62,7 @@ const Login = ({ navigation }) => {
           onChangeText={formik.handleChange("email")}
         />
 
-        <Text style={{ color: "red", marginBottom: 10 }}>
+        <Text style={{ color: "red" }}>
           {formik.errors.email}
         </Text>
 
@@ -75,7 +75,7 @@ const Login = ({ navigation }) => {
           onChangeText={formik.handleChange("MotDePasse")}
         />
 
-        <Text style={{ color: "red", marginBottom: 10 }}>
+        <Text style={{ color: "red"}}>
           {formik.errors.MotDePasse}
         </Text>
 
