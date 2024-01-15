@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from "react-native";
 import Signup from "./components/Signup";
 import Login  from "./components/Login";
 import Loading  from "./components/Loading";
+import MyTabs from "./Navigation/MyTabs";
 
 
 export default function App() {
@@ -21,9 +22,9 @@ export default function App() {
             backgroundColor: 'black'
           },headerTintColor: 'black',
           }} />
-        <Stack.Screen name="Signup" component={Signup} options={{headerBackTitle:"Home",}} />
+        <Stack.Screen name="Signup" component={Signup} options={{headerBackTitle:"Accueil",}} />
         <Stack.Screen name="Login" component={Login} />
-        {/* <Stack.Screen name="Home" component={Home} /> */}
+       <Stack.Screen name="MyTabs"  options={{headerShown: false}} component={MyTabs}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

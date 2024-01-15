@@ -38,7 +38,7 @@ const Login = ({ navigation }) => {
           secureTextEntry
         />
 
-        <TouchableOpacity style={styles.customButton} onPress={() => {}}>
+        <TouchableOpacity style={styles.customButton} onPress={() => {navigation.navigate("MyTabs")}}>
           <Text style={styles.buttonText}>SE CONNECTER</Text>
         </TouchableOpacity>
         <View
