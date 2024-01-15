@@ -16,7 +16,6 @@ const Signup = ({ navigation }) => {
       <View>
         <Text style={styles.inscription}>Inscription</Text>
       </View>
-
       <View style={styles.form}>
         <TextInput
           style={styles.text}

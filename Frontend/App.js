@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import Signup from "./components/Signup";
 import Login  from "./components/Login";
-import Home  from "./components/Home";
+import Loading  from "./components/Loading";
 
 
 export default function App() {
@@ -17,7 +17,7 @@ export default function App() {
         }, headerBackTitleStyle:{fontSize:20},
         headerTitleStyle:{color:"black"},headerBackTitleVisible: false,
       }} >
-         <Stack.Screen name="Home" component={Home} options={{headerStyle: {
+         <Stack.Screen name="Loading" component={Loading} options={{headerStyle: {
             backgroundColor: 'black'
           },headerTintColor: 'black',
           }} />
