@@ -3,6 +3,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import { View, Image, StyleSheet, Text } from "react-native";
 import nature from "../assets/nature.gif";
 
+//const {width, height} = Dimensions.get('window') //detection dela dimension ecran
+
 const Loading = ({navigation}) => {
   useFocusEffect(
     React.useCallback(() => {

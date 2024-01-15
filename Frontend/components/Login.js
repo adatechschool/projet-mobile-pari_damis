@@ -13,6 +13,8 @@ import {
 } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
+//const {width, height} = Dimensions.get('window') //detection dela dimension ecran
+
 const Login = ({ navigation }) => {
   const formik = useFormik({
     initialValues: {

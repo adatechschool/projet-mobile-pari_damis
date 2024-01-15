@@ -13,6 +13,8 @@ import {
   StatusBar
 } from "react-native";
 
+//const {width, height} = Dimensions.get('window') //detection dela dimension ecran
+
 const Signup = ({ navigation }) => {
   const formik = useFormik({
     initialValues: {

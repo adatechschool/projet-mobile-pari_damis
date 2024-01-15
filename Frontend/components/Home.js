@@ -3,6 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 
+//const {width, height} = Dimensions.get('window') //detection dela dimension ecran
+
 const Home = ({ navigation }) => {
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
