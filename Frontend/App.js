@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import Signup from "./components/Signup";
 import Login  from "./components/Login";
-import Home from "./components/Home";
+import Overboard from "./components/Overboard";
 import Loading  from "./components/Loading";
 import MyTabs from "./Navigation/MyTabs";
 
@@ -23,9 +23,9 @@ export default function App() {
             backgroundColor: 'black'
           },headerTintColor: 'black',
           }} />
+        <Stack.Screen name="Overboard" component={Overboard} />
         <Stack.Screen name="Signup" component={Signup} options={{headerBackTitle:"Accueil", title:null}} />
         <Stack.Screen name="Login" component={Login} options={{title:null}} />
-        <Stack.Screen name="Home" component={Home} />
        <Stack.Screen name="MyTabs"  options={{headerShown: false}} component={MyTabs}/>
       </Stack.Navigator>
     </NavigationContainer>

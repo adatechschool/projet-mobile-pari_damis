@@ -8,7 +8,7 @@ const Loading = ({navigation}) => {
     React.useCallback(() => {
       const delay = setTimeout(() => {
          
-        navigation.navigate('Signup'); 
+        navigation.navigate('Overboard'); 
       }, 2000);
   
       return () => clearTimeout(delay);
