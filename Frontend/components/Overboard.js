@@ -2,8 +2,26 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
+import Swiper from "react-native-swiper";
+import { Alert } from "react-native";
 
-const Home = ({ navigation }) => {
+const Overboard = ({ navigation }) => {
+  const showAlert = (page) => {
+    Alert.alert(
+      "Avertissement !!!",
+      "Jouer comporte des risques : ENDETTEMENT, ISOLEMENT,DÉPENDANCE.  ",
+
+      [
+        {
+          text: "accepter",
+          onPress: () => navigation.navigate(page),
+        },
+        { text: "Cancel", onPress: () => navigation.navigate("Overboard") },
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
       <Image style={styles.flamme} source={require("../assets/fire.gif")} />
@@ -12,10 +30,52 @@ const Home = ({ navigation }) => {
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          {/* Votre composant carroussel */}
+        <Swiper
+            autoplay
+            autoplayTimeout={5} // Définissez le temps en secondes entre chaque diapositive
+            showsPagination={false}
+            style={{}}
+          >
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Image
+                style={styles.Image}
+                source={require("../assets/favicon.png")}
+              />
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Image
+                style={styles.Image}
+                source={require("../assets/favicon.png")}
+              />
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Image
+                style={styles.Image}
+                source={require("../assets/favicon.png")}
+              />
+            </View>
+          </Swiper>
          
         
-          <View style={{ flexDirection: "row", top: 200 }}>
+          {/* <View style={{ flexDirection: "row", top: 200 }}>
             <View
               style={{
                 width: 10,
@@ -42,7 +102,9 @@ const Home = ({ navigation }) => {
                 backgroundColor: "red",
               }}
             />
-          </View>
+          </View> */}
+
+          
         </View>
         <Image style={styles.flamme2} source={require("../assets/fire.gif")} />
       </View>
@@ -57,11 +119,14 @@ const Home = ({ navigation }) => {
         >
           <TouchableOpacity
             style={styles.customButton}
-            onPress={() => navigation.navigate("Signup")}
+            // onPress={() => navigation.navigate("Signup")}
+            onPress={() => showAlert("Signup")}
           >
             <Text style={styles.buttonText}>S’INSCRIRE</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <TouchableOpacity 
+          onPress={()=> showAlert("Login")}>
+           {/* onPress={() => navigation.navigate("Login")} */}
             <Text style={{ color: "red", paddingTop: 10 }}>SE CONNECTER</Text>
           </TouchableOpacity>
         </View>
@@ -70,7 +135,7 @@ const Home = ({ navigation }) => {
   );
 };
 
-export default Home;
+export default Overboard;
 
 const styles = StyleSheet.create({
   flamme: {
