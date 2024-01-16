@@ -7,6 +7,7 @@ import Bet from "../components/Bet"
 import Search from "../components/Search"
 import Group from "../components/Group"
 import Account from "../components/Account"
+
 const MyTabs = () => {
     const Tab = createBottomTabNavigator()
     const Stack = createNativeStackNavigator()
@@ -19,8 +20,10 @@ const MyTabs = () => {
       tabBarActiveTintColor: "red",
       tabBarActiveBackgroundColor: "white",
       tabBarInactiveBackgroundColor: "red",
-      tabBarInactiveTintColor: "white"
+      tabBarInactiveTintColor: "white",
+      tabBarStyle: { backgroundColor: 'black' }
     }}
+  
     >
         <Tab.Screen
       name={"bottomNavAccueil"}
