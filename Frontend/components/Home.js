@@ -4,10 +4,6 @@ import { StyleSheet, Text, View,ScrollView,Button,Image } from "react-native";
 
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
-<<<<<<< HEAD
-// const Home = ({ navigation }) => {
-const Home = () => {
-=======
 const Home = () => {
 
   const data = [
@@ -19,7 +15,6 @@ const Home = () => {
    
     // Add more image sources as needed
   ];
->>>>>>> 0243b2e8551b3ad1b719f5154d652dbd7b6a38da
   return (
     <View style={{ flex: 1, backgroundColor:"black" }}>
     <ScrollView>
