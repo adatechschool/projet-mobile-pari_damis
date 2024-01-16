@@ -8,7 +8,7 @@ type Group struct {
 	gorm.Model
 	Name string
 	LimitMembers *uint8
-	Sports []string
-	User []*User `gorm:"many2many:group_user;"`
-	Bet []Bet
+	// Sports []string
+	Users []*User `gorm:"many2many:group_users;" json:"users"`
+	Bets []*Bet
 }

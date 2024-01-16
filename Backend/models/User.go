@@ -1,6 +1,7 @@
 package models
 
 import "gorm.io/gorm"
+
 type User struct {
 	gorm.Model
 	Firstname string
@@ -8,8 +9,6 @@ type User struct {
 	Pseudo    string
 	Email     string
 	Password  string
-	Group []*Group `gorm:"many2many:group_user;"`
-	Bet []Bet
+	Groups    []*Group `gorm:"many2many:group_users;" json:"groups"`
+	Bets      []*Bet
 }
-
-

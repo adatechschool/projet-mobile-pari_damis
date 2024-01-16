@@ -13,6 +13,7 @@ func Routes(route *gin.Engine) {
 			"message": "bienvenue",
 		})
 	})
+	user.POST("/groupeCreate", controllers.SignUp)
 	user.POST("/signUp", controllers.SignUp)
 	user.POST("/login", controllers.Login)
 	user.GET("/validate", middleware.RequireAuth, controllers.Validate)
@@ -21,4 +22,11 @@ func Routes(route *gin.Engine) {
 	user.GET("/oneUser/:id", controllers.OneUser)
 	user.PUT("/updateUser/:id", controllers.UpdateUser)
 	user.DELETE("/deleteOneUser/:id", controllers.DeleteOneUser)
+
+	user.GET("/groupsOfOneUser/:id", controllers.ShowGroupsOfOneUser)
+
+	group := route.Group("/group")
+	group.POST("/", controllers.CreateGroup)
+	group.PUT("/:GroupID/:UserID", controllers.AddUserToGroup)
+	group.GET("/:GroupID", controllers.ShowOneGroup)
 }

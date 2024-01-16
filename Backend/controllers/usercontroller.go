@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 	"time"
@@ -97,7 +98,7 @@ func SignUp(c *gin.Context) {
 		})
 		return
 	}
-	user := models.User{Firstname: body.Firstname, Lastname: body.Lastname, Email: body.Email, Password: string(hash)}
+	user := models.User{Firstname: body.Firstname, Lastname: body.Lastname, Pseudo: body.Pseudo, Email: body.Email, Password: string(hash)}
 	result := database.DB.Create(&user)
 	if result.Error != nil {
 		c.Status(400)
@@ -138,6 +139,19 @@ func OneUser(c *gin.Context) {
 	id := c.Param("id")
 	var User models.User
 	database.DB.First(&User, id)
+
+	c.JSON(200, gin.H{
+		"message": User,
+	})
+}
+
+func ShowGroupsOfOneUser(c *gin.Context) {
+	userId := c.Param("UserID")
+	var User models.User
+
+	database.DB.Preload("Groups").First(&User, userId)
+
+	fmt.Println(User)
 
 	c.JSON(200, gin.H{
 		"message": User,
