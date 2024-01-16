@@ -2,6 +2,7 @@ package models
 
 import "gorm.io/gorm"
 
+
 type User struct {
 	gorm.Model
 	Firstname string
@@ -11,4 +12,5 @@ type User struct {
 	Password  string
 	Groups    []*Group `gorm:"many2many:group_users;" json:"groups"`
 	Bets      []*Bet
+	AuthToken []AuthToken
 }

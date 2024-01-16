@@ -6,6 +6,7 @@ import Signup from "./components/Signup";
 import Login  from "./components/Login";
 import Overboard from "./components/Overboard";
 import Loading  from "./components/Loading";
+import Home  from "./components/Home";
 import MyTabs from "./Navigation/MyTabs";
 
 
@@ -26,6 +27,7 @@ export default function App() {
         <Stack.Screen name="Overboard" component={Overboard} />
         <Stack.Screen name="Signup" component={Signup} options={{headerBackTitle:"Accueil", title:null}} />
         <Stack.Screen name="Login" component={Login} options={{title:null}} />
+        <Stack.Screen name="Home" component={Home} />
        <Stack.Screen name="MyTabs"  options={{headerShown: false}} component={MyTabs}/>
        
       </Stack.Navigator>
@@ -33,11 +35,4 @@ export default function App() {
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
+
