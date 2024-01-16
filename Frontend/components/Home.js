@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
-const Home = () => {oa
+const Home = () => {
   return (
     <View>
       <Text>Home</Text>
