@@ -7,15 +7,18 @@ import (
 )
 
 func Routes(route *gin.Engine) {
+
 	racine := route.Group("/")
 	racine.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "bienvenue",
 		})
 	})
+
 	auth := route.Group("/auth")
 	auth.POST("/signUp", controllers.SignUp)
 	auth.POST("/login", controllers.Login)
+
 	user := route.Group("/user", middleware.RequireAuth)
 	user.GET("/allUsers", controllers.AllUsers)
 	user.GET("/oneUser/:UserID", controllers.OneUser)
@@ -26,7 +29,6 @@ func Routes(route *gin.Engine) {
 	//Token
 	user.GET("/tokensOfOneUser/:UserID", controllers.ShowTokenOfUser)
 	user.DELETE("/deleteOneTokenOfOneUser/:UserID/:AuthTokID", controllers.DeleteTokenOfUser)
-
 	//route test middleware
 	user.GET("/validate", middleware.RequireAuth, controllers.Validate)
 
