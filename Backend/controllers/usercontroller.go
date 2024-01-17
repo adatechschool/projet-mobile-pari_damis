@@ -136,7 +136,7 @@ func AllUsers(c *gin.Context) {
 }
 
 func OneUser(c *gin.Context) {
-	id := c.Param("id")
+	id := c.Param("UserID")
 	var User models.User
 	database.DB.First(&User, id)
 
@@ -159,7 +159,7 @@ func ShowGroupsOfOneUser(c *gin.Context) {
 }
 
 func UpdateUser(c *gin.Context) {
-	id := c.Param("id")
+	id := c.Param("UserID")
 	var body struct {
 		Firstname string
 		Email     string
@@ -178,7 +178,7 @@ func UpdateUser(c *gin.Context) {
 }
 
 func DeleteOneUser(c *gin.Context) {
-	id := c.Param("id")
+	id := c.Param("UserID")
 	var User models.User
 	database.DB.Delete(&User, id)
 

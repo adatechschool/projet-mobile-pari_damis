@@ -56,7 +56,7 @@ func AddUserToGroup(c *gin.Context) {
 	})
 }
 
-func ShowOneGroup(c *gin.Context) {
+func ShowUsersOfOneGroup(c *gin.Context) {
 	groupId := c.Param("GroupID")
 	var Group models.Group
 
@@ -69,38 +69,47 @@ func ShowOneGroup(c *gin.Context) {
 	})
 }
 
-// func AllUsers(c *gin.Context) {
-// 	var AllUser []models.User
-// 	database.DB.Find(&AllUser)
+func OneGroup(c *gin.Context) {
+	groupId := c.Param("GroupId")
+	var Group models.Group
+	database.DB.First(&Group, groupId)
 
-// 	c.JSON(200, gin.H{
-// 		"message": AllUser,
-// 	})
-// }
+	c.JSON(200, gin.H{
+		"message": Group,
+	})
+}
 
-// func UpdateUser(c *gin.Context) {
-// 	id := c.Param("id")
-// 	var body struct {
-// 		Firstname string
-// 		Email     string
-// 		Password  string
-// 	}
-// 	c.Bind(&body)
+func AllGroups(c *gin.Context) {
+	var AllGroups []models.Group
+	database.DB.Find(&AllGroups)
 
-// 	var User models.User
-// 	database.DB.First(&User, id)
+	c.JSON(200, gin.H{
+		"message": AllGroups,
+	})
+}
 
-// 	database.DB.Model(&User).Updates(models.User{Firstname: body.Firstname, Email: body.Email, Password: body.Password})
+func UpdateGroup(c *gin.Context) {
+	groupId := c.Param("GroupID")
+	var body struct {
+		Name         string
+		LimitMembers *uint8
+	}
+	c.Bind(&body)
 
-// 	c.JSON(200, gin.H{
-// 		"message": User,
-// 	})
-// }
+	var Group models.Group
+	database.DB.First(&Group, groupId)
 
-// func DeleteOneUser(c *gin.Context) {
-// 	id := c.Param("id")
-// 	var User models.User
-// 	database.DB.Delete(&User, id)
+	database.DB.Model(&Group).Updates(models.Group{Name: body.Name, LimitMembers: body.LimitMembers})
 
-// 	c.Status(200)
-// }
+	c.JSON(200, gin.H{
+		"message": Group,
+	})
+}
+
+func DeleteOneGroup(c *gin.Context) {
+	groupId := c.Param("GroupID")
+	var Group models.Group
+	database.DB.Delete(&Group, groupId)
+
+	c.Status(200)
+}
