@@ -5,7 +5,6 @@ import (
 	// "os"
 	// "time"
 
-	"fmt"
 	"net/http"
 
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
@@ -44,13 +43,6 @@ func AddTokenToUser(c *gin.Context, User models.User, Token string, Device strin
 
 	ObjectOfToken := models.AuthToken{Token: Token, Device: device, Os: os, UserID: User.ID}
 	database.DB.Create(&ObjectOfToken)
-
-	database.DB.Model(&User).Association("User").Append(&ObjectOfToken)
-
-	// if result.Error != nil {
-	// 	c.Status(400)
-	// 	return
-	// }
 	c.JSON(200, gin.H{
 		"message": ObjectOfToken,
 		"token":   Token,
@@ -63,9 +55,21 @@ func ShowTokenOfUser(c *gin.Context) {
 	userId := c.Param("UserID")
 	var User models.User
 	database.DB.Preload("AuthToken").First(&User, userId)
-	fmt.Println(User)
-
 	c.JSON(200, gin.H{
 		"message": User,
+	})
+}
+
+func DeleteTokenOfUser(c *gin.Context) {
+	userId := c.Param("UserID")
+	authTokenId := c.Param("AuthTokID")
+	var AuthToken models.AuthToken
+	database.DB.First(&AuthToken, authTokenId)
+	var User models.User
+	database.DB.First(&User, userId)
+	database.DB.Model(&User).Association("AuthToken").Delete(&AuthToken)
+	c.JSON(200, gin.H{
+		"User":      User,
+		"AuthToken": AuthToken,
 	})
 }

@@ -25,6 +25,7 @@ func Routes(route *gin.Engine) {
 	user.GET("/groupsOfOneUser/:UserID", controllers.ShowGroupsOfOneUser)
 	//relation token
 	user.GET("/tokenOfOneUser/:UserID", controllers.ShowTokenOfUser)
+	user.DELETE("/deleteOneTokenOfOneUser/:UserID/:AuthTokID", controllers.DeleteTokenOfUser)
 
 	//route test middleware
 	user.GET("/validate", middleware.RequireAuth, controllers.Validate)
