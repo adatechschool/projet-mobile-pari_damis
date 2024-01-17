@@ -36,4 +36,6 @@ func Routes(route *gin.Engine) {
 	group.DELETE("/deleteOneGroup/:GroupID", controllers.DeleteOneGroup)
 	//relation
 	group.GET("/usersOfOneGroup/:GroupID", controllers.ShowUsersOfOneGroup)
+
+	// group.GET("/usersOfOneToken/:TokenID", controllers.ShowUserOFToken)
 }

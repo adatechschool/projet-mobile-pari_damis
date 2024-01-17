@@ -25,7 +25,8 @@ func Login(c *gin.Context) {
 	var body struct {
 		Email    string
 		Password string
-		Tokens   []string
+		Device   string
+		Os       string
 	}
 
 	if c.Bind(&body) != nil {
@@ -69,11 +70,8 @@ func Login(c *gin.Context) {
 	c.SetSameSite(http.SameSiteLaxMode)
 	c.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
 
-	c.JSON(http.StatusOK, gin.H{
-		"token": tokenString,
-		"user":  User,
-	})
-
+	AddTokenToUser(c, User, tokenString, body.Device, body.Os)
+	
 }
 
 func SignUp(c *gin.Context) {
