@@ -5,7 +5,7 @@ import (
 	// "os"
 	// "time"
 
-	
+	"fmt"
 	"net/http"
 
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
@@ -45,7 +45,7 @@ func AddTokenToUser(c *gin.Context, User models.User, Token string, Device strin
 	ObjectOfToken := models.AuthToken{Token: Token, Device: device, Os: os, UserID: User.ID}
 	database.DB.Create(&ObjectOfToken)
 
-	database.DB.Model(&ObjectOfToken).Association("UserID").Append(&User)
+	database.DB.Model(&User).Association("User").Append(&ObjectOfToken)
 
 	// if result.Error != nil {
 	// 	c.Status(400)
@@ -59,29 +59,13 @@ func AddTokenToUser(c *gin.Context, User models.User, Token string, Device strin
 
 }
 
-// func ShowUserOFToken(c *gin.Context) {
-// 	tokenId := c.Param("TokenID")
-// 	var AuthToken models.AuthToken
-// 	database.DB.Preload("UserID").First(&AuthToken, tokenId)
-// 	fmt.Println(AuthToken)
+func ShowTokenOfUser(c *gin.Context) {
+	userId := c.Param("UserID")
+	var User models.User
+	database.DB.Preload("AuthToken").First(&User, userId)
+	fmt.Println(User)
 
-// 	c.JSON(200, gin.H{
-// 		"message": AuthToken,
-// 	})
-// }
-
-// 	database.DB.Preload("UserID").First(&AuthToken, tokenId)
-
-// 	fmt.Println(AuthToken)
-
-// 	c.JSON(200, gin.H{
-// 		"message": AuthToken,
-// 	})
-// }
-
-// var users []models.User
-
-//     err := database.DB.Model(&models.User{}).Preload("AuthToken").Find(&AuthToken, tokenId).Error
-//     c.JSON(200, gin.H{
-// 		"message": users,
-// 	})
+	c.JSON(200, gin.H{
+		"message": User,
+	})
+}

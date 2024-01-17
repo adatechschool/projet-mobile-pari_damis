@@ -21,8 +21,10 @@ func Routes(route *gin.Engine) {
 	user.GET("/oneUser/:UserID", controllers.OneUser)
 	user.PUT("/updateUser/:UserID", controllers.UpdateUser)
 	user.DELETE("/deleteOneUser/:UserID", controllers.DeleteOneUser)
-	//relation
+	//relation groupe
 	user.GET("/groupsOfOneUser/:UserID", controllers.ShowGroupsOfOneUser)
+	//relation token
+	user.GET("/tokenOfOneUser/:UserID", controllers.ShowTokenOfUser)
 
 	//route test middleware
 	user.GET("/validate", middleware.RequireAuth, controllers.Validate)
@@ -37,5 +39,4 @@ func Routes(route *gin.Engine) {
 	//relation
 	group.GET("/usersOfOneGroup/:GroupID", controllers.ShowUsersOfOneGroup)
 
-	// group.GET("/usersOfOneToken/:TokenID", controllers.ShowUserOFToken)
 }
