@@ -7,6 +7,8 @@ import Login  from "./components/Login";
 import Overboard from "./components/Overboard";
 import Loading  from "./components/Loading";
 import Home  from "./components/Home";
+import Search  from "./components/Search";
+import Detail  from "./components/Detail";
 import MyTabs from "./Navigation/MyTabs";
 
 
@@ -28,6 +30,8 @@ export default function App() {
         <Stack.Screen name="Signup" component={Signup} options={{headerBackTitle:"Accueil", title:null}} />
         <Stack.Screen name="Login" component={Login} options={{title:null}} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Search" component={Search} options={{headerStyle:{backgroundColor: 'black'},}} />
+        <Stack.Screen name="Detail" component={Detail} />
        <Stack.Screen name="MyTabs"  options={{headerShown: false}} component={MyTabs}/>
        
       </Stack.Navigator>
