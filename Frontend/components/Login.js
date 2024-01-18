@@ -35,7 +35,7 @@ const Login = ({ navigation }) => {
       if (Object.keys(formik.errors).length === 0) {
         console.log("Soumis", values.email, values.MotDePasse);
         formik.resetForm();
-        navigation.navigate("MyTabs");
+        navigation.navigate("PageConfirmation");
       }
     },
   });

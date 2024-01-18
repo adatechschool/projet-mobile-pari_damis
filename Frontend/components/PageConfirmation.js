@@ -4,37 +4,48 @@ import { StyleSheet, Text, View, Image, Button, Dimensions} from 'react-native'
 
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
-const PageConfirmation = () => {
+const PageConfirmation = ({ navigation }) => {
   return (
-    <View style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "black",
-      }}>
-        <Text style={styles.Confirmation}>Confirmation</Text>
+    <View style={styles.container}>
+        <Text style={styles.Confirmer}>Confirmation</Text>
         <Text style={styles.pa}>PA</Text>
         <Text style={styles.connecter}>Vous êtes connecté.</Text>
+       <View style={{top:200}}>
         <Button
             title="TERMINER"
             color="red"
             colorText="white"
-            titleStyle={{ textAlignVertical: "center" }}
-            //onPress={() => navigation.navigate("Signup")} a chenger : 'signup' par 'overboard'
+            borderRadius= "30px"
+            width="50px"
+            onPress={() => navigation.navigate("MyTabs")}
           />
+          </View>
     </View>
-  )
-}
-export default PageConfirmation();
+  );
+};
+
+export default PageConfirmation;
 
 const styles = StyleSheet.create({
-    Confirmation:{
-
+    container:{
+      flex: 1,
+      backgroundColor: "black",
+    },
+    Confirmer:{
+      color: "white",
+      textAlign: "left",
+      fontSize: 30,
+      marginLeft: "30px",
     },
     pa:{
-
+      color: "red",
+      textAlign: "center",
+      fontSize: 100,
+      fontWeight: "bold",
     },
     connecter:{
-
+      color: "white",
+      fontSize: 30,
+      textAlign: "center",
     }
 })

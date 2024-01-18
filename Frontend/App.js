@@ -8,6 +8,7 @@ import Overboard from "./components/Overboard";
 import Loading  from "./components/Loading";
 import Home  from "./components/Home";
 import MyTabs from "./Navigation/MyTabs";
+import PageConfirmation from "./components/PageConfirmation";
 
 
 export default function App() {
@@ -25,11 +26,11 @@ export default function App() {
           },headerTintColor: 'black',
           }} />
         <Stack.Screen name="Overboard" component={Overboard} />
+        <Stack.Screen name="PageConfirmation" component={PageConfirmation} />
         <Stack.Screen name="Signup" component={Signup} options={{headerBackTitle:"Accueil", title:null}} />
         <Stack.Screen name="Login" component={Login} options={{title:null}} />
         <Stack.Screen name="Home" component={Home} />
-       <Stack.Screen name="MyTabs"  options={{headerShown: false}} component={MyTabs}/>
-       
+        <Stack.Screen name="MyTabs"  options={{headerShown: false}} component={MyTabs}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
