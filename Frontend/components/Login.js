@@ -69,7 +69,7 @@ const Login = ({ navigation }) => {
         console.log("Données envoyées avec succès", responseData);
 
         formik.resetForm();
-        navigation.navigate("Home");
+        navigation.navigate("MyTabs");
         Alert.alert("vous êtes connecté");
       } catch (error) {
         console.error("Erreur lors de l'envoi des données", error);
