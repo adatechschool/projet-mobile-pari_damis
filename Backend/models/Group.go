@@ -2,13 +2,13 @@ package models
 
 import (
 	"gorm.io/gorm"
-	
 )
+
 type Group struct {
 	gorm.Model
-	Name string
+	Name         string
 	LimitMembers *uint8
 	// Sports []string
 	Users []*User `gorm:"many2many:group_users;" json:"users"`
-	Bets []*Bet
+	Bets  []*Bet
 }
