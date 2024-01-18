@@ -42,6 +42,8 @@ func Routes(route *gin.Engine) {
 	//relation User
 	group.GET("/usersOfOneGroup/:GroupID", controllers.ShowUsersOfOneGroup)
 
-	racine.POST("bet/:UserID/:GroupID/:MatchID", controllers.CreateBet)
+	racine.POST("/bet/:UserID/:GroupID/:MatchID", controllers.CreateBet)
+	racine.GET("/bet/:UserID", controllers.GetBetsByUserId)
+	racine.GET("/bet/group/:GroupID", controllers.GetBetsByGroupID)
 
 }

@@ -78,3 +78,21 @@ func CreateBet(c *gin.Context) {
 	})
 	return
 }
+
+func GetBetsByUserId(c *gin.Context) {
+	userId := c.Param("UserID")
+	var User models.User
+	database.DB.Preload("Bets").First(&User, userId)
+	c.JSON(200, gin.H{
+		"message": User,
+	})
+}
+
+func GetBetsByGroupID(c *gin.Context) {
+	groupId := c.Param("GroupID")
+	var Group models.Group
+	database.DB.Preload("Bets").First(&Group, groupId)
+	c.JSON(200, gin.H{
+		"message": Group,
+	})
+}
