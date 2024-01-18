@@ -7,6 +7,8 @@ import Login  from "./components/Login";
 import Overboard from "./components/Overboard";
 import Loading  from "./components/Loading";
 import Home  from "./components/Home";
+import Search  from "./components/Search";
+import Detail  from "./components/Detail";
 import MyTabs from "./Navigation/MyTabs";
 import PageConfirmation from "./components/PageConfirmation";
 
@@ -21,7 +23,7 @@ export default function App() {
         }, headerBackTitleStyle:{fontSize:20},
         headerTitleStyle:{color:"black"},headerBackTitleVisible: false,
       }} >
-         <Stack.Screen name="Loading" component={Loading} options={{headerStyle: {
+        <Stack.Screen name="Loading" component={Loading} options={{headerStyle: {
             backgroundColor: 'black'
           },headerTintColor: 'black',
           }} />
@@ -30,6 +32,8 @@ export default function App() {
         <Stack.Screen name="Signup" component={Signup} options={{headerBackTitle:"Accueil", title:null}} />
         <Stack.Screen name="Login" component={Login} options={{title:null}} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Search" component={Search} options={{headerStyle:{backgroundColor: 'black'},}} />
+        <Stack.Screen name="Detail" component={Detail} />
         <Stack.Screen name="MyTabs"  options={{headerShown: false}} component={MyTabs}/>
       </Stack.Navigator>
     </NavigationContainer>

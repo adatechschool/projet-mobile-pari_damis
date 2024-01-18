@@ -15,12 +15,13 @@ import (
 func RequireAuth(c *gin.Context) {
 	fmt.Println("in middleware")
 	tokenString, err := c.Cookie("Authorization")
+	var AuthToken models.AuthToken
 	if err != nil {
 		fmt.Println("Utilisateur sans token")
-		c.AbortWithStatus(http.StatusUnauthorized)
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"message": "Token not found",
 		})
+		c.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
 
@@ -33,6 +34,10 @@ func RequireAuth(c *gin.Context) {
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok {
 		if float64(time.Now().Unix()) > claims["exp"].(float64) {
+			database.DB.Where("Token = ?", tokenString).Delete(&AuthToken)
+			c.JSON(http.StatusUnauthorized, gin.H{
+				"message": "token expirate",
+			})
 			c.AbortWithStatus(http.StatusUnauthorized)
 		}
 		var User models.User

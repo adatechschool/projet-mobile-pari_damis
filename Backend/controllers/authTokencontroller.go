@@ -67,7 +67,8 @@ func DeleteTokenOfUser(c *gin.Context) {
 	database.DB.First(&AuthToken, authTokenId)
 	var User models.User
 	database.DB.First(&User, userId)
-	database.DB.Model(&User).Association("AuthToken").Delete(&AuthToken)
+	// database.DB.Model(&User).Association("AuthToken").Delete(&AuthToken)
+	database.DB.Model(&AuthToken).Delete(&AuthToken)
 	c.JSON(200, gin.H{
 		"User":      User,
 		"AuthToken": AuthToken,
