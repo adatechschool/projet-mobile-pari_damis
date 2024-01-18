@@ -2,6 +2,8 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFormik } from "formik";
+
+
 import {
   View,
   Text,
@@ -10,6 +12,8 @@ import {
   StyleSheet,
   Button,
   KeyboardAvoidingView,
+  Platform,
+  Alert,
 } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
@@ -18,26 +22,67 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 const Login = ({ navigation }) => {
   const formik = useFormik({
     initialValues: {
-      email: "",
-      MotDePasse: "",
+      Email: "",
+      Password: "",
+      Device: "",
+      Os: "",
     },
     validate: (values) => {
       const errors = {};
-      if (!values.email) {
-        errors.email = "Veuillez entrer votre adresse e-mail";
+      if (!values.Email) {
+        errors.Email = "Veuillez entrer votre adresse e-mail";
       }
-      if (!values.MotDePasse) {
-        errors.MotDePasse = "Veuillez entrer votre mot de passe";
+      if (!values.Password) {
+        errors.Password = "Veuillez entrer votre mot de passe";
       }
       return errors;
     },
-    onSubmit: (values) => {
-      if (Object.keys(formik.errors).length === 0) {
-        console.log("Soumis", values.email, values.MotDePasse);
+
+    onSubmit: async (values) => {
+      try {
+        const apiUrl = "http://localhost:3001/auth/login"; // Remplacez par l'URL réelle de votre API
+
+
+        console.log("log 1", Platform.isPad);
+        console.log("log 2", Platform.OS);
+    
+
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            Email: values.Email.toLowerCase(),
+            Password: values.Password,
+            Device: Platform.isPad ? "TABLET" : "MOBILEPHONE",
+            Os: Platform.OS.toUpperCase(),
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Erreur de réseau (statut ${response.status})`);
+        }
+
+        const responseData = await response.json();
+
+        console.log("Données envoyées avec succès", responseData);
+
         formik.resetForm();
-        navigation.navigate("MyTabs");
+        navigation.navigate("Home");
+        Alert.alert("vous êtes connecté");
+      } catch (error) {
+        console.error("Erreur lors de l'envoi des données", error);
       }
     },
+
+    // onSubmit: (values) => {
+    //   if (Object.keys(formik.errors).length === 0) {
+    //     console.log("Soumis", values.Email, values.Password);
+    //     formik.resetForm();
+    //     navigation.navigate("MyTabs");
+    //   }
+    // },
   });
   const onPress = () => {
     formik.handleSubmit();
@@ -58,28 +103,24 @@ const Login = ({ navigation }) => {
       <KeyboardAvoidingView behavior="padding" style={styles.form}>
         <TextInput
           style={styles.Email}
-          placeholder="Email Address"
+          placeholder="Email"
           placeholderTextColor="gray"
-          value={formik.values.email}
-          onChangeText={formik.handleChange("email")}
+          value={formik.values.Email}
+          onChangeText={formik.handleChange("Email")}
         />
 
-        <Text style={{ color: "red" }}>
-          {formik.errors.email}
-        </Text>
+        <Text style={{ color: "red" }}>{formik.errors.Email}</Text>
 
         <TextInput
           style={styles.MotDePasse}
-          placeholder="Mot de passe"
+          placeholder="Password"
           placeholderTextColor="gray"
           secureTextEntry
-          value={formik.values.MotDePasse}
-          onChangeText={formik.handleChange("MotDePasse")}
+          value={formik.values.Password}
+          onChangeText={formik.handleChange("Password")}
         />
 
-        <Text style={{ color: "red"}}>
-          {formik.errors.MotDePasse}
-        </Text>
+        <Text style={{ color: "red" }}>{formik.errors.Password}</Text>
 
         <TouchableOpacity style={styles.customButton} onPress={onPress}>
           <Text style={styles.buttonText}>SE CONNECTER</Text>
@@ -91,7 +132,7 @@ const Login = ({ navigation }) => {
             alignItems: "center",
           }}
         >
-          <Text style={{ color: "white" }}>Vous n’avez pas de compte ?</Text>
+          <Text style={{ color: "white" }}>Vous n'avez pas de compte ?</Text>
           <Button
             title="S'inscrire"
             color="red"
