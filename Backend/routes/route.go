@@ -31,6 +31,7 @@ func Routes(route *gin.Engine) {
 	user.DELETE("/deleteOneTokenOfOneUser/:UserID/:AuthTokID", controllers.DeleteTokenOfUser)
 	//route test middleware
 	user.GET("/validate", middleware.RequireAuth, controllers.Validate)
+	user.GET("/bet/:UserID", controllers.GetBetsByUserId)
 
 	group := route.Group("/group", middleware.RequireAuth)
 	group.POST("/createGroup", controllers.CreateGroup)
@@ -42,8 +43,7 @@ func Routes(route *gin.Engine) {
 	//relation User
 	group.GET("/usersOfOneGroup/:GroupID", controllers.ShowUsersOfOneGroup)
 
-	racine.POST("/bet/:UserID/:GroupID/:MatchID", controllers.CreateBet)
-	racine.GET("/bet/:UserID", controllers.GetBetsByUserId)
-	racine.GET("/bet/group/:GroupID", controllers.GetBetsByGroupID)
+	group.POST("/bet/:UserID/:GroupID/:MatchID", controllers.CreateBet)
+	group.GET("/bet/:GroupID", controllers.GetBetsByGroupID)
 
 }
