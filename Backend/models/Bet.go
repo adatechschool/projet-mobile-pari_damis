@@ -5,8 +5,7 @@ import "gorm.io/gorm"
 type Bet struct {
 	gorm.Model
 	Winner *int
-	Ko *int
-	Tko *int
+	KoTko *int
 	Soum *int
 	R1 *int
 	R2 *int
