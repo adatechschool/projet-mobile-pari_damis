@@ -3,7 +3,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFormik } from "formik";
 
-
 import {
   View,
   Text,
@@ -42,10 +41,13 @@ const Login = ({ navigation }) => {
       try {
         const apiUrl = "http://localhost:3001/auth/login"; // Remplacez par l'URL réelle de votre API
 
-
-        console.log("log 1", Platform.isPad);
+        console.log(
+          "log 1",
+          Platform.isPad || Platform.isPad == "undefined"
+            ? "TABLET"
+            : "MOBILEPHONE"
+        );
         console.log("log 2", Platform.OS);
-    
 
         const response = await fetch(apiUrl, {
           method: "POST",
@@ -55,7 +57,10 @@ const Login = ({ navigation }) => {
           body: JSON.stringify({
             Email: values.Email.toLowerCase(),
             Password: values.Password,
-            Device: Platform.isPad ? "TABLET" : "MOBILEPHONE",
+            Device:
+              Platform.isPad || Platform.isPad == "undefined"
+                ? "TABLET"
+                : "MOBILEPHONE",
             Os: Platform.OS.toUpperCase(),
           }),
         });
@@ -69,8 +74,8 @@ const Login = ({ navigation }) => {
         console.log("Données envoyées avec succès", responseData);
 
         formik.resetForm();
-        navigation.navigate("MyTabs");
-        Alert.alert("vous êtes connecté");
+        navigation.navigate("PageConfirmation");
+        // Alert.alert("vous êtes connecté");
       } catch (error) {
         console.error("Erreur lors de l'envoi des données", error);
       }
@@ -86,6 +91,7 @@ const Login = ({ navigation }) => {
   });
   const onPress = () => {
     formik.handleSubmit();
+    // navigation.navigate("PageConfirmation");
   };
 
   return (
