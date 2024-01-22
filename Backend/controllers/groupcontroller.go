@@ -34,7 +34,9 @@ func CreateGroup(c *gin.Context) {
 		c.Status(400)
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{})
+	c.JSON(http.StatusOK, gin.H{
+		"groupID": group.ID,
+	})
 
 }
 

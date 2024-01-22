@@ -4,10 +4,8 @@ import (
 	"fmt"
 )
 
-func Match() string {
+func Match() {
 	fmt.Println("Hello, World!")
-
-	return "ton pere"
 }
 
 
