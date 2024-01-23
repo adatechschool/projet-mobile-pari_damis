@@ -8,7 +8,7 @@ import Overboard from "./components/Overboard";
 import Loading  from "./components/Loading";
 import Home  from "./components/Home";
 import Search  from "./components/Search";
-import Detail  from "./components/Detail";
+// import Detail  from "./components/Detail";
 import MyTabs from "./Navigation/MyTabs";
 import MyTopTabs from "./Navigation/MyTopTabs";
 import PageConfirmation from "./components/PageConfirmation";
@@ -51,7 +51,7 @@ export default function App() {
         <Stack.Screen name="MyTabs" options={{headerShown: false}}>
           {(props)=><MyTabs {...props} setUser={setUser} />}
         </Stack.Screen>
-        <Stack.Screen name="Detail" component={Detail} />
+        {/* <Stack.Screen name="Detail" component={Detail} /> */}
         <Stack.Screen name="MyTopTabs" options={{}}>
           {(props)=><MyTopTabs {...props} />}
         </Stack.Screen>
