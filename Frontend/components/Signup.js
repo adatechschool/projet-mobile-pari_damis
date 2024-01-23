@@ -61,7 +61,7 @@ const Signup = ({ navigation }) => {
             Firstname: values.Firstname,
             Lastname: values.Lastname,
             Pseudo: values.Pseudo,
-            Email: values.Email,
+            Email: values.Email.toLowerCase(),
             Password: values.Password,
           })
          

@@ -43,7 +43,7 @@ const Login = ({ navigation }) => {
 
         console.log(
           "log 1",
-          Platform.isPad || Platform.isPad == "undefined"
+          Platform.isPad
             ? "TABLET"
             : "MOBILEPHONE"
         );
