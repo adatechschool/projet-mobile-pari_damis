@@ -5,8 +5,18 @@ import React from 'react'
 
 const Bet = () => {
   return (
-    <View>
-      <Text>Bet</Text>
+    <View>{
+      fetch("http://localhost:3001/bet/betOfUser/1", {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json" 
+        }
+      })
+      .then(response => response.json())
+      .then(json => {
+        console.log(json.message.Bets.map(id => id.MatchID));
+      })
+      }
     </View>
   )
 }
