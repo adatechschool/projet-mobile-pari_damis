@@ -1,16 +1,43 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
-
+import * as SecureStore from 'expo-secure-store';
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
-const Account = () => {
+const Account = ({setUser}) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>Account</Text>
+      <TouchableOpacity style={styles.customButton} onPress={async()=>{
+        await SecureStore.deleteItemAsync("user")
+        setUser(null)
+      }}><Text style={styles.buttonText}>Se déconnecter</Text></TouchableOpacity>
     </View>
   )
 }
 
 export default Account
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    backgroundColor: "black",
+    alignItems:"center",
+    
+  },
+  customButton: {
+    borderBottomColor: "red",
+    backgroundColor: "red",
+    padding: 10,
+    margin: 5,
+    marginTop: 20,
+    borderRadius: 8,
+    width: 350,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "700",
+    alignItems: "center",
+    textAlign: "center",
+  },
+
+})
