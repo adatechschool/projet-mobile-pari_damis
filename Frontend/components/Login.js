@@ -77,7 +77,7 @@ const Login = ({ navigation }) => {
         navigation.navigate("PageConfirmation");
         // Alert.alert("vous êtes connecté");
       } catch (error) {
-        console.error("Erreur lors de l'envoi des données", error);
+        console.error("Erreur lors de l'envoi des données", error.message);
       }
     },
 
