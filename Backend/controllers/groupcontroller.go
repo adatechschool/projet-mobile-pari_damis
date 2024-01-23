@@ -15,6 +15,7 @@ import (
 )
 
 func CreateGroup(c *gin.Context) {
+	userID := c.Param("userID")
 	var body struct {
 		Name         string
 		LimitMembers *uint8
@@ -28,13 +29,19 @@ func CreateGroup(c *gin.Context) {
 		})
 		return
 	}
-	group := models.Group{Name: body.Name, LimitMembers: body.LimitMembers}
+	var User models.User
+	database.DB.First(&User, userID)
+	group := models.Group{Name: body.Name, LimitMembers: body.LimitMembers, CreatorId: userID}
 	result := database.DB.Create(&group)
+	database.DB.Model(&group).Association("Users").Append(&User)
 	if result.Error != nil {
 		c.Status(400)
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{})
+	c.JSON(http.StatusOK, gin.H{
+		"groupID": group.ID,
+		"creatorID":  group.CreatorId,
+	})
 
 }
 
@@ -108,8 +115,19 @@ func UpdateGroup(c *gin.Context) {
 
 func DeleteOneGroup(c *gin.Context) {
 	groupId := c.Param("GroupID")
+	userId := c.Param("UserID")
 	var Group models.Group
-	database.DB.Delete(&Group, groupId)
 
-	c.Status(200)
+	database.DB.First(&Group, groupId)
+	if Group.CreatorId == userId{
+		database.DB.Delete(&Group, groupId)
+		c.JSON(200, gin.H{
+			"message": "Group Deleted",
+		})
+		return
+	}
+	c.JSON(403, gin.H{
+		"message": "Unauthorized",
+	})
+	return
 }

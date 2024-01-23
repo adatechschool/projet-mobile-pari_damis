@@ -17,10 +17,10 @@ import (
 // "github.com/go-co-op/gocron"
 
 func init() {
-	// my_scheduler := gocron.NewScheduler(time.Local)
+	// myScheduler := gocron.NewScheduler(time.UTC)
 
-	// my_scheduler.Every(1).Seconds().Do(scheduler.Match)
-	// my_scheduler.StartAsync()
+	// myScheduler.Every(1).Day().Monday().At("13:36").Do(scheduler.Match)
+	// myScheduler.StartAsync()
 	database.ConnectToDatabase()
 }
 func main() {

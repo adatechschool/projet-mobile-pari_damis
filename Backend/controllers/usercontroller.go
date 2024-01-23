@@ -153,6 +153,7 @@ func ShowGroupsOfOneUser(c *gin.Context) {
 
 	c.JSON(200, gin.H{
 		"message": User,
+		"UserGroup": User.Groups,
 	})
 }
 

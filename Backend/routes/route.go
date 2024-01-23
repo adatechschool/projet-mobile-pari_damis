@@ -10,8 +10,9 @@ func Routes(route *gin.Engine) {
 
 	racine := route.Group("/")
 	racine.GET("/", func(c *gin.Context) {
+		
 		c.JSON(200, gin.H{
-			"message": "bienvenue",
+			"message": "message",
 		})
 	})
 
@@ -31,19 +32,17 @@ func Routes(route *gin.Engine) {
 	user.DELETE("/deleteOneTokenOfOneUser/:UserID/:AuthTokID", controllers.DeleteTokenOfUser)
 	//route test middleware
 	user.GET("/validate", middleware.RequireAuth, controllers.Validate)
-	user.GET("/bet/:UserID", controllers.GetBetsByUserId)
 
 	group := route.Group("/group", middleware.RequireAuth)
-	group.POST("/createGroup", controllers.CreateGroup)
+	group.POST("/createGroup/:userID", controllers.CreateGroup)
 	group.PUT("/addUserToGroup/:GroupID/:UserID", controllers.AddUserToGroup)
 	group.GET("/allGroups", controllers.AllGroups)
 	group.PUT("/updateGroup/:GroupID", controllers.UpdateGroup)
 	group.GET("/oneGroup/:GroupID", controllers.OneGroup)
-	group.DELETE("/deleteOneGroup/:GroupID", controllers.DeleteOneGroup)
+	group.DELETE("/deleteOneGroup/:GroupID/:UserID", controllers.DeleteOneGroup)
 	//relation User
 	group.GET("/usersOfOneGroup/:GroupID", controllers.ShowUsersOfOneGroup)
 
-	group.POST("/bet/:UserID/:GroupID/:MatchID", controllers.CreateBet)
-	group.GET("/bet/:GroupID", controllers.GetBetsByGroupID)
+	racine.POST("bet/:UserID/:GroupID/:MatchID", controllers.CreateBet)
 
 }
