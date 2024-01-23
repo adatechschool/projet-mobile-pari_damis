@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, Button, FlatList,TouchableOpacity,StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const CreateGroupScreen = ({ navigation }) => {
+const GroupDetail = ({ route }) => {
+  const userId = 2;
+  const group = route.params;
   // const [groupName, setGroupName] = useState("");
   // const [numberOfMembers, setNumberOfMembers] = useState("");
   const [groups, setGroups] = useState([]);
@@ -14,7 +24,6 @@ const CreateGroupScreen = ({ navigation }) => {
   const [GroupID, setGroupId] = useState("");
   // const [activeGroup, setActiveGroup] = useState(null);
 
-  
   // const [newGroupId, setNewGroupId] = useState("");
   // const [groupData, setGroupData] = useState([]);
   // ca fonctionne
@@ -30,6 +39,7 @@ const CreateGroupScreen = ({ navigation }) => {
   };
   [];
 
+  console.log(group);
   // const createGroupAndNavigate = async () => {
   //   const membersCount = parseInt(numberOfMembers, 10);
 
@@ -124,6 +134,32 @@ const CreateGroupScreen = ({ navigation }) => {
     }
   };
 
+  const deleteGroup = async (groupDelete) => {
+    try {
+      console.log("groupDelete avant la requête :", groupDelete);
+
+      const response = await fetch(
+        `http://localhost:3001/group/deleteOneGroup/${groupDelete}/${userId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Réponse du serveur:", response.status);
+
+      if (!response.ok) {
+        throw new Error(
+          `Erreur lors de la suppression du groupe (statut ${response.status})`
+        );
+      }
+    } catch (error) {
+      console.error("Erreur lors de la suppression du groupe", error);
+    }
+  };
+
   // const deleteGroup = async (newGroupId) => {
   //   try {
   //     console.log("newGroupId avant la requête :", newGroupId);
@@ -174,10 +210,13 @@ const CreateGroupScreen = ({ navigation }) => {
   // };
 
   return (
+
+
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text style={{ fontSize: 20, textAlign: "center", top: 50 }}>
         Nom du groupe
       </Text>
+      <Button title="Supprimer" onPress={() => deleteGroup(group.ID)} />
       {/* <Text>Nom du groupe :</Text>
       <TextInput
         placeholder="Entrez le nom du groupe"
@@ -225,8 +264,7 @@ const CreateGroupScreen = ({ navigation }) => {
               )}
             />
 
-            {/* <Button title="Supprimer" onPress={() => deleteGroup(item.id)} />
-            <Button
+            {/* <Button
               title="Voir les détails"
               onPress={() => viewGroupDetails(item)}
             /> */}
@@ -246,7 +284,7 @@ const CreateGroupScreen = ({ navigation }) => {
         Rechercher un membre et l'inviter :
       </Text>
       <TextInput
-        style={{ bottom: 100, fontSize: 15,paddingTop:10 }}
+        style={{ bottom: 100, fontSize: 15, paddingTop: 10 }}
         placeholder="Nom du membre à rechercher"
         value={searchedMember}
         onChangeText={setSearchedMember}
@@ -257,13 +295,13 @@ const CreateGroupScreen = ({ navigation }) => {
         value={inviteeName}
         onChangeText={setInviteeName}
       />
-       <TouchableOpacity
-       style={{ bottom: 100,fontSize:100}}
-          // style={styles.customButton}
-          onPress={() => inviteMember(GroupID, UserID)}
-        >
-          <Text style={{paddingTop:10,fontSize:20}}>Inviter le membre</Text>
-        </TouchableOpacity>
+      <TouchableOpacity
+        style={{ bottom: 100, fontSize: 100 }}
+        // style={styles.customButton}
+        onPress={() => inviteMember(GroupID, UserID)}
+      >
+        <Text style={{ paddingTop: 10, fontSize: 20 }}>Inviter le membre</Text>
+      </TouchableOpacity>
       {/* <Button
         style={{ bottom: 100 }}
         title="Inviter le membre"
@@ -272,7 +310,7 @@ const CreateGroupScreen = ({ navigation }) => {
       /> */}
     </View>
   );
-};
+}
 
-export default CreateGroupScreen;
-const styles = StyleSheet.create({})
+export default GroupDetail;
+const styles = StyleSheet.create({});

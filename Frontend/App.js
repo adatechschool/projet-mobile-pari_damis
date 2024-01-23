@@ -13,15 +13,16 @@ import Group from "./components/Group";
 import PageGroup from "./components/PageGroup";
 import MyTabs from "./Navigation/MyTabs";
 import PageConfirmation from "./components/PageConfirmation";
-import Groupe2 from "./components/Groupe2";
+import GroupeDetails from "./components/GroupeDetails";
 import MyGroupScreen from "./components/MyGroupScreen";
+import CreateGroup from "./components/CreateGroup";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Loading"
+        initialRouteName="MyGroupScreen"
         screenOptions={{
           headerStyle: {
             backgroundColor: "black",
@@ -60,15 +61,16 @@ export default function App() {
           options={{ headerStyle: { backgroundColor: "black" } }}
         />
         <Stack.Screen name="Detail" component={Detail} />
-        <Stack.Screen name="Group" component={Group} />
-        <Stack.Screen name="PageGroup" component={PageGroup} />
+        {/* <Stack.Screen name="Group" component={Group} /> */}
+        {/* <Stack.Screen name="PageGroup" component={PageGroup} /> */}
         <Stack.Screen
           name="MyTabs"
           options={{ headerShown: false }}
           component={MyTabs}
         />
-        <Stack.Screen name="Groupe2" component={Groupe2} />
+        <Stack.Screen name="GroupeDetails" component={GroupeDetails} />
         <Stack.Screen name="MyGroupScreen" component={MyGroupScreen} />
+        <Stack.Screen name="CreateGroup" component={CreateGroup} />
       </Stack.Navigator>
     </NavigationContainer>
   );

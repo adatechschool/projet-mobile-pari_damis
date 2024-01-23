@@ -5,7 +5,7 @@ import { MaterialIcons} from "@expo/vector-icons"
 import Home from "../components/Home"
 import Bet from "../components/Bet"
 import Search from "../components/Search"
-import Group from "../components/Group"
+import MyGroupScreen from "../components/MyGroupScreen"
 import Account from "../components/Account"
 
 const MyTabs = () => {
@@ -79,7 +79,7 @@ const MyTabs = () => {
      >
         {()=><Stack.Navigator >
      <Stack.Screen name={"Groupe"} options={{ headerShown: false }}>
-       {(props)=><Group {...props} />}
+       {(props)=><MyGroupScreen {...props} />}
      </Stack.Screen>
      </Stack.Navigator>
       }
