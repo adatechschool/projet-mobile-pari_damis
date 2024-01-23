@@ -1,11 +1,10 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
 const Detail = ({ route }) => {
   const { item } = route.params;
-
   return (
     <View style={styles.card}>
       <Image
@@ -16,6 +15,7 @@ const Detail = ({ route }) => {
       <View style={{ right: 100, marginLeft: 10 }}>
         <Text style={styles.text}>{item.text}</Text>
       </View>
+      <TouchableOpacity><Text>navigate to bet</Text></TouchableOpacity>
     </View>
   );
 };

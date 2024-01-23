@@ -5,7 +5,7 @@ import { MaterialIcons} from "@expo/vector-icons"
 import Home from "../components/Home"
 import Bet from "../components/Bet"
 import Search from "../components/Search"
-import Group from "../components/Group"
+import GroupList from "../components/GroupList"
 import Account from "../components/Account"
 
 const MyTabs = ({setUser}) => {
@@ -23,7 +23,6 @@ const MyTabs = ({setUser}) => {
       tabBarInactiveTintColor: "white",
       tabBarStyle: { backgroundColor: 'black' }
     }}
-  
     >
         <Tab.Screen
       name={"bottomNavAccueil"}
@@ -79,7 +78,7 @@ const MyTabs = ({setUser}) => {
      >
         {()=><Stack.Navigator >
      <Stack.Screen name={"Groupe"} options={{ headerShown: false }}>
-       {(props)=><Group {...props} />}
+       {(props)=><GroupList {...props} />}
      </Stack.Screen>
      </Stack.Navigator>
       }
