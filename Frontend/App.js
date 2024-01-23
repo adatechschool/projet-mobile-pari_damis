@@ -11,10 +11,19 @@ import Search  from "./components/Search";
 import Detail  from "./components/Detail";
 import MyTabs from "./Navigation/MyTabs";
 import PageConfirmation from "./components/PageConfirmation";
-
+import { useEffect, useState } from "react";
+import * as SecureStore from 'expo-secure-store';
 
 export default function App() {
+  const [user, setUser] = useState(null)
   const Stack = createNativeStackNavigator();
+  useEffect(()=>{
+    const fetchUser = async () =>{
+    const res =  await SecureStore.getItemAsync("user")
+    setUser(JSON.parse(res))
+    }
+    fetchUser()
+  },[])
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Loading"  screenOptions={{
@@ -23,18 +32,26 @@ export default function App() {
         }, headerBackTitleStyle:{fontSize:20},
         headerTitleStyle:{color:"black"},headerBackTitleVisible: false,
       }} >
-        <Stack.Screen name="Loading" component={Loading} options={{headerStyle: {
-            backgroundColor: 'black'
-          },headerTintColor: 'black',
-          }} />
-        <Stack.Screen name="Overboard" component={Overboard} />
-        <Stack.Screen name="PageConfirmation" component={PageConfirmation} />
-        <Stack.Screen name="Signup" component={Signup} options={{headerBackTitle:"Accueil", title:null}} />
-        <Stack.Screen name="Login" component={Login} options={{title:null}} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Search" component={Search} options={{headerStyle:{backgroundColor: 'black'},}} />
+       {
+       !user ? <>
+       <Stack.Screen name="Loading" component={Loading} options={{headerStyle: {
+           backgroundColor: 'black'
+         },headerTintColor: 'black',
+         }} />
+       <Stack.Screen name="Overboard" component={Overboard} />
+       <Stack.Screen name="PageConfirmation">
+        {(props)=><PageConfirmation {...props} setUser={setUser}/>}
+       </Stack.Screen>
+       <Stack.Screen name="Signup" component={Signup} options={{headerBackTitle:"Accueil", title:null}} />
+       <Stack.Screen name="Login" component={Login} options={{title:null}} />
+
+        </> :
+       <>
+        <Stack.Screen name="MyTabs" options={{headerShown: false}}>
+          {(props)=><MyTabs {...props} setUser={setUser} />}
+        </Stack.Screen>
         <Stack.Screen name="Detail" component={Detail} />
-        <Stack.Screen name="MyTabs"  options={{headerShown: false}} component={MyTabs}/>
+        </>}
       </Stack.Navigator>
     </NavigationContainer>
   );
