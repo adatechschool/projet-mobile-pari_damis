@@ -10,7 +10,7 @@ func Routes(route *gin.Engine) {
 
 	racine := route.Group("/")
 	racine.GET("/", func(c *gin.Context) {
-		
+
 		c.JSON(200, gin.H{
 			"message": "message",
 		})

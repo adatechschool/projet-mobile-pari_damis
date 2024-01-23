@@ -1,11 +1,10 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
 const Detail = ({ route }) => {
   const { item } = route.params;
-
   return (
     <View style={styles.card}>
       <Image
@@ -19,6 +18,8 @@ const Detail = ({ route }) => {
     </View>
   );
 };
+
+const toto =[ {tup: "de"}, {tup: "de"},  {tup: "de"} ]
 
 export default Detail;
 

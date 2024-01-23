@@ -1,12 +1,16 @@
 import React  from 'react'
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StyleSheet, Text, View, Dimensions,TouchableOpacity} from 'react-native'
+import { StyleSheet, Text, View,TouchableOpacity} from 'react-native'
+import * as SecureStore from 'expo-secure-store';
 
 
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
-const PageConfirmation = ({ navigation }) => {
+const PageConfirmation = ({ navigation, route, setUser }) => {
+  const obj = route.params
+  delete obj.message
+  
   return (
     <View style={styles.container}>
         {/* <Text style={styles.Confirmer}>Confirmation</Text> */}
@@ -15,8 +19,10 @@ const PageConfirmation = ({ navigation }) => {
        <View 
        style={{top:200}}
        >
-     
-           <TouchableOpacity style={styles.customButton} onPress={() => navigation.navigate("MyTabs")}>
+           <TouchableOpacity style={styles.customButton} onPress={async () =>{
+            await SecureStore.setItemAsync("user", JSON.stringify(obj))
+            setUser(obj)
+           }}>
           <Text style={styles.buttonText}> TERMINER</Text>
         </TouchableOpacity>
           </View>

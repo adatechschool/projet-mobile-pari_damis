@@ -5,10 +5,10 @@ import { MaterialIcons} from "@expo/vector-icons"
 import Home from "../components/Home"
 import Bet from "../components/Bet"
 import Search from "../components/Search"
-import MyGroupScreen from "../components/MyGroupScreen"
+import Group from "../components/Group"
 import Account from "../components/Account"
 
-const MyTabs = () => {
+const MyTabs = ({setUser}) => {
     const Tab = createBottomTabNavigator()
     const Stack = createNativeStackNavigator()
   return (
@@ -23,7 +23,6 @@ const MyTabs = () => {
       tabBarInactiveTintColor: "white",
       tabBarStyle: { backgroundColor: 'black' }
     }}
-  
     >
         <Tab.Screen
       name={"bottomNavAccueil"}
@@ -79,7 +78,7 @@ const MyTabs = () => {
      >
         {()=><Stack.Navigator >
      <Stack.Screen name={"Groupe"} options={{ headerShown: false }}>
-       {(props)=><MyGroupScreen {...props} />}
+       {(props)=><Group {...props} />}
      </Stack.Screen>
      </Stack.Navigator>
       }
@@ -93,7 +92,7 @@ const MyTabs = () => {
      >
         {()=><Stack.Navigator >
      <Stack.Screen name={"Compte"} options={{ headerShown: false }}>
-       {(props)=><Account {...props} />}
+       {(props)=><Account {...props} setUser={setUser} />}
      </Stack.Screen>
      </Stack.Navigator>
       }

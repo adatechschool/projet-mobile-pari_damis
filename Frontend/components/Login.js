@@ -70,11 +70,9 @@ const Login = ({ navigation }) => {
         }
 
         const responseData = await response.json();
-
         console.log("Données envoyées avec succès", responseData);
-
         formik.resetForm();
-        navigation.navigate("PageConfirmation");
+        navigation.navigate("PageConfirmation", responseData);
         // Alert.alert("vous êtes connecté");
       } catch (error) {
         console.error("Erreur lors de l'envoi des données", error.message);
