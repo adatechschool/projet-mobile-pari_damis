@@ -67,7 +67,7 @@ func CreateBet(c *gin.Context) {
 		MatchID: matchIdStr,
 	}
 	result := database.DB.Create(&bet).Error
-	if result.Error != nil {
+	if result != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": result.Error(),
 		})
