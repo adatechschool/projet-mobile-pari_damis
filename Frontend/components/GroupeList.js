@@ -136,7 +136,7 @@ const MyGroupScreen = ({ navigation }) => {
         /> */}
         {/* <Button style={{magintop:10}} title="Créer le groupe" onPress={createGroupAndNavigate} /> */}
         <TouchableOpacity
-          // style={styles.customButton}
+          style={styles.customButton}
           // onPress={createGroupAndNavigate}
           onPress={() => navigation.navigate("CreateGroup")}
         >
@@ -192,40 +192,40 @@ const MyGroupScreen = ({ navigation }) => {
 };
 
 export default MyGroupScreen;
-// const styles = StyleSheet.create({
-//   detailcCustomButton: {
-//     backgroundColor: "red",
-//     padding: 5,
-//     margin: 5,
-//     marginTop: 20,
-//     borderRadius: 8,
-//     width: "40%",
-//     bottom: 10,
-//     left: 50,
-//   },
-//   detailButtonText: {
-//     color: "white",
-//     fontWeight: "700",
-//     alignItems: "center",
-//     textAlign: "center",
-//     fontSize: 15,
-//   },
-//   customButton: {
-//     // borderBottomColor: "red",
-//     backgroundColor: "red",
-//     padding: 5,
-//     margin: 5,
-//     marginTop: 20,
-//     borderRadius: 8,
-//     width: "40%",
-//     bottom: 70,
-//     left: 220,
-//   },
-//   buttonText: {
-//     color: "white",
-//     fontWeight: "700",
-//     alignItems: "center",
-//     textAlign: "center",
-//     fontSize: 15,
-//   },
-// });
+const styles = StyleSheet.create({
+  detailcCustomButton: {
+    backgroundColor: "red",
+    padding: 5,
+    margin: 5,
+    marginTop: 20,
+    borderRadius: 8,
+    width: "40%",
+    bottom: 10,
+    left: 50,
+  },
+  detailButtonText: {
+    color: "white",
+    fontWeight: "700",
+    alignItems: "center",
+    textAlign: "center",
+    fontSize: 15,
+  },
+  customButton: {
+    borderBottomColor: "red",
+    backgroundColor: "red",
+    padding: 5,
+    margin: 5,
+    marginTop: 20,
+    borderRadius: 8,
+    width: "40%",
+    bottom: 70,
+    left: 220,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "700",
+    alignItems: "center",
+    textAlign: "center",
+    fontSize: 15,
+  },
+});
