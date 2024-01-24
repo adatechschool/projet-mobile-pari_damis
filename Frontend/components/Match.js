@@ -1,26 +1,87 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, ScrollView, TouchableOpacity, View, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { getNextSaturday } from '../utils/getNextSaturday'
+import {Dimensions} from 'react-native';
+import Fightersjson from "../allFighters.json"
 
-const Match = ({route}) => {
+const windowWidth = Dimensions.get('window').width;
+
+const Match = () => {
   const [matchs, setMatchs] = useState(null)
-  console.log(route.params);
+  const UfcSilhouetteRightStance = "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-right-silhouette.png"
+  const UfcSilhouetteLeftStance = "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-left-silhouette.png"
+  console.log(Fightersjson);
   useEffect(()=>{
-    const fetch = async () => {
-      const res = 0
-      if (res){
-        setMatchs(res)
+      try {
+        fetch(`https://api.sportradar.com/mma/trial/v2/fr/schedules/2024-02-04/summaries.json?api_key=nrmu6fxvt5e5bzdzhx2845fq`, {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json"
+          }
+        })
+        .then(response => response.json())
+        .then(json => {
+          setMatchs(json.summaries)
+        })
+      } catch (error) {
+        console.log("Error message", error);
       }
-    }
-    fetch()
   },[])
   return (
-    <View>
-      <Text>Match</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      {
+        matchs?.reverse().map((match, idx)=>{
+          const nameOfFirstFighter = match.sport_event.competitors[0].name.split(",").reverse().join(" ")
+          const nameOfsecondFighter = match.sport_event.competitors[1].name.split(",").reverse().join(" ")
+          const indexOfFirstFigther = Fightersjson.map(fighter => fighter.NomCombattant).indexOf(nameOfFirstFighter.trim())
+          const indexOfSecondFigther = Fightersjson.map(fighter => fighter.NomCombattant).indexOf(nameOfsecondFighter.trim())
+          return  <TouchableOpacity key={idx} style={styles.matchBox}>
+            <View>
+              <Image style={styles.Image} source={{uri: indexOfFirstFigther !== -1 ? Fightersjson[indexOfFirstFigther].ImagePath : UfcSilhouetteRightStance}}/>
+            </View>
+            <View style={styles.infosBox}>
+            <Text>{nameOfFirstFighter}</Text>
+            <Text>VS</Text>
+            <Text>{nameOfsecondFighter}</Text>
+            </View>
+            <View>
+            <Image style={styles.Image} source={{uri: indexOfSecondFigther !== -1 ? Fightersjson[indexOfSecondFigther].ImagePath : UfcSilhouetteLeftStance}}/>
+            </View>
+      </TouchableOpacity>
+        })
+      }
+    </ScrollView>
   )
 }
 
 export default Match
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    backgroundColor: "black",
+    width: windowWidth,
+    paddingHorizontal: 10,
+    paddingTop: 20
+  },
+  matchBox:{
+    flexDirection: "row",
+    alignItems: 'center',
+    justifyContent: "space-between",
+    width: "100%",
+    height: 150,
+    backgroundColor: "red",
+    padding: 5,
+    marginBottom: 30,
+    borderRadius: 20,
+  },
+  infosBox:{
+    flexDirection: "column",
+    alignItems: "center",
+    gap: 15
+  },
+  Image:{
+    width: 90,
+    height: 90,
+    objectFit: "contain"
+  }
+})

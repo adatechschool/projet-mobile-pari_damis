@@ -163,8 +163,8 @@ const MyGroupScreen = ({ navigation }) => {
         renderItem={renderItem}
       /> */}
 
-      {allgroupsOfUser[0] &&
-        allgroupsOfUser.map((group) => (
+      {
+        allgroupsOfUser?.map((group) => (
           <TouchableOpacity
             onPress={() => navigation.navigate("MyTopTabs", group)}
             key={group.ID}
