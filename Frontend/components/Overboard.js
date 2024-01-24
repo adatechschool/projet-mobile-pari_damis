@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
@@ -24,13 +31,12 @@ const Overboard = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
-      <Image style={styles.flamme} source={require("../assets/fire.gif")} />
+      <Text style={styles.title}>Pari d'Amis</Text>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text style={styles.title}>Pari d'Amis</Text>
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-        <Swiper
+          <Swiper
             autoplay
             autoplayTimeout={5} // Définissez le temps en secondes entre chaque diapositive
             showsPagination={false}
@@ -43,9 +49,9 @@ const Overboard = ({ navigation }) => {
                 alignItems: "center",
               }}
             >
-              <Image
+              <ImageBackground
                 style={styles.Image}
-                source={require("../assets/favicon.png")}
+                source={require("../assets/combat1.jpg")}
               />
             </View>
             <View
@@ -57,7 +63,7 @@ const Overboard = ({ navigation }) => {
             >
               <Image
                 style={styles.Image}
-                source={require("../assets/favicon.png")}
+                source={require("../assets/combat2.jpg")}
               />
             </View>
             <View
@@ -69,44 +75,11 @@ const Overboard = ({ navigation }) => {
             >
               <Image
                 style={styles.Image}
-                source={require("../assets/favicon.png")}
+                source={require("../assets/combat3.jpg")}
               />
             </View>
           </Swiper>
-         
-        
-          {/* <View style={{ flexDirection: "row", top: 200 }}>
-            <View
-              style={{
-                width: 10,
-                height: 10,
-                borderRadius: 5,
-                backgroundColor: "red",
-                marginRight: 10,
-              }}
-            />
-            <View
-              style={{
-                width: 10,
-                height: 10,
-                borderRadius: 5,
-                backgroundColor: "red",
-                marginRight: 10,
-              }}
-            />
-            <View
-              style={{
-                width: 10,
-                height: 10,
-                borderRadius: 5,
-                backgroundColor: "red",
-              }}
-            />
-          </View> */}
-
-          
         </View>
-        <Image style={styles.flamme2} source={require("../assets/fire.gif")} />
       </View>
 
       <View style={{ paddingBottom: 80 }}>
@@ -124,9 +97,8 @@ const Overboard = ({ navigation }) => {
           >
             <Text style={styles.buttonText}>S’INSCRIRE</Text>
           </TouchableOpacity>
-          <TouchableOpacity 
-          onPress={()=> showAlert("Login")}>
-           {/* onPress={() => navigation.navigate("Login")} */}
+          <TouchableOpacity onPress={() => showAlert("Login")}>
+            {/* onPress={() => navigation.navigate("Login")} */}
             <Text style={{ color: "red", paddingTop: 10 }}>SE CONNECTER</Text>
           </TouchableOpacity>
         </View>
@@ -138,24 +110,12 @@ const Overboard = ({ navigation }) => {
 export default Overboard;
 
 const styles = StyleSheet.create({
-  flamme: {
-    width: 200,
-    height: 200,
-    right: 50,
-    transform: [{ rotate: "180deg" }],
-  },
-  flamme2: {
-    width: 200,
-    height: 200,
-    top: 100,
-    left: 100,
-  },
   title: {
     color: "red",
     fontSize: 50,
     fontWeight: "bold",
     textAlign: "center",
-    bottom: 150,
+    // bottom: 150,
   },
   customButton: {
     borderBottomColor: "red",
@@ -171,5 +131,12 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     alignItems: "center",
     textAlign: "center",
+  },
+  Image: {
+    width: "100%",
+
+    height: 400,
+
+    resizeMode: "cover",
   },
 });

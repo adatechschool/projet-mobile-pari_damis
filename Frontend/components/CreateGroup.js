@@ -51,52 +51,57 @@ const CreateGroup = ({ navigation }) => {
   };
 
   return (
-    <View style={{ flex: 1, alignContent: "center", justifyContent: "center" }}>
-      <View style={{ flexDirection: "colum" }}>
-        <Text style={{ fontSize: 15, paddingTop: 50 }}>Nom du groupe :</Text>
+    <View style={{ flex: 1, alignItems: "center", backgroundColor: "black" }}>
+      <View style={{ flexDirection: "colum", top: 200 }}>
+        <Text style={styles.customButton}>Nom du groupe :</Text>
         <TextInput
-          style={{ fontSize: 15 }}
+          style={{
+            fontSize: 20,
+            color: "white",
+            textAlign: "center",
+            paddingTop: 10,
+          }}
           placeholder="Entrez le nom du groupe"
+          placeholderTextColor={"red"}
           value={groupName}
           onChangeText={setGroupName}
         />
-        <Text
-        // style={{ fontSize: 15, paddingTop: 10 }}
-        >
-          Nombre de membres :
-        </Text>
+        <Text style={styles.customButton}>Nombre de membres :</Text>
         <TextInput
-          // style={{ fontSize: 15 }}
+          style={{
+            fontSize: 20,
+            color: "white",
+            textAlign: "center",
+            paddingTop: 10,
+          }}
           placeholder="Entrez le nombre de membres"
+          placeholderTextColor={"red"}
           value={numberOfMembers}
           onChangeText={setNumberOfMembers}
           keyboardType="numeric"
         />
-        {/* <Button style={{magintop:10}} title="Créer le groupe" onPress={createGroupAndNavigate} /> */}
-        <TouchableOpacity
-          // style={styles.customButton}
-          onPress={createGroupAndNavigate}
-        >
-          <Text
-          // style={styles.buttonText}
-          >
-            Créer le groupe
-          </Text>
+        <TouchableOpacity onPress={createGroupAndNavigate}>
+          <Text style={styles.customButton}>Créer le groupe</Text>
         </TouchableOpacity>
-
-        {/* <FlatList
-          data={groupData}
-          keyExtractor={(item) => (item.id ? item.id.toString() : null)}
-          renderItem={({ item }) => (
-            <View>
-              <Text>{item.name}</Text>
-            </View>
-          )}
-        /> */}
       </View>
     </View>
   );
 };
 export default CreateGroup;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  customButton: {
+    color: "white",
+    fontSize: 30,
+    fontWeight: "bold",
+    backgroundColor: "red",
+    padding: 5,
+    margin: 5,
+    marginTop: 20,
+    textAlign: "center",
+    borderColor: "red",
+    borderRadius: 10,
+    borderWidth: 1,
+    overflow: "hidden",
+  },
+});

@@ -1,13 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import Signup from "./components/Signup";
 import Login  from "./components/Login";
 import Overboard from "./components/Overboard";
 import Loading  from "./components/Loading";
-import Home  from "./components/Home";
-import Search  from "./components/Search";
+import CreateGroup from "./components/CreateGroup"
+import CreateBet from "./components/CreateBet";
+
 // import Detail  from "./components/Detail";
 import MyTabs from "./Navigation/MyTabs";
 import MyTopTabs from "./Navigation/MyTopTabs";
@@ -54,6 +53,12 @@ export default function App() {
         {/* <Stack.Screen name="Detail" component={Detail} /> */}
         <Stack.Screen name="MyTopTabs" options={{}}>
           {(props)=><MyTopTabs {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="CreateGroup" options={{}}>
+          {(props)=><CreateGroup {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="CreateBet" options={{}}>
+          {(props)=><CreateBet {...props} />}
         </Stack.Screen>
         </>
         }

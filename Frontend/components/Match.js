@@ -5,11 +5,12 @@ import Fightersjson from "../allFighters.json"
 
 const windowWidth = Dimensions.get('window').width;
 
-const Match = () => {
+const Match = ({route, navigation}) => {
   const [matchs, setMatchs] = useState(null)
   const UfcSilhouetteRightStance = "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-right-silhouette.png"
   const UfcSilhouetteLeftStance = "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-left-silhouette.png"
-  console.log(Fightersjson);
+  const groupID = route.params.ID
+
   useEffect(()=>{
       try {
         fetch(`https://api.sportradar.com/mma/trial/v2/fr/schedules/2024-02-04/summaries.json?api_key=nrmu6fxvt5e5bzdzhx2845fq`, {
@@ -34,7 +35,7 @@ const Match = () => {
           const nameOfsecondFighter = match.sport_event.competitors[1].name.split(",").reverse().join(" ")
           const indexOfFirstFigther = Fightersjson.map(fighter => fighter.NomCombattant).indexOf(nameOfFirstFighter.trim())
           const indexOfSecondFigther = Fightersjson.map(fighter => fighter.NomCombattant).indexOf(nameOfsecondFighter.trim())
-          return  <TouchableOpacity key={idx} style={styles.matchBox}>
+          return  <TouchableOpacity key={idx} style={styles.matchBox} onPress={()=> navigation.navigate("CreateBet", groupID)}>
             <View>
               <Image style={styles.Image} source={{uri: indexOfFirstFigther !== -1 ? Fightersjson[indexOfFirstFigther].ImagePath : UfcSilhouetteRightStance}}/>
             </View>
