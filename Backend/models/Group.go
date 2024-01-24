@@ -11,5 +11,5 @@ type Group struct {
 	// Sports []string
 	CreatorId string
 	Users     []*User `gorm:"many2many:group_users;" json:"users"`
-	Bets      []*Bet
+	Bets      []*Bet `gorm:"foreignKey:GroupID"`
 }

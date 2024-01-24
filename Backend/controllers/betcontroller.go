@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	// "fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -94,5 +95,21 @@ func GetBetsByGroupID(c *gin.Context) {
 	database.DB.Preload("Bets").First(&Group, groupId)
 	c.JSON(200, gin.H{
 		"message": Group,
+	})
+}
+
+func GetBetsOfUserByGroupID(c *gin.Context) {
+	groupId := c.Param("GroupID")
+	userId := c.Param("UserID")
+	// parsedgroupId, err := strconv.ParseUint(userId, 10, 64)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+
+	var Bet []models.Bet
+	database.DB.Where("Group_ID = ?", groupId).Where("User_ID = ?", userId).Find(&Bet)
+
+	c.JSON(200, gin.H{
+		"message": Bet,
 	})
 }

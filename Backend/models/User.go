@@ -10,6 +10,6 @@ type User struct {
 	Email     string
 	Password  string
 	Groups    []*Group `gorm:"many2many:group_users;" json:"groups"`
-	Bets      []*Bet
+	Bets      []*Bet `gorm:"foreignKey:UserID"`
 	AuthToken []AuthToken
 }

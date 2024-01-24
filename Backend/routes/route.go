@@ -47,4 +47,5 @@ func Routes(route *gin.Engine) {
 	bet.POST("/:UserID/:GroupID/:MatchID", controllers.CreateBet)
 	bet.GET("betOfUser/:UserID", controllers.GetBetsByUserId)
 	bet.GET("betOfGroup/:GroupID", controllers.GetBetsByGroupID)
+	bet.GET("betOfUserByGroup/:GroupID/:UserID", controllers.GetBetsOfUserByGroupID)
 }
