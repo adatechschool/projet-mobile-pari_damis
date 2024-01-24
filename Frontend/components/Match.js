@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import { getNextSaturday } from '../utils/getNextSaturday'
 
-const Match = () => {
+const Match = ({route}) => {
   const [matchs, setMatchs] = useState(null)
+  console.log(route.params);
   useEffect(()=>{
     const fetch = async () => {
       const res = 0

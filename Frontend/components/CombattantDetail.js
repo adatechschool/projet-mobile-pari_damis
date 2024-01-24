@@ -15,10 +15,11 @@ const Detail = ({ route }) => {
       <View style={{ right: 100, marginLeft: 10 }}>
         <Text style={styles.text}>{item.text}</Text>
       </View>
-      <TouchableOpacity><Text>navigate to bet</Text></TouchableOpacity>
     </View>
   );
 };
+
+const toto =[ {tup: "de"}, {tup: "de"},  {tup: "de"} ]
 
 export default Detail;
 

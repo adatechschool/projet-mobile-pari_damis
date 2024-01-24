@@ -39,8 +39,9 @@ func CreateGroup(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
-		"groupID": group.ID,
-		"creatorID":  group.CreatorId,
+		"group":     group,
+		"groupID":   group.ID,
+		"creatorID": group.CreatorId,
 	})
 
 }
@@ -119,7 +120,7 @@ func DeleteOneGroup(c *gin.Context) {
 	var Group models.Group
 
 	database.DB.First(&Group, groupId)
-	if Group.CreatorId == userId{
+	if Group.CreatorId == userId {
 		database.DB.Delete(&Group, groupId)
 		c.JSON(200, gin.H{
 			"message": "Group Deleted",

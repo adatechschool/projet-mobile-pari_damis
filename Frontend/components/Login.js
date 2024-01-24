@@ -89,7 +89,6 @@ const Login = ({ navigation }) => {
   });
   const onPress = () => {
     formik.handleSubmit();
-    // navigation.navigate("PageConfirmation");
   };
 
   return (
