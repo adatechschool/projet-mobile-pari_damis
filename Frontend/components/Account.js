@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "black",
     alignItems:"center",
+    justifyContent: "center",
     
   },
   customButton: {
@@ -32,6 +33,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderRadius: 8,
     width: 350,
+    
   },
   buttonText: {
     color: "white",

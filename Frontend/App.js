@@ -5,6 +5,7 @@ import Login  from "./components/Login";
 import Overboard from "./components/Overboard";
 import Loading  from "./components/Loading";
 import CreateGroup from "./components/CreateGroup"
+import CombattantDetail from "./components/CombattantDetail"
 import CreateBet from "./components/CreateBet";
 
 // import Detail  from "./components/Detail";
@@ -50,12 +51,14 @@ export default function App() {
         <Stack.Screen name="MyTabs" options={{headerShown: false}}>
           {(props)=><MyTabs {...props} setUser={setUser} />}
         </Stack.Screen>
-        {/* <Stack.Screen name="Detail" component={Detail} /> */}
         <Stack.Screen name="MyTopTabs" options={{}}>
           {(props)=><MyTopTabs {...props} />}
         </Stack.Screen>
         <Stack.Screen name="CreateGroup" options={{}}>
           {(props)=><CreateGroup {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="CombattantDetail" options={{}}>
+          {(props)=><CombattantDetail {...props} />}
         </Stack.Screen>
         <Stack.Screen name="CreateBet" options={{}}>
           {(props)=><CreateBet {...props} />}

@@ -3,6 +3,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { View, Image, StyleSheet, Text } from "react-native";
 import nature from "../assets/nature.gif";
 
+
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
 const Loading = ({navigation}) => {
@@ -11,20 +12,12 @@ const Loading = ({navigation}) => {
       const delay = setTimeout(() => {
          
         navigation.navigate('Overboard'); 
-      }, 2000);
+      }, 5000);
   
       return () => clearTimeout(delay);
     }, [navigation])
   );
-    // useEffect(() => {
-      
-    //     const delay = setTimeout(() => {
-         
-    //       navigation.navigate('Signup'); 
-    //     }, 2000);
     
-    //     return () => clearTimeout(delay);
-    //   }, [navigation]);
 
   return (
     <View
@@ -40,7 +33,7 @@ const Loading = ({navigation}) => {
             textAlign: "center",
           }}
         >
-          pari amis
+          Pari d'Amis
         </Text>
       </View>
     </View>

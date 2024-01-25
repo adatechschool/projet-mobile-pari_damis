@@ -1,34 +1,33 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-
+import { View, Text, Image, StyleSheet } from "react-native";
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
 const Detail = ({ route }) => {
   const { item } = route.params;
+
   return (
     <View style={styles.card}>
       <Image
-        source={item.image}
-        style={{ width: 200, height: 200, marginTop: 20 }}
+        source={{ uri: item.ImagePath }}
+        style={{ width: 200, height: 200}}
       />
-      <Text style={styles.title}>{item.title}</Text>
-      <View style={{ right: 100, marginLeft: 10 }}>
+      <Text style={styles.title}>{item.NomCombattant}</Text>
+      {/* <View style={{ right: 100, marginLeft: 10 }}>
         <Text style={styles.text}>{item.text}</Text>
-      </View>
+      </View> */}
     </View>
   );
 };
-
-const toto =[ {tup: "de"}, {tup: "de"},  {tup: "de"} ]
-
+const toto = [{ tup: "de" }, { tup: "de" }, { tup: "de" }];
 export default Detail;
 
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "black",
     flexDirection: "column",
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
+    height:"100%",
   },
   title: {
     textAlign: "center",
