@@ -1,10 +1,11 @@
 package controllers
 
 import (
-	// "fmt"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"fmt"
 
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
 	"github.com/adatechschool/projet-mobile-pari_damis/models"
@@ -111,5 +112,25 @@ func GetBetsOfUserByGroupID(c *gin.Context) {
 
 	c.JSON(200, gin.H{
 		"message": Bet,
+	})
+}
+
+func UpdateBetWithResultOfBet(c *gin.Context) {
+	resultofbetId := c.Param("ResultOfBetID")
+	betId := c.Param("BetID")
+
+	var resultofbet models.ResultOfBet
+
+	database.DB.First(&resultofbet, resultofbetId)
+	fmt.Println(resultofbet)
+
+	var bet models.Bet
+	database.DB.First(&bet, betId)
+	fmt.Println(bet)
+
+	database.DB.Model(&bet).Association("ResultOfBet").Append(&resultofbet)
+	// database.DB.Model(&bet).Updates(models.Bet{ResultOfBet: &resultofbetID})
+	c.JSON(200, gin.H{
+		"message": bet,
 	})
 }

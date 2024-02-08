@@ -45,9 +45,14 @@ func Routes(route *gin.Engine) {
 	//relation User
 	group.GET("/usersOfOneGroup/:GroupID", controllers.ShowUsersOfOneGroup)
 
-	bet := route.Group("/bet", middleware.RequireAuth)
+	bet := route.Group("/bet")
 	bet.POST("/:UserID/:GroupID/:MatchID", controllers.CreateBet)
 	bet.GET("betOfUser/:UserID", controllers.GetBetsByUserId)
 	bet.GET("betOfGroup/:GroupID", controllers.GetBetsByGroupID)
 	bet.GET("betOfUserByGroup/:GroupID/:UserID", controllers.GetBetsOfUserByGroupID)
+	bet.PUT("/:BetID/:ResultOfBetID", controllers.UpdateBetWithResultOfBet)
+
+	resultofbet := route.Group("/resultofbet")
+	resultofbet.POST("/:MatchID", controllers.CreateResultOfBet)
+	resultofbet.GET("/:BetID", controllers.GetResultBetsByBetId)
 }

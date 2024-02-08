@@ -26,8 +26,9 @@ func ConnectToDatabase() {
 	} else {
 		// DB.Begin()
 		fmt.Println("succed")
-		DB.AutoMigrate(&models.User{}, &models.Group{}, &models.Bet{}, &models.AuthToken{})
-		// DB.Migrator().DropTable(&models.User{}, &models.Group{}, &models.Bet{})
+		// DB.AutoMigrate( &models.ResultOfBet{})
+		DB.AutoMigrate(&models.User{}, &models.Group{}, &models.Bet{}, &models.AuthToken{}, &models.ResultOfBet{})
+		// DB.Migrator().DropTable(&models.User{}, &models.Group{}, &models.Bet{}, &models.AuthToken{}, &models.ResultOfBet{})
 		// DB.Migrator().DropTable(&models.Group{}, "group_users")
 		// DB.Migrator().DropTable(&models.AuthToken{}, "auth_tokens")
 	}
