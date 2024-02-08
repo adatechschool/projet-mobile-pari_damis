@@ -1,6 +1,7 @@
 package routes
 
 import (
+	// "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
 	"github.com/adatechschool/projet-mobile-pari_damis/controllers"
 	"github.com/adatechschool/projet-mobile-pari_damis/middleware"
 	"github.com/gin-gonic/gin"
@@ -12,7 +13,8 @@ func Routes(route *gin.Engine) {
 	racine.GET("/", func(c *gin.Context) {
 
 		c.JSON(200, gin.H{
-			"message": "message",
+			"message":    "message",
+			// "ma requete": scheduler.Match(),
 		})
 	})
 

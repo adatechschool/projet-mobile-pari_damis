@@ -71,7 +71,7 @@ const Bet = () => {
         setMatchIdOfEventByDate([matchIdOfEventByDate]);
         setRenderFlag(true);
       } catch (error) {
-        console.log("Error messagee", error);
+        console.log("Error message", error);
       }
     };
 
