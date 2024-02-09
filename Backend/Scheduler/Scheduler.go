@@ -105,11 +105,12 @@ func Match() (string, error) {
 			if summary.SportEventStatus.Method == "decision_split" || summary.SportEventStatus.Method == "decision_unanimous" || summary.SportEventStatus.Method == "decision_majority" {
 				methodFinish = "Points"
 			}
-			round := []string{winner, methodFinish, strconv.Itoa(summary.SportEventStatus.FinalRound)}
+			var round pq.StringArray
+			round = []string{winner, methodFinish, strconv.Itoa(summary.SportEventStatus.FinalRound)}
 			resultofbet := models.ResultOfBet{
 				Winner:       &winner,
 				FinishMethod: &methodFinish,
-				Rounds:       pq.StringArray(round),
+				Rounds:       &round,
 				MatchID:      summary.SportEvent.SportEventId,
 			}
 

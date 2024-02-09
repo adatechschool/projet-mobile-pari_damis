@@ -14,10 +14,10 @@ import (
 
 func CreateResultOfBet(c *gin.Context) {
 	var body struct {
-		Winner  *string
-		FinishMethod  *string
-		Rounds  pq.StringArray
-		MatchID string
+		Winner       *string
+		FinishMethod *string
+		Rounds       *pq.StringArray
+		MatchID      string
 	}
 	matchIdStr := c.Param("MatchID")
 
@@ -33,12 +33,15 @@ func CreateResultOfBet(c *gin.Context) {
 		})
 		return
 	}
-
+	var rounds pq.StringArray
+	if body.Rounds != nil {
+		rounds = *body.Rounds
+	}
 	resultofbet := models.ResultOfBet{
-		Winner:  body.Winner,
+		Winner:       body.Winner,
 		FinishMethod: body.FinishMethod,
-		Rounds:  body.Rounds,
-		MatchID: matchIdStr,
+		Rounds:       &rounds,
+		MatchID:      matchIdStr,
 	}
 	result := database.DB.Create(&resultofbet).Error
 	if result != nil {
