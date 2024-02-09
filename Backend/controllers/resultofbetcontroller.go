@@ -9,6 +9,7 @@ import (
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
 	"github.com/adatechschool/projet-mobile-pari_damis/models"
 	"github.com/gin-gonic/gin"
+	"github.com/lib/pq"
 )
 
 func CreateResultOfBet(c *gin.Context) {
@@ -16,11 +17,7 @@ func CreateResultOfBet(c *gin.Context) {
 		Winner  *int
 		KoTko   *int
 		Soum    *int
-		R1      *int
-		R2      *int
-		R3      *int
-		R4      *int
-		R5      *int
+		Rounds  pq.StringArray
 		Points  *int
 		Draw    *int
 		MatchID string
@@ -44,11 +41,7 @@ func CreateResultOfBet(c *gin.Context) {
 		Winner:  body.Winner,
 		KoTko:   body.KoTko,
 		Soum:    body.Soum,
-		R1:      body.R1,
-		R2:      body.R2,
-		R3:      body.R3,
-		R4:      body.R4,
-		R5:      body.R5,
+		Rounds:  body.Rounds,
 		Points:  body.Points,
 		Draw:    body.Draw,
 		MatchID: matchIdStr,
