@@ -15,14 +15,11 @@ import (
 
 func CreateBet(c *gin.Context) {
 	var body struct {
-		Winner *int
-		KoTko  *int
-		Soum   *int
-		Rounds pq.StringArray
-		Points *int
-		Draw   *int
+		Winner       *string
+		FinishMethod *string
+		Rounds       pq.StringArray
 	}
-	// bg := []string{"3", "TKO", "1"}
+	// bg := []string{"3", "TKO", "1"} --> insertion pq.StringArray(bg)
 	userIdStr := c.Param("UserID")
 	groupIdStr := c.Param("GroupID")
 	matchIdStr := c.Param("MatchID")
@@ -51,15 +48,12 @@ func CreateBet(c *gin.Context) {
 	}
 
 	bet := models.Bet{
-		Winner:  body.Winner,
-		KoTko:   body.KoTko,
-		Soum:    body.Soum,
-		Rounds:  body.Rounds,
-		Points:  body.Points,
-		Draw:    body.Draw,
-		UserID:  userId,
-		GroupID: groupId,
-		MatchID: matchIdStr,
+		Winner:       body.Winner,
+		FinishMethod: body.FinishMethod,
+		Rounds:       pq.StringArray(body.Rounds),
+		UserID:       userId,
+		GroupID:      groupId,
+		MatchID:      matchIdStr,
 	}
 	result := database.DB.Create(&bet).Error
 	if result != nil {

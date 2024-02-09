@@ -14,12 +14,9 @@ import (
 
 func CreateResultOfBet(c *gin.Context) {
 	var body struct {
-		Winner  *int
-		KoTko   *int
-		Soum    *int
+		Winner  *string
+		FinishMethod  *string
 		Rounds  pq.StringArray
-		Points  *int
-		Draw    *int
 		MatchID string
 	}
 	matchIdStr := c.Param("MatchID")
@@ -39,11 +36,8 @@ func CreateResultOfBet(c *gin.Context) {
 
 	resultofbet := models.ResultOfBet{
 		Winner:  body.Winner,
-		KoTko:   body.KoTko,
-		Soum:    body.Soum,
+		FinishMethod: body.FinishMethod,
 		Rounds:  body.Rounds,
-		Points:  body.Points,
-		Draw:    body.Draw,
 		MatchID: matchIdStr,
 	}
 	result := database.DB.Create(&resultofbet).Error
