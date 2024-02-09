@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 
+	// scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
+
 	scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
 	"github.com/adatechschool/projet-mobile-pari_damis/routes"
