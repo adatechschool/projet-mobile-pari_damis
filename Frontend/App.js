@@ -7,6 +7,7 @@ import Loading  from "./components/Loading";
 import CreateGroup from "./components/CreateGroup"
 import CombattantDetail from "./components/CombattantDetail"
 import CreateBet from "./components/CreateBet";
+import Bet from "./components/Bet"
 
 // import Detail  from "./components/Detail";
 import MyTabs from "./Navigation/MyTabs";
@@ -62,6 +63,9 @@ export default function App() {
         </Stack.Screen>
         <Stack.Screen name="CreateBet" options={{}}>
           {(props)=><CreateBet {...props} />}
+        </Stack.Screen>
+        <Stack.Screen name="Bet" options={{}}>
+          {(props)=><Bet {...props} />}
         </Stack.Screen>
         </>
         }

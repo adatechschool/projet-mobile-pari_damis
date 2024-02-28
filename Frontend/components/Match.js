@@ -35,7 +35,7 @@ const Match = ({route, navigation}) => {
           const nameOfsecondFighter = match.sport_event.competitors[1].name.split(",").reverse().join(" ")
           const indexOfFirstFigther = Fightersjson.map(fighter => fighter.NomCombattant).indexOf(nameOfFirstFighter.trim())
           const indexOfSecondFigther = Fightersjson.map(fighter => fighter.NomCombattant).indexOf(nameOfsecondFighter.trim())
-          return  <TouchableOpacity key={idx} style={styles.matchBox} onPress={()=> navigation.navigate("CreateBet", groupID)}>
+          return  <TouchableOpacity key={idx} style={styles.matchBox} onPress={()=> navigation.navigate("CreateBet", {groupID: groupID, matchInfo: match})}>
             <View>
               <Image style={styles.Image} source={{uri: indexOfFirstFigther !== -1 ? Fightersjson[indexOfFirstFigther].ImagePath : UfcSilhouetteRightStance}}/>
             </View>

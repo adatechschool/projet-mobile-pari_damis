@@ -29,7 +29,7 @@ const Bet = () => {
     const getBetOfUserByGroupId = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/bet/betOfUserByGroup/99/1",
+          "http://localhost:3001/bet/betOfUserByGroup/1/1",
           {
             method: "GET",
             headers: {
