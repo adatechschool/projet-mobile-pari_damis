@@ -10,10 +10,25 @@ import {
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 
-const CreateBet = ({ route, navigation }) => {
+const CreateBet = ({ route, navigation, user }) => {
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     const userId = async () => {
+  //       const res =  await SecureStore.getItemAsync("user")
+  //       setUser(JSON.parse(res))
+  //     }
+  //     userId()
+  //   }, [])
+  // );
+
+  const userId = user.user.ID;
+  // console.log(userId);
+
   const { control, handleSubmit } = useForm();
 
   const { groupID, matchInfo } = route.params;
+
+  const sportEventId = matchInfo.sport_event.id;
 
   const firstFigther = matchInfo.sport_event.competitors[0].name
     .split(",")
@@ -27,6 +42,8 @@ const CreateBet = ({ route, navigation }) => {
   const matchMaxRound = matchInfo.sport_event_status.scheduled_length;
   // console.log(matchMaxRound);
 
+  const [winnerWithoutRounds, setWinnerWithoutRounds] = useState("");
+  const [finishWithoutRounds, setFinishWithoutRounds] = useState("");
   const [winner, setWinner] = useState("");
   const [isEnabledKo, setIsEnabledKo] = useState(false);
   const [isEnabledSubmission, setIsEnabledSubmission] = useState(false);
@@ -42,8 +59,9 @@ const CreateBet = ({ route, navigation }) => {
   const toggleSwitchKo = () => {
     setIsEnabledKo((previousState) => {
       const newFinishKo = !previousState ? "ko" : "";
-      setFinishKo(newFinishKo)
-      console.log(newFinishKo);
+      setFinishKo(newFinishKo);
+      setFinishSubmission("");
+      // console.log(newFinishKo);
       return !previousState;
     });
     setIsEnabledSubmission(false);
@@ -54,7 +72,8 @@ const CreateBet = ({ route, navigation }) => {
     setIsEnabledSubmission((previousState) => {
       const newFinishSubmission = !previousState ? "Submission" : "";
       setFinishSubmission(newFinishSubmission);
-      console.log(newFinishSubmission);
+      setFinishKo("");
+      // console.log(newFinishSubmission);
       return !previousState;
     });
     setIsEnabledKo(false);
@@ -87,11 +106,6 @@ const CreateBet = ({ route, navigation }) => {
     setFinishRounds(updatedFinishRounds);
     console.log(updatedFinishRounds);
   };
-
-  // const onSubmit = (data) => {
-  //   // console.log(data);
-  //   // Here you can perform further actions with the form data, like sending it to a server
-  // };
 
   return (
     <View style={styles.container}>
@@ -155,16 +169,88 @@ const CreateBet = ({ route, navigation }) => {
             </View>
             <Button
               title="Valider mon pari"
-              onPress={() => {
+              onPress={async () => {
+                const selectedWinner = winner === firstFigther ? "1" : "2";
                 const selectedRounds = finishRounds
                   .filter((round) => round !== "")
                   .join(", ");
-                  const selectedFinish = [finishKo, finishSubmission].filter((finish) => finish !== "").join(", ");
+                const selectedFinish = [finishKo, finishSubmission]
+                  .filter((finish) => finish !== "")
+                  .join(", ");
                 const finish = [
+                  selectedWinner,
                   selectedRounds,
-                  selectedFinish
-                ].join(", ");
-                Alert.alert(`Pari validé: ${finish}`);
+                  selectedFinish,
+                ].filter(value => value !== "");
+                if (selectedRounds.length == 0) {
+                  const finishArray = finish
+                    .toString()
+                    .split(",")
+                    .map((value) => value.trim());
+                  const nonEmptyFinishArray = finishArray.filter(
+                    (value) => value !== ""
+                  );
+                  console.log(
+                    "finishArray après le split :",
+                    nonEmptyFinishArray.length
+                  );
+                  if (nonEmptyFinishArray.length === 2) {
+                    const [selectedWinnerWithoutRounds, selectedFinishWithoutRounds] =
+                      nonEmptyFinishArray;
+                    setWinnerWithoutRounds(selectedWinnerWithoutRounds);
+                    setFinishWithoutRounds(selectedFinishWithoutRounds);
+                    console.log("Selected Winner:", winnerWithoutRounds);
+                    console.log("Selected Finish:", finishWithoutRounds);
+                  } else {
+                    console.error(
+                      "La longueur de finishArray n'est pas de 2"
+                    );
+                  }
+                  if(finish.length > 2){
+                    try {
+                      const apiUrl = `http://localhost:3001/bet/${userId}/${groupID}/${sportEventId}`;
+                      const res = await fetch(apiUrl, {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                          Rounds: finish,
+                        }),
+                      });
+                      if (res.status === 200) {
+                        Alert.alert("Pari validé avec succès");
+                      } else {
+                        Alert.alert("Erreur lors de la validation du pari");
+                      }
+                      console.log("finish : ", finish.length);
+                    } catch (error) {
+                      console.log(error.message);
+                    }
+                  }
+                }
+                try {
+                  const apiUrl = `http://localhost:3001/bet/${userId}/${groupID}/${sportEventId}`;
+                  const res = await fetch(apiUrl, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      Winner: selectedWinner,
+                      FinishMethod: selectedFinish,
+                    }),
+                  });
+                  if (res.status === 200) {
+                    Alert.alert("Pari validé avec succès");
+                  } else {
+                    Alert.alert("Erreur lors de la validation du pari");
+                  }
+                  console.log("winner :", winnerWithoutRounds);
+                  console.log("finish :",finishWithoutRounds);
+                } catch (error) {
+                  console.log(error.message);
+                }
               }}
             />
           </View>
@@ -191,14 +277,14 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     color: "white",
   },
-  koTko:{
-    color:'white',
+  koTko: {
+    color: "white",
   },
   submission: {
-    color:'white',
+    color: "white",
   },
   rounds: {
-    color:'white',
+    color: "white",
   },
   firstBoxOfBet: {
     fontSize: 16,
