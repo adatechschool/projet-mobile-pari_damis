@@ -110,18 +110,18 @@ const CreateBet = ({ route, navigation, user }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        {firstFigther} vs {secondFigther}
+        {firstFigther} VS {secondFigther}
       </Text>
       <Text style={styles.firstBoxOfBet}>Winner Du Match</Text>
       <View style={styles.winners}>
-        <View style={styles.winnerButton}>
+        <View style={winner === firstFigther ? styles.winnerButton : styles.normalButton}>
           <Button
             title={firstFigther}
             color={winner === firstFigther ? "#ffffff" : "#ffffff"}
             onPress={() => setWinner(firstFigther)}
           />
         </View>
-        <View style={styles.winnerButton}>
+        <View style={winner === secondFigther ? styles.winnerButton : styles.normalButton}>
           <Button
             title={secondFigther}
             color={winner === secondFigther ? "#ffffff" : "#ffffff"}
@@ -133,8 +133,9 @@ const CreateBet = ({ route, navigation, user }) => {
         <>
           <Text style={styles.titleTypeWin}>{winner} gagnant par: </Text>
           <View>
-            <View>
-              <Text style={styles.koTko}>KoTko </Text>
+            <View style={styles.victoryTypes}>
+            <View style={styles.koTko}>
+              <Text style={styles.koTkoTitle}>KoTko </Text>
               <Switch
                 trackColor={{ false: "#767577", true: "#FF4C4C" }}
                 thumbColor={isEnabledKo ? "red" : "#f4f3f4"}
@@ -153,7 +154,8 @@ const CreateBet = ({ route, navigation, user }) => {
                 value={isEnabledSubmission}
               />
             </View>
-            <View>
+            </View>
+            <View style={styles.roundsWin}>
               {[...Array(matchMaxRound)].map((_, i) => (
                 <View key={i}>
                   <Text style={styles.rounds}>Round {i + 1}</Text>
@@ -195,8 +197,7 @@ const CreateBet = ({ route, navigation, user }) => {
                     nonEmptyFinishArray.length
                   );
                   if (nonEmptyFinishArray.length === 2) {
-                    const [selectedWinnerWithoutRounds, selectedFinishWithoutRounds] =
-                      nonEmptyFinishArray;
+                    const [selectedWinnerWithoutRounds, selectedFinishWithoutRounds] = nonEmptyFinishArray;
                     setWinnerWithoutRounds(selectedWinnerWithoutRounds);
                     setFinishWithoutRounds(selectedFinishWithoutRounds);
                     console.log("Selected Winner:", winnerWithoutRounds);
@@ -208,7 +209,7 @@ const CreateBet = ({ route, navigation, user }) => {
                   }
                   if(finish.length > 2){
                     try {
-                      const apiUrl = `http://localhost:3001/bet/${userId}/${groupID}/${sportEventId}`;
+                      const apiUrl = `http://192.168.4.61:3001/bet/${userId}/${groupID}/${sportEventId}`;
                       const res = await fetch(apiUrl, {
                         method: "POST",
                         headers: {
@@ -248,6 +249,7 @@ const CreateBet = ({ route, navigation, user }) => {
                   }
                   console.log("winner :", winnerWithoutRounds);
                   console.log("finish :",finishWithoutRounds);
+                  navigation.navigate("Match");
                 } catch (error) {
                   console.log(error.message);
                 }
@@ -277,13 +279,18 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     color: "white",
   },
+  victoryTypes:{
+    flexDirection: "row",
+    justifyContent: "center",
+    marginLeft: 15,
+  },
   koTko: {
+    marginRight: 15,
+  },
+  koTkoTitle: {
     color: "white",
   },
   submission: {
-    color: "white",
-  },
-  rounds: {
     color: "white",
   },
   firstBoxOfBet: {
@@ -295,12 +302,33 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // justifyContent: "space-between",
   },
-  winnerButton: {
+  normalButton:{
     flexDirection: "row",
-    backgroundColor: "red",
     color: "white",
+    backgroundColor: "red",
     marginLeft: 15,
     borderRadius: 25,
+  },
+  winnerButton: {
+    flexDirection: "row",
+    color: "white",
+    backgroundColor: "#bb0b0b",
+    borderColor: "#FF6600",
+    borderWidth: 3,
+    marginLeft: 15,
+    borderRadius: 25,
+  },
+  titleTypeWin:{
+    color: "white",
+  },
+  roundsWin: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  rounds: {
+    color: "white",
+    marginLeft: 15,
   },
   hide: {
     opacity: 0,

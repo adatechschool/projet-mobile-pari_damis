@@ -45,6 +45,9 @@ const Bet = () => {
         console.log("Error message", error);
       }
     };
+    function strNoAccent(str) {
+      return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
 
     const getIdOfMatchByEventDate = async () => {
       try {
@@ -62,9 +65,9 @@ const Bet = () => {
           const obj = {};
           obj["sportEventID"] = sportEvent.sport_event.id;
           obj["sportEventCombatant1"] =
-            sportEvent.sport_event.competitors[0].name;
+            strNoAccent(sportEvent.sport_event.competitors[0].name);
           obj["sportEventCombatant2"] =
-            sportEvent.sport_event.competitors[1].name;
+            strNoAccent(sportEvent.sport_event.competitors[1].name);
           return obj;
         });
 
@@ -95,7 +98,7 @@ const Bet = () => {
     }
   }, [renderFlag]);
 
-  console.log(fightersName);
+  // console.log(fightersName);
   // const handeTextClick = () => {};
   return (
     <ScrollView style={styles.container}>
