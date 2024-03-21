@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Button,
+  ScrollView,
   KeyboardAvoidingView,
   Platform,
   Alert,
@@ -103,7 +104,9 @@ const Login = ({ navigation }) => {
       <View>
         <Text style={styles.Login}>Login</Text>
       </View>
-      <KeyboardAvoidingView behavior="padding" style={styles.form}>
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}>
+        
         <TextInput
           style={styles.Email}
           placeholder="Email"
@@ -111,7 +114,6 @@ const Login = ({ navigation }) => {
           value={formik.values.Email}
           onChangeText={formik.handleChange("Email")}
         />
-
         <Text style={{ color: "red" }}>{formik.errors.Email}</Text>
 
         <TextInput
@@ -122,19 +124,13 @@ const Login = ({ navigation }) => {
           value={formik.values.Password}
           onChangeText={formik.handleChange("Password")}
         />
-
         <Text style={{ color: "red" }}>{formik.errors.Password}</Text>
 
         <TouchableOpacity style={styles.customButton} onPress={onPress}>
           <Text style={styles.buttonText}>SE CONNECTER</Text>
         </TouchableOpacity>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        
+        <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
           <Text style={{ color: "white" }}>Vous n'avez pas de compte ?</Text>
           <Button
             title="S'inscrire"
@@ -143,16 +139,13 @@ const Login = ({ navigation }) => {
             onPress={() => navigation.navigate("Signup")}
           />
         </View>
+        
         <View style={{ marginVertical: 10 }}>
           <Text style={{ color: "red" }}>Mot de passe oublié</Text>
-          {/* <Button title="Mot de passe oublié"
-        color="red"
-       
-        titleStyle={{left: 140, bottom: 270 }}
-         /> */}
         </View>
-      </KeyboardAvoidingView>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
+  </View>
   );
 };
 

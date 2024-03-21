@@ -42,38 +42,29 @@ const Match = ({ route, navigation }) => {
     const nextSaturdayDate = getNextSaturdayDate()
     console.log(nextSundayDate);
     try {
-      fetch(
-        `https://api.sportradar.com/mma/trial/v2/fr/schedules/${nextSaturdayDate}/summaries.json?api_key=nrmu6fxvt5e5bzdzhx2845fq`,
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((json) => {
-          setMatchs(json.summaries);
-          console.log("helloooo", matchs[0].sport_event.competitors[0].name);
-        });
-    } catch (error) {
-      console.log("Error message", error);
-    }
-    try {
-      fetch(
-        `https://api.sportradar.com/mma/trial/v2/fr/schedules/${nextSundayDate}/summaries.json?api_key=nrmu6fxvt5e5bzdzhx2845fq`,
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((json) => {
-          setMatchs(json.summaries);
-          console.log("helloooo", matchs[0].sport_event.competitors[0].name);
-        });
+      Promise.all([
+        fetch(
+          `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSaturdayDate}/summaries.json?api_key=YE9TUl20bR4P5cQ88x72966nqL5ebm4l62BGnjmK`,
+          {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+            },
+          }
+        ).then((response) => response.json()),
+        fetch(
+          `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSundayDate}/summaries.json?api_key=YE9TUl20bR4P5cQ88x72966nqL5ebm4l62BGnjmK`,
+          {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+            },
+          }
+        ).then((response) => response.json())
+      ]).then(([saturdayJson, sundayJson]) => {
+        const allMatchs = [...saturdayJson.summaries, ...sundayJson.summaries];
+        setMatchs(allMatchs);
+      });
     } catch (error) {
       console.log("Error message", error);
     }
