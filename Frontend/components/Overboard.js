@@ -20,7 +20,7 @@ const Overboard = ({ navigation }) => {
 
       [
         {
-          text: "accepter",
+          text: "Accepter",
           onPress: () => navigation.navigate(page),
         },
         { text: "Cancel", onPress: () => navigation.navigate("Overboard") },

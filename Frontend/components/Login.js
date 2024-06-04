@@ -14,10 +14,12 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
+  Dimensions,
 } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
-//const {width, height} = Dimensions.get('window') //detection dela dimension ecran
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 const Login = ({ navigation }) => {
   const formik = useFormik({
@@ -104,9 +106,9 @@ const Login = ({ navigation }) => {
       <View>
         <Text style={styles.Login}>Login</Text>
       </View>
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.form}>
       <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}>
-        
+        <View style={styles.inputContainer}>
         <TextInput
           style={styles.Email}
           placeholder="Email"
@@ -124,6 +126,7 @@ const Login = ({ navigation }) => {
           value={formik.values.Password}
           onChangeText={formik.handleChange("Password")}
         />
+        </View>
         <Text style={{ color: "red" }}>{formik.errors.Password}</Text>
 
         <TouchableOpacity style={styles.customButton} onPress={onPress}>
@@ -160,7 +163,7 @@ const styles = StyleSheet.create({
     margin: 5,
     fontWeight: "800",
     textAlign: "center",
-    top: 70,
+    top: 150,
   },
   form: {
     flex: 1,
@@ -170,13 +173,17 @@ const styles = StyleSheet.create({
     width: "100%",
     gap: 20,
   },
+  inputContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
   Email: {
     borderWidth: 1,
     borderBottomColor: "white",
     padding: 10,
     margin: 5,
-    width: "90%",
-    height: 50,
+    width: windowWidth * 0.9,
+    height: windowHeight * 0.06,
     color: "white",
     fontSize: 20,
     textAlign: "center",
@@ -186,8 +193,8 @@ const styles = StyleSheet.create({
     borderBottomColor: "white",
     padding: 10,
     margin: 5,
-    width: "90%",
-    height: 50,
+    width: windowWidth * 0.9,
+    height: windowHeight * 0.06,
     color: "white",
     fontSize: 20,
     textAlign: "center",

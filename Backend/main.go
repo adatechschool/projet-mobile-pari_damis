@@ -5,7 +5,7 @@ import (
 
 	// scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
 
-	// scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
+	// // scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
 	// scrapping "github.com/adatechschool/projet-mobile-pari_damis/Scrapping"
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
 	"github.com/adatechschool/projet-mobile-pari_damis/routes"
