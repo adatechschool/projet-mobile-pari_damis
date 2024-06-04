@@ -16,7 +16,7 @@ import {
   Dimensions,
 } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
-import { IP } from '@env';
+import  {IP}  from '@env';
 
 console.log("test ip", IP);
 

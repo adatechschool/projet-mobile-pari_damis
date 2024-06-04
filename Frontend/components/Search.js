@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
@@ -17,6 +17,8 @@ const dataWithIds = allFighters.map((fighter, index) => ({
   ...fighter,
   id: index.toString(),
 }));
+
+
 
 const Item = ({ NomCombattant, ImagePath, onPressItem }) => (
   <TouchableOpacity style={styles.item} onPress={onPressItem}>
