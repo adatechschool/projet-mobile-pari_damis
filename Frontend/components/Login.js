@@ -40,7 +40,7 @@ const Login = ({ navigation }) => {
 
     onSubmit: async (values) => {
       try {
-        const apiUrl = "http://localhost:3001/auth/login"; // Remplacez par l'URL réelle de votre API
+        const apiUrl = "http://172.20.10.3:3001/auth/login";
 
         console.log(
           "log 1",

@@ -5,7 +5,7 @@ import (
 
 	// scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
 
-	scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
+	// scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
 	// scrapping "github.com/adatechschool/projet-mobile-pari_damis/Scrapping"
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
 	"github.com/adatechschool/projet-mobile-pari_damis/routes"
@@ -32,6 +32,6 @@ func main() {
 
 	fmt.Println("Server online")
 	routes.Routes(r)
-	scheduler.Match()
-	r.Run() //
+	// scheduler.Match()
+	r.Run("0.0.0.0:3001") //
 }
