@@ -14,6 +14,7 @@ import (
 )
 
 var DB *gorm.DB
+var Err error
 
 func ConnectToDatabase() {
 	err := godotenv.Load()
@@ -21,9 +22,9 @@ func ConnectToDatabase() {
 		log.Fatal("Error loading .env file")
 	}
 	dsn := os.Getenv("DATABASE")
-	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	if err != nil {
-		panic(err)
+	DB, Err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if Err != nil {
+		panic(Err)
 	} else {
 		// DB.Begin()
 		fmt.Println("succed")
