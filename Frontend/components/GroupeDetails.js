@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { IP } from '@env';
 
 const GroupDetail = ({ route }) => {
   const userId = 2;
@@ -22,7 +23,7 @@ const GroupDetail = ({ route }) => {
   const [GroupID, setGroupId] = useState("");
 
   const useEffect = async () => {
-    const response = await fetch("http://localhost:3001/user/allUsers", {
+    const response = await fetch(`http://${IP}:3001/user/allUsers`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,7 +39,7 @@ const GroupDetail = ({ route }) => {
   const inviteMember = async (GroupID, UserID) => {
     try {
       const response = await fetch(
-        `http://localhost:3001/group/addUserToGroup/${GroupID}/${UserID}`,
+        `http://${IP}:3001/group/addUserToGroup/${GroupID}/${UserID}`,
         {
           method: "PUT",
           headers: {
@@ -87,7 +88,7 @@ const GroupDetail = ({ route }) => {
       console.log("groupDelete avant la requête :", groupDelete);
 
       const response = await fetch(
-        `http://localhost:3001/group/deleteOneGroup/${groupDelete}/${userId}`,
+        `http://${IP}:3001/group/deleteOneGroup/${groupDelete}/${userId}`,
         {
           method: "DELETE",
           headers: {

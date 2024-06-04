@@ -9,6 +9,7 @@ import {
   Switch,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
+import { IP } from '@env';
 
 const CreateBet = ({ route, navigation, user }) => {
   // useFocusEffect(
@@ -209,7 +210,7 @@ const CreateBet = ({ route, navigation, user }) => {
                   }
                   if(finish.length > 2){
                     try {
-                      const apiUrl = `http://192.168.4.61:3001/bet/${userId}/${groupID}/${sportEventId}`;
+                      const apiUrl = `http://${IP}:3001/bet/${userId}/${groupID}/${sportEventId}`;
                       const res = await fetch(apiUrl, {
                         method: "POST",
                         headers: {
@@ -231,7 +232,7 @@ const CreateBet = ({ route, navigation, user }) => {
                   }
                 }
                 try {
-                  const apiUrl = `http://localhost:3001/bet/${userId}/${groupID}/${sportEventId}`;
+                  const apiUrl = `http://${IP}:3001/bet/${userId}/${groupID}/${sportEventId}`;
                   const res = await fetch(apiUrl, {
                     method: "POST",
                     headers: {

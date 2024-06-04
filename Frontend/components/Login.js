@@ -2,7 +2,6 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFormik } from "formik";
-
 import {
   View,
   Text,
@@ -17,6 +16,10 @@ import {
   Dimensions,
 } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import { IP } from '@env';
+
+console.log("test ip", IP);
+
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -42,7 +45,7 @@ const Login = ({ navigation }) => {
 
     onSubmit: async (values) => {
       try {
-        const apiUrl = "http://172.20.10.3:3001/auth/login";
+        const apiUrl = `http://${IP}:3001/auth/login`;
 
         console.log(
           "log 1",

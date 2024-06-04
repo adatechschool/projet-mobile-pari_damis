@@ -13,6 +13,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import axios from "axios";
+import { IP } from '@env';
 
 const MyGroupScreen = ({ navigation }) => {
   const [allgroupsOfUser, setAllGroupsOfUser] = useState([]);
@@ -22,7 +23,7 @@ const MyGroupScreen = ({ navigation }) => {
     React.useCallback(() => {
       const requestGroup = async () => {
         let requete = await axios.get(
-          `http://localhost:3001/user/groupsOfOneUser/${userId}`
+          `http://${IP}:3001/user/groupsOfOneUser/${userId}`
         );
         console.log(requete.data);
         if (requete.data) setAllGroupsOfUser(requete.data.UserGroup);

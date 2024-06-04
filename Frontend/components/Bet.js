@@ -9,6 +9,7 @@ import {
 import React, { useState, useEffect } from "react";
 import { Dimensions } from "react-native";
 import Fightersjson from "../allFighters.json";
+import { IP } from '@env';
 
 const windowWidth = Dimensions.get("window").width;
 import { useFocusEffect } from "@react-navigation/native";
@@ -29,7 +30,7 @@ const Bet = () => {
     const getBetOfUserByGroupId = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3001/bet/betOfUserByGroup/1/1",
+          `http://${IP}:3001/bet/betOfUserByGroup/1/1`,
           {
             method: "GET",
             headers: {

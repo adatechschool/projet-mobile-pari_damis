@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import React, { useState } from "react";
+import { IP } from '@env';
 
 const CreateGroup = ({ navigation }) => {
   const [groupName, setGroupName] = useState("");
@@ -24,7 +25,7 @@ const CreateGroup = ({ navigation }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/group/createGroup/${userId}`,
+        `http://${IP}:3001/group/createGroup/${userId}`,
         {
           method: "POST",
           headers: {

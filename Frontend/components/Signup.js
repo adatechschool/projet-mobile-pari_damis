@@ -13,6 +13,7 @@ import {
   StatusBar,
   Alert
 } from "react-native";
+import { IP } from '@env';
 
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
@@ -50,7 +51,7 @@ const Signup = ({ navigation }) => {
 
     onSubmit: async (values) => {
       try {
-        const apiUrl = 'http://localhost:3001/auth/signUp';  // Remplacez par l'URL réelle de votre API
+        const apiUrl = `http://${IP}:3001/auth/signUp`;  // Remplacez par l'URL réelle de votre API
     
         const response = await fetch(apiUrl, {
           method: 'POST',
