@@ -17,13 +17,15 @@ import {
   Dimensions,
 } from "react-native";
 
-console.log("test ip", IP);
+
 
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const Login = ({ navigation }) => {
+  console.log("test ip", IP);
+
   const formik = useFormik({
     initialValues: {
       Email: "",
@@ -95,6 +97,7 @@ const Login = ({ navigation }) => {
   const onPress = () => {
     formik.handleSubmit();
   };
+
 
   return (
     <View

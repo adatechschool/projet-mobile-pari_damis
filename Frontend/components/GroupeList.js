@@ -1,5 +1,6 @@
 import { IP } from '@env';
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useFocusEffect } from "@react-navigation/native";
 import {
   View,
@@ -11,7 +12,7 @@ import {
   StyleSheet,
   ScrollView
 } from "react-native";
-import axios from "axios";
+
 
 const MyGroupScreen = ({ navigation }) => {
   const [allgroupsOfUser, setAllGroupsOfUser] = useState([]);
