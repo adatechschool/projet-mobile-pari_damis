@@ -1,3 +1,4 @@
+import { IP } from '@env';
 import {
   View,
   Text,
@@ -8,7 +9,6 @@ import {
   StyleSheet,
 } from "react-native";
 import React, { useState } from "react";
-import { IP } from '@env';
 
 const CreateGroup = ({ navigation }) => {
   const [groupName, setGroupName] = useState("");

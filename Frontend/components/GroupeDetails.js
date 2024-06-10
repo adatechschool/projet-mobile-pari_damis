@@ -1,3 +1,4 @@
+import { IP } from '@env';
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -8,9 +9,6 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { IP } from '@env';
 
 const GroupDetail = ({ route }) => {
   const userId = 2;

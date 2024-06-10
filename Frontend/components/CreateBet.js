@@ -1,3 +1,4 @@
+import { IP } from '@env';
 import React, { useState } from "react";
 import {
   View,
@@ -9,7 +10,6 @@ import {
   Switch,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { IP } from '@env';
 
 const CreateBet = ({ route, navigation, user }) => {
   // useFocusEffect(

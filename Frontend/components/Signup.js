@@ -1,3 +1,4 @@
+import { IP } from '@env';
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -13,7 +14,6 @@ import {
   StatusBar,
   Alert
 } from "react-native";
-import { IP } from '@env';
 
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 

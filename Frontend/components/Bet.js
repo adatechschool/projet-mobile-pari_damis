@@ -1,3 +1,4 @@
+import { IP } from '@env';
 import {
   StyleSheet,
   Text,
@@ -9,7 +10,6 @@ import {
 import React, { useState, useEffect } from "react";
 import { Dimensions } from "react-native";
 import Fightersjson from "../allFighters.json";
-import { IP } from '@env';
 
 const windowWidth = Dimensions.get("window").width;
 import { useFocusEffect } from "@react-navigation/native";

@@ -1,3 +1,4 @@
+import  {IP}  from '@env';
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -15,8 +16,6 @@ import {
   Alert,
   Dimensions,
 } from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
-import  {IP}  from '@env';
 
 console.log("test ip", IP);
 
