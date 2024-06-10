@@ -7,6 +7,7 @@ import {
   Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
+import { useFocusEffect } from '@react-navigation/native';
 import { Dimensions } from "react-native";
 import Fightersjson from "../allFighters.json";
 import _ from "lodash";
@@ -20,55 +21,58 @@ const Match = ({ route, navigation }) => {
   const UfcSilhouetteLeftStance =
     "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-left-silhouette.png";
   const groupID = route.params.ID;
-
-  useEffect(() => {
-    const getNextSundayDate = () => {
-      const today = new Date();
-      const dayOfWeek = today.getDay();
-      const diff = 7 - dayOfWeek;
-      const nextSunday = new Date(today);
-      nextSunday.setDate(today.getDate() + diff);
-      return nextSunday.toISOString().slice(0, 10);
-    };
-    const getNextSaturdayDate = () => {
-      const today = new Date();
-      const dayOfWeek = today.getDay();
-      const diff = 6 - dayOfWeek;
-      const nextSunday = new Date(today);
-      nextSunday.setDate(today.getDate() + diff);
-      return nextSunday.toISOString().slice(0, 10);
-    };
-    const nextSundayDate = getNextSundayDate();
-    const nextSaturdayDate = getNextSaturdayDate()
-    console.log(nextSundayDate);
-    try {
-      Promise.all([
-        fetch(
-          `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSaturdayDate}/summaries.json?api_key=NJLPJJ0QzW9CSb26DmAE9a0j54ce8Kkq46d84rDl`,
-          {
-            method: "GET",
-            headers: {
-              "Content-type": "application/json",
-            },
-          }
-        ).then((response) => response.json()),
-        fetch(
-          `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSundayDate}/summaries.json?api_key=NJLPJJ0QzW9CSb26DmAE9a0j54ce8Kkq46d84rDl`,
-          {
-            method: "GET",
-            headers: {
-              "Content-type": "application/json",
-            },
-          }
-        ).then((response) => response.json())
-      ]).then(([saturdayJson, sundayJson]) => {
-        const allMatchs = [...saturdayJson.summaries, ...sundayJson.summaries];
-        setMatchs(allMatchs);
-      });
-    } catch (error) {
-      console.log("Error message", error);
-    }
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      const getNextSundayDate = () => {
+        const today = new Date();
+        const dayOfWeek = today.getDay();
+        const diff = 7 - dayOfWeek;
+        const nextSunday = new Date(today);
+        nextSunday.setDate(today.getDate() + diff);
+        return nextSunday.toISOString().slice(0, 10);
+      };
+      const getNextSaturdayDate = () => {
+        const today = new Date();
+        const dayOfWeek = today.getDay();
+        const diff = 6 - dayOfWeek;
+        const nextSunday = new Date(today);
+        nextSunday.setDate(today.getDate() + diff);
+        return nextSunday.toISOString().slice(0, 10);
+      };
+      const nextSundayDate = getNextSundayDate();
+      const nextSaturdayDate = getNextSaturdayDate()
+      console.log(nextSundayDate);
+      try {
+        Promise.all([
+          fetch(
+            `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSaturdayDate}/summaries.json?api_key=NJLPJJ0QzW9CSb26DmAE9a0j54ce8Kkq46d84rDl`,
+            {
+              method: "GET",
+              headers: {
+                "Content-type": "application/json",
+              },
+            }
+          ).then((response) => response.json()),
+          fetch(
+            `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSundayDate}/summaries.json?api_key=NJLPJJ0QzW9CSb26DmAE9a0j54ce8Kkq46d84rDl`,
+            {
+              method: "GET",
+              headers: {
+                "Content-type": "application/json",
+              },
+            }
+          ).then((response) => response.json())
+        ]).then(([saturdayJson, sundayJson]) => {
+          const allMatchs = [...saturdayJson.summaries, ...sundayJson.summaries];
+          setMatchs(allMatchs);
+        });
+      } catch (error) {
+        console.log("Error message", error);
+      }
+    }, [])
+  );
+ 
+    
   function strNoAccent(str) {
     return str
       .normalize("NFD")
