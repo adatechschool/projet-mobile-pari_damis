@@ -44,7 +44,7 @@ const Match = ({ route, navigation }) => {
     try {
       Promise.all([
         fetch(
-          `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSaturdayDate}/summaries.json?api_key=NJLPJJ0QzW9CSb26DmAE9a0j54ce8Kkq46d84rDl`,
+          `https://api.sportradar.com/mma/trial/v2/en/schedules/2024-06-08/summaries.json?api_key=NJLPJJ0QzW9CSb26DmAE9a0j54ce8Kkq46d84rDl`,
           {
             method: "GET",
             headers: {
@@ -53,7 +53,7 @@ const Match = ({ route, navigation }) => {
           }
         ).then((response) => response.json()),
         fetch(
-          `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSundayDate}/summaries.json?api_key=NJLPJJ0QzW9CSb26DmAE9a0j54ce8Kkq46d84rDl`,
+          `https://api.sportradar.com/mma/trial/v2/en/schedules/2024-06-08/summaries.json?api_key=NJLPJJ0QzW9CSb26DmAE9a0j54ce8Kkq46d84rDl`,
           {
             method: "GET",
             headers: {
