@@ -126,3 +126,21 @@ func Match() (string, error) {
 	// return Result
 	return "Succès", nil
 }
+
+func PointPerBet() {
+	var Bets []models.Bet
+
+	var ResultOfBet []models.ResultOfBet
+
+	database.DB.Preload("ResultOfBet").Where("result_of_bet_id IS NOT NULL").Find(&Bets,&ResultOfBet)
+	// database.DB.Where("ResultOfBet = ?","!= nil").Find(&Bets)
+	for i:=0; i<len(Bets); i++ {               // start of the execution block
+        fmt.Println(Bets[i].ID)  
+		fmt.Println(*Bets[i].ResultOfBet.Winner)
+		// fmt.Println(*Bets[i].ResultOfBet)
+		fmt.Println(Bets[i].ResultOfBet.MatchID)   // prints "Hello" 3 times
+		fmt.Println(Bets[i].Winner)   
+    }    
+	
+
+}

@@ -7,6 +7,7 @@ import (
 
 	// // scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
 	// scrapping "github.com/adatechschool/projet-mobile-pari_damis/Scrapping"
+	scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
 	"github.com/adatechschool/projet-mobile-pari_damis/routes"
 	"github.com/gin-gonic/gin"
@@ -32,6 +33,6 @@ func main() {
 
 	fmt.Println("Server online")
 	routes.Routes(r)
-	// scheduler.Match()
+	scheduler.PointPerBet()
 	r.Run("0.0.0.0:3001") //
 }

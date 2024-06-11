@@ -15,4 +15,5 @@ type Bet struct {
 	UserID        uint64 `gorm:"column:user_id"`
 	ResultOfBetID *uint64
 	ResultOfBet   *ResultOfBet
+	PointPerBet   *uint64
 }
