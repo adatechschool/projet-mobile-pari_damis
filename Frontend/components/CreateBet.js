@@ -213,8 +213,8 @@ const CreateBet = ({ route, navigation, user }) => {
                   .join(", ");
                 const finish = [
                   selectedWinner,
-                  selectedRounds,
                   selectedFinish,
+                  selectedRounds,
                 ].filter(value => value !== "");
                 console.log("finish :",finish);
                 console.log("length",finish.length);
@@ -250,7 +250,7 @@ const CreateBet = ({ route, navigation, user }) => {
                           "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                          Rounds: finish,
+                          BetTab: finish,
                         }),
                       });
                       if (res.status === 200) {
