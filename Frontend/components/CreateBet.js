@@ -1,5 +1,5 @@
-import { IP } from '@env';
 import React, { useState } from "react";
+import { IP } from '@env';
 import {
   View,
   Text,
@@ -48,24 +48,32 @@ const CreateBet = ({ route, navigation, user }) => {
   const [winner, setWinner] = useState("");
   const [isEnabledKo, setIsEnabledKo] = useState(false);
   const [isEnabledSubmission, setIsEnabledSubmission] = useState(false);
+  const [isEnabledPoints, setIsEnabledPoints] = useState(false);
   const [roundSwitches, setRoundSwitches] = useState(
     Array(matchMaxRound).fill(false)
   );
+
+  // console.log("Selected Winner:", winnerWithoutRounds);
+  // console.log("Selected Finish:", finishWithoutRounds);
   const [finishKo, setFinishKo] = useState("");
   const [finishSubmission, setFinishSubmission] = useState("");
+  const [finishPoints, setFinishPoints] = useState("");
   const [roundNumber, setRoundNumber] = useState("");
   const [finishRounds, setFinishRounds] = useState(
-    Array(matchMaxRound).fill("")
+    Array().fill()
   );
+  console.log(finishRounds);
   const toggleSwitchKo = () => {
     setIsEnabledKo((previousState) => {
-      const newFinishKo = !previousState ? "ko" : "";
+      const newFinishKo = !previousState ? "KoTko" : "";
       setFinishKo(newFinishKo);
       setFinishSubmission("");
+      setFinishPoints("");
       // console.log(newFinishKo);
       return !previousState;
     });
     setIsEnabledSubmission(false);
+    setIsEnabledPoints(false);
     // setFinishKo(isEnabledKo ? "ko" : "");
     // console.log(finishKo);
   };
@@ -74,12 +82,25 @@ const CreateBet = ({ route, navigation, user }) => {
       const newFinishSubmission = !previousState ? "Submission" : "";
       setFinishSubmission(newFinishSubmission);
       setFinishKo("");
+      setFinishPoints("");
       // console.log(newFinishSubmission);
       return !previousState;
     });
     setIsEnabledKo(false);
+    setIsEnabledPoints(false);
     // setFinishSubmission(isEnabledSubmission ? "Submission" : "");
     // console.log(finishSubmission);
+  };
+  const toggleSwitchPoints = () => {
+    setIsEnabledPoints((previousState) => {
+      const newFinishPoints = !previousState ? "Points" : "";
+      setFinishPoints(newFinishPoints);
+      setFinishKo("");
+      setFinishSubmission("");
+      return !previousState;
+    });
+    setIsEnabledKo(false);
+    setIsEnabledSubmission(false);
   };
   const toggleSwitchRoundNumber = (i) => {
     const updatedSwitches = [...roundSwitches];
@@ -105,7 +126,7 @@ const CreateBet = ({ route, navigation, user }) => {
     );
 
     setFinishRounds(updatedFinishRounds);
-    console.log(updatedFinishRounds);
+    // console.log(updatedFinishRounds);
   };
 
   return (
@@ -155,6 +176,16 @@ const CreateBet = ({ route, navigation, user }) => {
                 value={isEnabledSubmission}
               />
             </View>
+            <View>
+              <Text style={styles.points}>Points</Text>
+              <Switch
+                trackColor={{ false: "#767577", true: "#FF4C4C" }}
+                thumbColor={isEnabledPoints ? "red" : "#f4f3f4"}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={toggleSwitchPoints}
+                value={isEnabledPoints}
+              />
+            </View>
             </View>
             <View style={styles.roundsWin}>
               {[...Array(matchMaxRound)].map((_, i) => (
@@ -177,7 +208,7 @@ const CreateBet = ({ route, navigation, user }) => {
                 const selectedRounds = finishRounds
                   .filter((round) => round !== "")
                   .join(", ");
-                const selectedFinish = [finishKo, finishSubmission]
+                const selectedFinish = [finishKo, finishSubmission, finishPoints]
                   .filter((finish) => finish !== "")
                   .join(", ");
                 const finish = [
@@ -185,30 +216,32 @@ const CreateBet = ({ route, navigation, user }) => {
                   selectedRounds,
                   selectedFinish,
                 ].filter(value => value !== "");
-                if (selectedRounds.length == 0) {
+                console.log("finish :",finish);
+                console.log("length",finish.length);
+                if (finish.length === 3) {
                   const finishArray = finish
-                    .toString()
-                    .split(",")
-                    .map((value) => value.trim());
+                  .toString()
+                  .split(",")
+                  .map((value) => value.trim());
+                  // console.log("Mon array",finishArray);
                   const nonEmptyFinishArray = finishArray.filter(
                     (value) => value !== ""
-                  );
-                  console.log(
-                    "finishArray après le split :",
-                    nonEmptyFinishArray.length
-                  );
+                    );
+                  // console.log(
+                  //   "finishArray après le split :",
+                  //   nonEmptyFinishArray.length
+                  // );
                   if (nonEmptyFinishArray.length === 2) {
                     const [selectedWinnerWithoutRounds, selectedFinishWithoutRounds] = nonEmptyFinishArray;
                     setWinnerWithoutRounds(selectedWinnerWithoutRounds);
                     setFinishWithoutRounds(selectedFinishWithoutRounds);
-                    console.log("Selected Winner:", winnerWithoutRounds);
-                    console.log("Selected Finish:", finishWithoutRounds);
                   } else {
                     console.error(
                       "La longueur de finishArray n'est pas de 2"
                     );
                   }
-                  if(finish.length > 2){
+                  }
+                  if(finish.length > 0){
                     try {
                       const apiUrl = `http://${IP}:3001/bet/${userId}/${groupID}/${sportEventId}`;
                       const res = await fetch(apiUrl, {
@@ -222,39 +255,16 @@ const CreateBet = ({ route, navigation, user }) => {
                       });
                       if (res.status === 200) {
                         Alert.alert("Pari validé avec succès");
+                        navigation.navigate("Match");
                       } else {
                         Alert.alert("Erreur lors de la validation du pari");
                       }
-                      console.log("finish : ", finish.length);
+                      console.log("finish : ", finish);
                     } catch (error) {
                       console.log(error.message);
                     }
                   }
-                }
-                try {
-                  const apiUrl = `http://${IP}:3001/bet/${userId}/${groupID}/${sportEventId}`;
-                  const res = await fetch(apiUrl, {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                      Winner: selectedWinner,
-                      FinishMethod: selectedFinish,
-                    }),
-                  });
-                  if (res.status === 200) {
-                    Alert.alert("Pari validé avec succès");
-                  } else {
-                    Alert.alert("Erreur lors de la validation du pari");
-                  }
-                  console.log("winner :", winnerWithoutRounds);
-                  console.log("finish :",finishWithoutRounds);
-                  navigation.navigate("Match");
-                } catch (error) {
-                  console.log(error.message);
-                }
-              }}
+                  }}
             />
           </View>
         </>
@@ -292,6 +302,9 @@ const styles = StyleSheet.create({
     color: "white",
   },
   submission: {
+    color: "white",
+  },
+  points:{
     color: "white",
   },
   firstBoxOfBet: {

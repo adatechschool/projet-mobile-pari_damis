@@ -41,11 +41,11 @@ const Match = ({ route, navigation }) => {
       };
       const nextSundayDate = getNextSundayDate();
       const nextSaturdayDate = getNextSaturdayDate()
-      console.log(nextSundayDate);
+      // console.log(nextSundayDate);
       try {
         Promise.all([
           fetch(
-            `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSaturdayDate}/summaries.json?api_key=NJLPJJ0QzW9CSb26DmAE9a0j54ce8Kkq46d84rDl`,
+            `https://api.sportradar.com/mma/trial/v2/en/schedules/2024-02-03/summaries.json?api_key=NJLPJJ0QzW9CSb26DmAE9a0j54ce8Kkq46d84rDl`,
             {
               method: "GET",
               headers: {
@@ -54,7 +54,7 @@ const Match = ({ route, navigation }) => {
             }
           ).then((response) => response.json()),
           fetch(
-            `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSundayDate}/summaries.json?api_key=NJLPJJ0QzW9CSb26DmAE9a0j54ce8Kkq46d84rDl`,
+            `https://api.sportradar.com/mma/trial/v2/en/schedules/2024-02-04/summaries.json?api_key=NJLPJJ0QzW9CSb26DmAE9a0j54ce8Kkq46d84rDl`,
             {
               method: "GET",
               headers: {
@@ -90,12 +90,12 @@ const Match = ({ route, navigation }) => {
           .split(",")
           .reverse()
           .join(" ");
-        console.log(
-          "first",
-          strNoAccent(nameOfFirstFighter.trim()),
-          "second",
-          strNoAccent(nameOfsecondFighter.trim())
-        );
+        // console.log(
+        //   "first",
+        //   strNoAccent(nameOfFirstFighter.trim()),
+        //   "second",
+        //   strNoAccent(nameOfsecondFighter.trim())
+        // );
         const indexOfFirstFigther = Fightersjson.map((fighter) =>
           strNoAccent(fighter.NomCombattant)
         ).indexOf(strNoAccent(nameOfFirstFighter.trim()));
