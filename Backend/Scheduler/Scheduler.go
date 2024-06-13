@@ -146,6 +146,7 @@ func PointPerBet() {
 			fmt.Println("--------------fin-Match annulé-----------")
 		} else {
 			fmt.Println("--------------Match ok------------")
+			fmt.Println("Tableau du resultat :", pq.StringArray(*Bets[i].ResultOfBet.ResultTab))
 			ResultWinner := pq.StringArray(*Bets[i].ResultOfBet.ResultTab)[0]
 			fmt.Println("Gagnant (resulat):", ResultWinner)
 			ResultFinishMethod := pq.StringArray(*Bets[i].ResultOfBet.ResultTab)[1]
@@ -179,7 +180,7 @@ func PointPerBet() {
 			if len(BetTab) == 3 {
 				RoundFinishBet := pq.StringArray(*Bets[i].BetTab)[2]
 				fmt.Println("-----------Début-BetTab-longeur-3-----------")
-				fmt.Println("Numéro du round (bet)", RoundFinishBet)
+				fmt.Println("Numéro du round (bet):", RoundFinishBet)
 				if RoundFinishBet == ResultRoundFinish && FinishMethodBet == ResultFinishMethod && WinnerBet == ResultWinner {
 					points += 8
 					fmt.Println("Bon gagnant bonne methode et bon round parié !!!!!!! (+8)")
@@ -192,6 +193,7 @@ func PointPerBet() {
 		}
 		fmt.Println("Nombre de point", points)
 		fmt.Println("==========================================================")
+		// problème !!!!! faire un choix soit poussé que le chiffre en front dans round soit pousser round dans resultof bet pour comparaison
 		// à décommenter pour pushé les points
 		// database.DB.Model(&Bets[i]).UpdateColumn("PointPerBet", &points)
 
