@@ -129,7 +129,7 @@ func PointPerBet() {
 	var ResultOfBet []models.ResultOfBet
 
 	database.DB.Preload("ResultOfBet").Where("result_of_bet_id IS NOT NULL").Find(&Bets, &ResultOfBet)
-	// database.DB.Where("ResultOfBet = ?","!= nil").Find(&Bets)
+
 	for i := 0; i < len(Bets); i++ {
 		fmt.Println("============================================================")
 		BetTab := pq.StringArray(*Bets[i].BetTab)
@@ -190,10 +190,10 @@ func PointPerBet() {
 			}
 			fmt.Println("-------------Fin-Match-ok-----------------")
 		}
-		// à décommenter pour pushé les points 
-		// database.DB.Model(&Bets[i]).UpdateColumn("PointPerBet", &points)
 		fmt.Println("Nombre de point",points)
 		fmt.Println("==========================================================")
+		// à décommenter pour pushé les points 
+		// database.DB.Model(&Bets[i]).UpdateColumn("PointPerBet", &points)
 
 	}
 
