@@ -133,25 +133,25 @@ func PointPerBet() {
 	for i := 0; i < len(Bets); i++ {
 		fmt.Println("============================================================")
 		BetTab := pq.StringArray(*Bets[i].BetTab)
-		fmt.Println("Tableau du paris du joueur:",BetTab)
+		fmt.Println("Tableau du paris du joueur:", BetTab)
 		WinnerBet := pq.StringArray(*Bets[i].BetTab)[0]
-		fmt.Println("Gagnant (bet):",WinnerBet)
+		fmt.Println("Gagnant (bet):", WinnerBet)
 		FinishMethodBet := pq.StringArray(*Bets[i].BetTab)[1]
-		fmt.Println("Method de finish (bet):",FinishMethodBet)
+		fmt.Println("Method de finish (bet):", FinishMethodBet)
 
 		points := 0
 		if Bets[i].ResultOfBet.MatchCancelled != nil {
 			fmt.Println("--------------Match-annulé------------")
-			fmt.Println("Match annulé=>",*Bets[i].ResultOfBet.MatchCancelled)
+			fmt.Println("Match annulé=>", *Bets[i].ResultOfBet.MatchCancelled)
 			fmt.Println("--------------fin-Match annulé-----------")
 		} else {
 			fmt.Println("--------------Match ok------------")
 			ResultWinner := pq.StringArray(*Bets[i].ResultOfBet.ResultTab)[0]
-			fmt.Println("Gagnant (resulat):",ResultWinner)
+			fmt.Println("Gagnant (resulat):", ResultWinner)
 			ResultFinishMethod := pq.StringArray(*Bets[i].ResultOfBet.ResultTab)[1]
-			fmt.Println("Finish (resulat):",ResultFinishMethod)
+			fmt.Println("Finish (resulat):", ResultFinishMethod)
 			ResultRoundFinish := pq.StringArray(*Bets[i].ResultOfBet.ResultTab)[2]
-			fmt.Println("Numéro du round (resulat):",ResultRoundFinish)
+			fmt.Println("Numéro du round (resulat):", ResultRoundFinish)
 			if len(BetTab) == 1 {
 				fmt.Println("-------------Début-BetTab-longeur-1-------------")
 				fmt.Println("Gagnant (bet):", WinnerBet)
@@ -190,9 +190,9 @@ func PointPerBet() {
 			}
 			fmt.Println("-------------Fin-Match-ok-----------------")
 		}
-		fmt.Println("Nombre de point",points)
+		fmt.Println("Nombre de point", points)
 		fmt.Println("==========================================================")
-		// à décommenter pour pushé les points 
+		// à décommenter pour pushé les points
 		// database.DB.Model(&Bets[i]).UpdateColumn("PointPerBet", &points)
 
 	}
