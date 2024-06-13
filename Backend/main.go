@@ -33,6 +33,7 @@ func main() {
 
 	fmt.Println("Server online")
 	routes.Routes(r)
+	scheduler.Match()
 	scheduler.PointPerBet()
 	r.Run("0.0.0.0:3001") //
 }
