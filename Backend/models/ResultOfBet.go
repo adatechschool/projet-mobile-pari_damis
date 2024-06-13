@@ -7,9 +7,7 @@ import (
 
 type ResultOfBet struct {
 	gorm.Model
-	Winner         *string
-	FinishMethod   *string
-	Rounds         *pq.StringArray `gorm:"type:string"`
+	ResultTab         *pq.StringArray `gorm:"type:string"`
 	MatchID        string
 	MatchCancelled *string
 }

@@ -104,13 +104,11 @@ func Match() (string, error) {
 			if summary.SportEventStatus.Method == "decision_split" || summary.SportEventStatus.Method == "decision_unanimous" || summary.SportEventStatus.Method == "decision_majority" {
 				methodFinish = "Points"
 			}
-			var round pq.StringArray
-			round = []string{winner, methodFinish, strconv.Itoa(summary.SportEventStatus.FinalRound)}
+			var resultTab pq.StringArray
+			resultTab = []string{winner, methodFinish, strconv.Itoa(summary.SportEventStatus.FinalRound)}
 			resultofbet := models.ResultOfBet{
-				Winner:       &winner,
-				FinishMethod: &methodFinish,
-				Rounds:       &round,
-				MatchID:      summary.SportEvent.SportEventId,
+				ResultTab: &resultTab,
+				MatchID:   summary.SportEvent.SportEventId,
 			}
 
 			database.DB.Where("Match_id = ?", summary.SportEvent.SportEventId).Find(&Bets)
@@ -128,12 +126,19 @@ func Match() (string, error) {
 
 func PointPerBet() {
 	var Bets []models.Bet
-
 	var ResultOfBet []models.ResultOfBet
 
 	database.DB.Preload("ResultOfBet").Where("result_of_bet_id IS NOT NULL").Find(&Bets, &ResultOfBet)
 	// database.DB.Where("ResultOfBet = ?","!= nil").Find(&Bets)
-	for i := 0; i < len(Bets); i++ { // start of the execution block
+	for i := 0; i < len(Bets); i++ {
+		BetTab := pq.StringArray(*Bets[i].BetTab)
+		WinnerBet := pq.StringArray(*Bets[i].BetTab)[0]
+		FinishMethodBet := pq.StringArray(*Bets[i].BetTab)[1]
+		RoundFinishBet := pq.StringArray(*Bets[i].BetTab)[2]
+
+		ResultWinner := pq.StringArray(*Bets[i].ResultOfBet.ResultTab)[0]
+		ResultFinishMethod := pq.StringArray(*Bets[i].ResultOfBet.ResultTab)[1]
+		ResultRoundFinish := pq.StringArray(*Bets[i].ResultOfBet.ResultTab)[2]
 		points := 0
 		if Bets[i].ResultOfBet.MatchCancelled != nil {
 			fmt.Println("Match annulé!!!")
@@ -148,28 +153,28 @@ func PointPerBet() {
 			fmt.Println(Bets[i].ResultOfBet.MatchID)
 			fmt.Println("-------")
 			fmt.Println("winner du bet: ")
-			if Bets[i].Winner != nil {
-				if *Bets[i].Winner == *Bets[i].ResultOfBet.Winner {
+			if WinnerBet != "" {
+				if WinnerBet == ResultWinner {
 					points += 1
-					fmt.Println(*Bets[i].Winner)
+					fmt.Println(WinnerBet)
 					fmt.Println("Bon vainqueur parié")
 				} else {
-					fmt.Println(*Bets[i].Winner)
+					fmt.Println(WinnerBet)
 					fmt.Println("mauvais vainqueur parié")
 				}
 			} else {
 				fmt.Println("pas de winner parié")
 			}
 			fmt.Println("winner du resulat: ")
-			fmt.Println(*Bets[i].ResultOfBet.Winner)
+			fmt.Println(ResultWinner)
 			fmt.Println("-------")
 			fmt.Println("Finish du bet:")
-			if Bets[i].FinishMethod != nil {
-				if *Bets[i].FinishMethod == *Bets[i].ResultOfBet.FinishMethod && *Bets[i].Winner == *Bets[i].ResultOfBet.Winner {
-					fmt.Println(*Bets[i].FinishMethod)
+			if FinishMethodBet != "" {
+				if FinishMethodBet == ResultFinishMethod && WinnerBet == ResultWinner {
+					fmt.Println(FinishMethodBet)
 					points += 2
 				} else {
-					fmt.Println(*Bets[i].FinishMethod)
+					fmt.Println(FinishMethodBet)
 					fmt.Println("Mauvais finish parié")
 				}
 			} else {
@@ -177,11 +182,12 @@ func PointPerBet() {
 			}
 
 			fmt.Println("Finish du resultat:")
-			fmt.Println(*Bets[i].ResultOfBet.FinishMethod)
+			fmt.Println(ResultFinishMethod)
 			fmt.Println("-------")
 			fmt.Println("Rounds parié du bet :")
-			if Bets[i].Rounds != nil {
-				fmt.Println(*Bets[i].Rounds)
+			if RoundFinishBet != "" {
+				fmt.Println(RoundFinishBet)
+
 				// if *Bets[i].Rounds[0] == *Bets[i].ResultOfBet.Rounds[0]{
 				// points+= 10
 				// fmt.Println("Bon round 1 parié")
@@ -220,7 +226,7 @@ func PointPerBet() {
 				fmt.Println("pas de round parié")
 			}
 			fmt.Println("Rounds parié du resultat : ")
-			fmt.Println(*Bets[i].ResultOfBet.Rounds)
+			fmt.Println(ResultRoundFinish)
 			fmt.Println("-------")
 			fmt.Println("total des points")
 			fmt.Println(points)
@@ -228,9 +234,48 @@ func PointPerBet() {
 			fmt.Println(Bets[i].ResultOfBet.MatchCancelled)
 			fmt.Println("-----------------------------------")
 
-			// prints "Hello" 3 times
+			if len(BetTab) == 0 {
 
+				if WinnerBet == ResultWinner {
+					points += 1
+					fmt.Println(WinnerBet)
+					fmt.Println("Bon vainqueur parié")
+				} else {
+					fmt.Println(WinnerBet)
+					fmt.Println("mauvais vainqueur parié")
+				}
+			} else {
+				fmt.Println("pas de winner parié")
+			}
+
+		}
+		if len(BetTab) == 2 {
+
+			if FinishMethodBet == ResultFinishMethod && WinnerBet == ResultWinner {
+				fmt.Println(FinishMethodBet)
+				points += 2
+			} else {
+				fmt.Println(FinishMethodBet)
+				fmt.Println("Mauvais finish parié")
+			}
+		} else {
+			fmt.Println("pas de finish parié")
+		}
+
+		if len(BetTab) == 3 {
+			if RoundFinishBet == ResultRoundFinish {
+				points += 1
+				fmt.Println(RoundFinishBet)
+				fmt.Println("Bon round parié")
+			} else {
+				fmt.Println(RoundFinishBet)
+				fmt.Println("mauvais round parié")
+			}
+		} else {
+			fmt.Println("pas de round parié")
 		}
 
 	}
+	// database.DB.Model(&Bets[i]).UpdateColumn("PointPerBet", &points)
+
 }
