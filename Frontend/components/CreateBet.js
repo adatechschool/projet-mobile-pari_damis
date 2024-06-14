@@ -117,11 +117,11 @@ const CreateBet = ({ route, navigation, user }) => {
 
     setRoundSwitches(updatedSwitchesWithDeselected);
 
-    setRoundNumber(updatedSwitchesWithDeselected[i - 1] ? `Round ${i}` : "");
+    setRoundNumber(updatedSwitchesWithDeselected[i - 1] ? i : "");
 
     const updatedFinishRounds = updatedSwitchesWithDeselected.map(
       (switchState, index) => {
-        return switchState ? `Round ${index + 1}` : "";
+        return switchState ? index + 1 : "";
       }
     );
 
