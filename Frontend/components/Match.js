@@ -119,7 +119,7 @@ const Match = ({ route, navigation }) => {
                 style={styles.Image}
                 source={{
                   uri:
-                    indexOfFirstFigther !== -1
+                    indexOfFirstFigther !== -1 && Fightersjson[indexOfFirstFigther].ImagePath != ""
                       ? Fightersjson[indexOfFirstFigther].ImagePath
                       : UfcSilhouetteRightStance,
                 }}
@@ -135,7 +135,7 @@ const Match = ({ route, navigation }) => {
                 style={styles.Image}
                 source={{
                   uri:
-                    indexOfSecondFigther !== -1
+                    indexOfSecondFigther !== -1 && Fightersjson[indexOfSecondFigther].ImagePath != ""
                       ? Fightersjson[indexOfSecondFigther].ImagePath
                       : UfcSilhouetteLeftStance,
                 }}

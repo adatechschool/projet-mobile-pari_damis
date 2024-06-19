@@ -1,6 +1,6 @@
 import React from "react";
-import  {IP}  from '@env';
 import { NavigationContainer } from "@react-navigation/native";
+import  {IP}  from '@env';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useFormik } from "formik";
 import {
