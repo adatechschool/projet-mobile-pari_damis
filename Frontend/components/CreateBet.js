@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import { IP } from '@env';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -235,10 +235,6 @@ const CreateBet = ({ route, navigation, user }) => {
                     const [selectedWinnerWithoutRounds, selectedFinishWithoutRounds] = nonEmptyFinishArray;
                     setWinnerWithoutRounds(selectedWinnerWithoutRounds);
                     setFinishWithoutRounds(selectedFinishWithoutRounds);
-                  } else {
-                    console.error(
-                      "La longueur de finishArray n'est pas de 2"
-                    );
                   }
                   }
                   if(finish.length > 0){

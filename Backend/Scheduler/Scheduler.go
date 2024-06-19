@@ -61,7 +61,7 @@ func Match() (string, error) {
 		return "", err
 	}
 	// Result = string(data)
-	fmt.Println("Hello, World!")
+	fmt.Println("In Match function")
 	// fmt.Println(Result)
 	var Bets []models.Bet
 
@@ -73,8 +73,9 @@ func Match() (string, error) {
 				MatchCancelled: &matchcancelled,
 			}
 			database.DB.Where("Match_id = ?", summary.SportEvent.SportEventId).Find(&Bets)
+			//appliqué un filter sur &bet qui selectionne touts les bets ou les resultofbet sont inexistants
 			for _, Bet := range Bets {
-
+				fmt.Printf("If bet cancelled exist show it:%v", Bet)
 				database.DB.Model(&Bet).Association("ResultOfBet").Append(&resultofbet)
 
 			}
@@ -111,9 +112,9 @@ func Match() (string, error) {
 				MatchID:   summary.SportEvent.SportEventId,
 			}
 
-			database.DB.Where("Match_id = ?", summary.SportEvent.SportEventId).Find(&Bets)
+			database.DB.Where("Match_id = ? AND result_of_bet_id IS NULL", summary.SportEvent.SportEventId).Find(&Bets)
 			for _, Bet := range Bets {
-
+				fmt.Printf("If bet exist show it:%v", Bet)
 				database.DB.Model(&Bet).Association("ResultOfBet").Append(&resultofbet)
 
 			}
@@ -158,8 +159,8 @@ func PointPerBet() {
 				fmt.Println("Gagnant (bet):", WinnerBet)
 				fmt.Println("Gagnant (resulat):", ResultWinner)
 				if WinnerBet == ResultWinner {
-					points += 2
-					fmt.Println("Bon vainqueur parié(+2)")
+					points += 3
+					fmt.Println("Bon vainqueur parié(+3)")
 				} else {
 					fmt.Println("Mauvais vainqueur parié")
 				}
@@ -170,8 +171,12 @@ func PointPerBet() {
 				fmt.Println("Finish (bet):", FinishMethodBet)
 				fmt.Println("Finish (resulat):", ResultFinishMethod)
 				if FinishMethodBet == ResultFinishMethod && WinnerBet == ResultWinner {
-					points += 4
-					fmt.Println("Bon gagnant et bon finish parié(+4)")
+					points += 5
+					fmt.Println("Bon gagnant et bon finish parié(+5)")
+				}
+				if FinishMethodBet != ResultFinishMethod && WinnerBet == ResultWinner {
+					points += 2
+					fmt.Println("Bon gagnant mais mauvais type de victoire(+2)")
 				} else {
 					fmt.Println("Mauvais gagnant et/ou mauvais finish parié")
 				}
@@ -182,8 +187,16 @@ func PointPerBet() {
 				fmt.Println("-----------Début-BetTab-longeur-3-----------")
 				fmt.Println("Numéro du round (bet):", RoundFinishBet)
 				if RoundFinishBet == ResultRoundFinish && FinishMethodBet == ResultFinishMethod && WinnerBet == ResultWinner {
-					points += 8
-					fmt.Println("Bon gagnant bonne methode et bon round parié !!!!!!! (+8)")
+					points += 10
+					fmt.Println("Bon gagnant bonne methode et bon round parié !!!!!!! (+10)")
+				}
+				if RoundFinishBet != ResultRoundFinish && FinishMethodBet == ResultFinishMethod && WinnerBet == ResultWinner {
+					points += 2
+					fmt.Println("Bon gagnant bonne methode mais mauvais round !!!!!!! (+2)")
+				}
+				if RoundFinishBet != ResultRoundFinish && FinishMethodBet != ResultFinishMethod && WinnerBet == ResultWinner {
+					points += 1
+					fmt.Println("Bon gagnant mais mauvaise méthode et mauvais round !!!!!!! (+1)")
 				} else {
 					fmt.Println("Mauvais gagnant ou mauvaise methode ou mauvais round parié")
 				}
@@ -193,7 +206,6 @@ func PointPerBet() {
 		}
 		fmt.Println("Nombre de point", points)
 		fmt.Println("==========================================================")
-		// problème !!!!! faire un choix soit poussé que le chiffre en front dans round soit pousser round dans resultof bet pour comparaison
 		// à décommenter pour pushé les points
 		// database.DB.Model(&Bets[i]).UpdateColumn("PointPerBet", &points)
 

@@ -1,6 +1,6 @@
+import { IP } from '@env';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { IP } from '@env';
 import { useFocusEffect } from "@react-navigation/native";
 import {
   View,
