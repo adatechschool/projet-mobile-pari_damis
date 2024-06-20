@@ -1,5 +1,5 @@
-import { IP } from '@env';
 import React, { useEffect, useState } from "react";
+import { IP } from '@env';
 import axios from "axios";
 import { useFocusEffect } from "@react-navigation/native";
 import {
@@ -24,7 +24,7 @@ const MyGroupScreen = ({ navigation }) => {
         let requete = await axios.get(
           `http://${IP}:3001/user/groupsOfOneUser/${userId}`
         );
-        console.log(requete.data);
+        // console.log(requete.data);
         if (requete.data) setAllGroupsOfUser(requete.data.UserGroup);
       };
       requestGroup();

@@ -1,5 +1,5 @@
-import { IP } from '@env';
 import React, { useEffect, useState } from "react";
+import { IP } from '@env';
 import {
   View,
   Text,
@@ -32,7 +32,7 @@ const GroupDetail = ({ route }) => {
   };
   [];
 
-  console.log(group);
+  console.log("??",group);
 
   const inviteMember = async (GroupID, UserID) => {
     try {

@@ -1,4 +1,3 @@
-import { IP } from '@env';
 import {
   StyleSheet,
   Text,
@@ -7,6 +6,7 @@ import {
   View,
   Image,
 } from "react-native";
+import { IP } from '@env';
 import React, { useState, useEffect } from "react";
 import { Dimensions } from "react-native";
 import Fightersjson from "../allFighters.json";

@@ -72,7 +72,7 @@ export default function App() {
               {(props) => <MyTabs {...props} setUser={setUser} />}
             </Stack.Screen>
             <Stack.Screen name="MyTopTabs" options={{}}>
-              {(props) => <MyTopTabs {...props} />}
+              {(props) => <MyTopTabs {...props} user={user}/>}
             </Stack.Screen>
             <Stack.Screen name="CreateGroup" options={{}}>
               {(props) => <CreateGroup {...props} />}

@@ -1,5 +1,5 @@
-import { IP } from '@env';
 import React, { useState } from "react";
+import { IP } from '@env';
 import {
   View,
   Text,
@@ -12,18 +12,8 @@ import {
 import { useForm, Controller } from "react-hook-form";
 
 const CreateBet = ({ route, navigation, user }) => {
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     const userId = async () => {
-  //       const res =  await SecureStore.getItemAsync("user")
-  //       setUser(JSON.parse(res))
-  //     }
-  //     userId()
-  //   }, [])
-  // );
 
   const userId = user.user.ID;
-  // console.log(userId);
 
   const { control, handleSubmit } = useForm();
 

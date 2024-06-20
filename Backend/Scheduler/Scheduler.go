@@ -71,8 +71,9 @@ func Match() (string, error) {
 			matchcancelled := "Match cancelled"
 			resultofbet := models.ResultOfBet{
 				MatchCancelled: &matchcancelled,
+				MatchID:   summary.SportEvent.SportEventId,
 			}
-			database.DB.Where("Match_id = ?", summary.SportEvent.SportEventId).Find(&Bets)
+			database.DB.Where("Match_id = ? AND result_of_bet_id IS NULL", summary.SportEvent.SportEventId).Find(&Bets)
 			//appliqué un filter sur &bet qui selectionne touts les bets ou les resultofbet sont inexistants
 			for _, Bet := range Bets {
 				fmt.Printf("If bet cancelled exist show it:%v", Bet)
@@ -207,7 +208,7 @@ func PointPerBet() {
 		fmt.Println("Nombre de point", points)
 		fmt.Println("==========================================================")
 		// à décommenter pour pushé les points
-		// database.DB.Model(&Bets[i]).UpdateColumn("PointPerBet", &points)
+		database.DB.Model(&Bets[i]).UpdateColumn("PointPerBet", &points)
 
 	}
 

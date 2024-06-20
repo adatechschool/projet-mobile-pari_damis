@@ -1,4 +1,3 @@
-import { IP } from '@env';
 import {
   View,
   Text,
@@ -8,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
+import { IP } from '@env';
 import React, { useState } from "react";
 
 const CreateGroup = ({ navigation }) => {

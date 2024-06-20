@@ -67,7 +67,7 @@ const Match = ({ route, navigation }) => {
           setMatchs(allMatchs);
         });
       } catch (error) {
-        console.log("Error message", error);
+        // console.log("Error message", error);
       }
     }, [])
   );

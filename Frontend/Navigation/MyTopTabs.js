@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Match from "../components/Match"
 import Bet from "../components/Bet"
 import Classement from '../components/Classement';
-const MyTopTabs = ({route}) => {
+const MyTopTabs = ({route, user}) => {
     const Tab = createMaterialTopTabNavigator()
     const Stack = createNativeStackNavigator()
   return (
@@ -52,7 +52,7 @@ const MyTopTabs = ({route}) => {
      >
         {()=><Stack.Navigator >
      <Stack.Screen name={"Classement"} options={{ headerShown: false }}>
-       {(props)=><Classement {...props} />}
+       {(props)=><Classement {...props} route={route} user={user} />}
      </Stack.Screen>
      </Stack.Navigator>
       }

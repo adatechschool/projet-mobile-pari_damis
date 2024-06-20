@@ -4,6 +4,7 @@ import React from 'react'
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
 const GroupList = ({navigation}) => {
+  console.log("grp");
   return (
     <View style={styles.container}>
     <Text>GroupList</Text>
