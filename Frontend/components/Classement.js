@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { IP } from '@env';
 import React, { useState, useEffect } from 'react'
+import { IP } from '@env';
 
 const Classement = ({ route, user }) => {
   const [ranking, setRanking] = useState([]);
@@ -20,7 +20,6 @@ const Classement = ({ route, user }) => {
         const bets = json.message.Bets.map((el) => {
           return el
         });
-        // console.log(bets);
         // Calculer les points pour chaque utilisateur
         const userPoints = bets.reduce((acc, bet) => {
           const { UserID, PointPerBet } = bet;
@@ -30,7 +29,6 @@ const Classement = ({ route, user }) => {
           acc[UserID] += PointPerBet;
           return acc;
         }, {});
-
         // Convertir en tableau et trier par points
         const rankingArray = Object.keys(userPoints).map(userId => ({
           userId,

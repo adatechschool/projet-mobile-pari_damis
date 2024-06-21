@@ -7,6 +7,7 @@ import (
 
 	// // scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
 	// scrapping "github.com/adatechschool/projet-mobile-pari_damis/Scrapping"
+	helper "github.com/adatechschool/projet-mobile-pari_damis/helper"
 	scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
 	"github.com/adatechschool/projet-mobile-pari_damis/routes"
@@ -35,5 +36,7 @@ func main() {
 	routes.Routes(r)
 	scheduler.Match()
 	scheduler.PointPerBet()
+	fmt.Println("Monday of the current week:", helper.GetMondayOfCurrentWeek())
+	fmt.Println("Friday of the current week:", helper.GetFridayOfCurrentWeek())
 	r.Run("0.0.0.0:3001") //
 }

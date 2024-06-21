@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { IP } from '@env';
 import {
   View,
   Text,
@@ -9,6 +8,7 @@ import {
   Alert,
   Switch,
 } from "react-native";
+import { IP } from '@env';
 import { useForm, Controller } from "react-hook-form";
 
 const CreateBet = ({ route, navigation, user }) => {

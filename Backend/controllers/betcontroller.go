@@ -4,10 +4,12 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"fmt"
 
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
+	"github.com/adatechschool/projet-mobile-pari_damis/helper"
 	"github.com/adatechschool/projet-mobile-pari_damis/models"
 	"github.com/gin-gonic/gin"
 	"github.com/lib/pq"
@@ -21,6 +23,9 @@ func CreateBet(c *gin.Context) {
 	userIdStr := c.Param("UserID")
 	groupIdStr := c.Param("GroupID")
 	matchIdStr := c.Param("MatchID")
+	today := time.Date(2024, time.June, 17, 0, 0, 0, 0, time.UTC)
+	MondayOfWeek := helper.GetMondayOfCurrentWeek()
+	FridayOfWeek := helper.GetFridayOfCurrentWeek()
 
 	if len(strings.Trim(userIdStr, "")) == 0 || len(strings.Trim(groupIdStr, "")) == 0 || len(strings.Trim(matchIdStr, "")) == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -54,7 +59,14 @@ func CreateBet(c *gin.Context) {
 		UserID:  userId,
 		GroupID: groupId,
 		MatchID: matchIdStr,
+		TimeStart : MondayOfWeek,
+		TimeEnd : FridayOfWeek,
 	}
+
+	
+
+if today.Before(FridayOfWeek) && today.After(MondayOfWeek){
+   println(today.Before(FridayOfWeek) &&  today.After(MondayOfWeek))
 	result := database.DB.Create(&bet).Error
 	if result != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -67,6 +79,12 @@ func CreateBet(c *gin.Context) {
 		"message": "everything is ok",
 	})
 	return
+}else {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "it's to late",
+	})
+	return
+}
 }
 
 func GetBetsByUserId(c *gin.Context) {
