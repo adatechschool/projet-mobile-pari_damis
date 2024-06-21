@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IP } from "@env";
 import {
   View,
   Text,
@@ -8,11 +9,9 @@ import {
   Alert,
   Switch,
 } from "react-native";
-import { IP } from '@env';
 import { useForm, Controller } from "react-hook-form";
 
 const CreateBet = ({ route, navigation, user }) => {
-
   const userId = user.user.ID;
 
   const { control, handleSubmit } = useForm();
@@ -49,9 +48,7 @@ const CreateBet = ({ route, navigation, user }) => {
   const [finishSubmission, setFinishSubmission] = useState("");
   const [finishPoints, setFinishPoints] = useState("");
   const [roundNumber, setRoundNumber] = useState("");
-  const [finishRounds, setFinishRounds] = useState(
-    Array().fill()
-  );
+  const [finishRounds, setFinishRounds] = useState(Array().fill());
   console.log(finishRounds);
   const toggleSwitchKo = () => {
     setIsEnabledKo((previousState) => {
@@ -126,14 +123,22 @@ const CreateBet = ({ route, navigation, user }) => {
       </Text>
       <Text style={styles.firstBoxOfBet}>Winner Du Match</Text>
       <View style={styles.winners}>
-        <View style={winner === firstFigther ? styles.winnerButton : styles.normalButton}>
+        <View
+          style={
+            winner === firstFigther ? styles.winnerButton : styles.normalButton
+          }
+        >
           <Button
             title={firstFigther}
             color={winner === firstFigther ? "#ffffff" : "#ffffff"}
             onPress={() => setWinner(firstFigther)}
           />
         </View>
-        <View style={winner === secondFigther ? styles.winnerButton : styles.normalButton}>
+        <View
+          style={
+            winner === secondFigther ? styles.winnerButton : styles.normalButton
+          }
+        >
           <Button
             title={secondFigther}
             color={winner === secondFigther ? "#ffffff" : "#ffffff"}
@@ -146,36 +151,36 @@ const CreateBet = ({ route, navigation, user }) => {
           <Text style={styles.titleTypeWin}>{winner} gagnant par: </Text>
           <View>
             <View style={styles.victoryTypes}>
-            <View style={styles.koTko}>
-              <Text style={styles.koTkoTitle}>KoTko </Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "#FF4C4C" }}
-                thumbColor={isEnabledKo ? "red" : "#f4f3f4"}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitchKo}
-                value={isEnabledKo}
-              />
-            </View>
-            <View>
-              <Text style={styles.submission}>Soumission</Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "#FF4C4C" }}
-                thumbColor={isEnabledSubmission ? "red" : "#f4f3f4"}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitchSubmission}
-                value={isEnabledSubmission}
-              />
-            </View>
-            <View>
-              <Text style={styles.points}>Points</Text>
-              <Switch
-                trackColor={{ false: "#767577", true: "#FF4C4C" }}
-                thumbColor={isEnabledPoints ? "red" : "#f4f3f4"}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitchPoints}
-                value={isEnabledPoints}
-              />
-            </View>
+              <View style={styles.koTko}>
+                <Text style={styles.koTkoTitle}>KoTko </Text>
+                <Switch
+                  trackColor={{ false: "#767577", true: "#FF4C4C" }}
+                  thumbColor={isEnabledKo ? "red" : "#f4f3f4"}
+                  ios_backgroundColor="#3e3e3e"
+                  onValueChange={toggleSwitchKo}
+                  value={isEnabledKo}
+                />
+              </View>
+              <View>
+                <Text style={styles.submission}>Soumission</Text>
+                <Switch
+                  trackColor={{ false: "#767577", true: "#FF4C4C" }}
+                  thumbColor={isEnabledSubmission ? "red" : "#f4f3f4"}
+                  ios_backgroundColor="#3e3e3e"
+                  onValueChange={toggleSwitchSubmission}
+                  value={isEnabledSubmission}
+                />
+              </View>
+              <View>
+                <Text style={styles.points}>Points</Text>
+                <Switch
+                  trackColor={{ false: "#767577", true: "#FF4C4C" }}
+                  thumbColor={isEnabledPoints ? "red" : "#f4f3f4"}
+                  ios_backgroundColor="#3e3e3e"
+                  onValueChange={toggleSwitchPoints}
+                  value={isEnabledPoints}
+                />
+              </View>
             </View>
             <View style={styles.roundsWin}>
               {[...Array(matchMaxRound)].map((_, i) => (
@@ -198,59 +203,69 @@ const CreateBet = ({ route, navigation, user }) => {
                 const selectedRounds = finishRounds
                   .filter((round) => round !== "")
                   .join(", ");
-                const selectedFinish = [finishKo, finishSubmission, finishPoints]
+                const selectedFinish = [
+                  finishKo,
+                  finishSubmission,
+                  finishPoints,
+                ]
                   .filter((finish) => finish !== "")
                   .join(", ");
                 const finish = [
                   selectedWinner,
                   selectedFinish,
                   selectedRounds,
-                ].filter(value => value !== "");
-                console.log("finish :",finish);
-                console.log("length",finish.length);
+                ].filter((value) => value !== "");
+                console.log("finish :", finish);
+                console.log("length", finish.length);
                 if (finish.length === 3) {
                   const finishArray = finish
-                  .toString()
-                  .split(",")
-                  .map((value) => value.trim());
+                    .toString()
+                    .split(",")
+                    .map((value) => value.trim());
                   // console.log("Mon array",finishArray);
                   const nonEmptyFinishArray = finishArray.filter(
                     (value) => value !== ""
-                    );
+                  );
                   // console.log(
                   //   "finishArray après le split :",
                   //   nonEmptyFinishArray.length
                   // );
                   if (nonEmptyFinishArray.length === 2) {
-                    const [selectedWinnerWithoutRounds, selectedFinishWithoutRounds] = nonEmptyFinishArray;
+                    const [
+                      selectedWinnerWithoutRounds,
+                      selectedFinishWithoutRounds,
+                    ] = nonEmptyFinishArray;
                     setWinnerWithoutRounds(selectedWinnerWithoutRounds);
                     setFinishWithoutRounds(selectedFinishWithoutRounds);
                   }
-                  }
-                  if(finish.length > 0){
-                    try {
-                      const apiUrl = `http://${IP}:3001/bet/${userId}/${groupID}/${sportEventId}`;
-                      const res = await fetch(apiUrl, {
-                        method: "POST",
-                        headers: {
-                          "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                          BetTab: finish,
-                        }),
-                      });
-                      if (res.status === 200) {
-                        Alert.alert("Pari validé avec succès");
-                        navigation.navigate("Match");
-                      } else {
-                        Alert.alert("Erreur lors de la validation du pari");
-                      }
-                      console.log("finish : ", finish);
-                    } catch (error) {
-                      console.log(error.message);
+                }
+                if (finish.length > 0) {
+                  try {
+                    const apiUrl = `http://${IP}:3001/bet/${userId}/${groupID}/${sportEventId}`;
+                    const res = await fetch(apiUrl, {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({
+                        BetTab: finish,
+                      }),
+                    });
+                    if (res.status === 200) {
+                      Alert.alert("Pari validé avec succès");
+                      navigation.navigate("Match");
                     }
+                    else if (res.status === 412) {
+                      Alert.alert("Désolé Pari cloturé");
+                    } else {
+                      Alert.alert("Erreur lors de la validation du pari");
+                    }
+                    console.log("finish : ", finish);
+                  } catch (error) {
+                    console.log(error.message);
                   }
-                  }}
+                }
+              }}
             />
           </View>
         </>
@@ -276,7 +291,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     color: "white",
   },
-  victoryTypes:{
+  victoryTypes: {
     flexDirection: "row",
     justifyContent: "center",
     marginLeft: 15,
@@ -290,7 +305,7 @@ const styles = StyleSheet.create({
   submission: {
     color: "white",
   },
-  points:{
+  points: {
     color: "white",
   },
   firstBoxOfBet: {
@@ -302,7 +317,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // justifyContent: "space-between",
   },
-  normalButton:{
+  normalButton: {
     flexDirection: "row",
     color: "white",
     backgroundColor: "red",
@@ -318,7 +333,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     borderRadius: 25,
   },
-  titleTypeWin:{
+  titleTypeWin: {
     color: "white",
   },
   roundsWin: {

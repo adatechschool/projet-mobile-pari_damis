@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { IP } from '@env';
 import axios from "axios";
 import { useFocusEffect } from "@react-navigation/native";
-import { IP } from '@env';
 import {
   View,
   Text,
