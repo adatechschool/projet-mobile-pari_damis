@@ -29,6 +29,6 @@ func GetFridayOfCurrentWeek() time.Time {
 		diff = 5 - dayOfWeek + 7
 	}
 	friday := today.AddDate(0, 0, diff)
-	friday = time.Date(friday.Year(), friday.Month(), friday.Day(), 23, 59, 0, 0, friday.Location())
+	friday = time.Date(friday.Year(), friday.Month(), friday.Day(), 23, 59, 59, 59, friday.Location())
 	return friday
 }

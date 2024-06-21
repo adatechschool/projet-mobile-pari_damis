@@ -23,7 +23,8 @@ func CreateBet(c *gin.Context) {
 	userIdStr := c.Param("UserID")
 	groupIdStr := c.Param("GroupID")
 	matchIdStr := c.Param("MatchID")
-	today := time.Date(2024, time.June, 17, 0, 0, 0, 0, time.UTC)
+	// today := time.Date(2024, time.June, 16, 23, 59, 59, 1, time.Local)
+	today := time.Now()
 	MondayOfWeek := helper.GetMondayOfCurrentWeek()
 	FridayOfWeek := helper.GetFridayOfCurrentWeek()
 
@@ -55,36 +56,33 @@ func CreateBet(c *gin.Context) {
 	}
 	bet := models.Bet{
 
-		BetTab:  &betTab,
-		UserID:  userId,
-		GroupID: groupId,
-		MatchID: matchIdStr,
-		TimeStart : MondayOfWeek,
-		TimeEnd : FridayOfWeek,
+		BetTab:    &betTab,
+		UserID:    userId,
+		GroupID:   groupId,
+		MatchID:   matchIdStr,
+		TimeStart: MondayOfWeek,
+		TimeEnd:   FridayOfWeek,
 	}
 
-	
-
-if today.Before(FridayOfWeek) && today.After(MondayOfWeek){
-   println(today.Before(FridayOfWeek) &&  today.After(MondayOfWeek))
-	result := database.DB.Create(&bet).Error
-	if result != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": result.Error(),
+	if today.Before(FridayOfWeek) && today.After(MondayOfWeek) {
+		println(today.Before(FridayOfWeek) && today.After(MondayOfWeek))
+		result := database.DB.Create(&bet).Error
+		if result != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": result.Error(),
+			})
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"message": "everything is ok",
+		})
+		return
+	} else {
+		c.JSON(http.StatusPreconditionFailed, gin.H{
+			"message": "it's to late",
 		})
 		return
 	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"message": "everything is ok",
-	})
-	return
-}else {
-	c.JSON(http.StatusOK, gin.H{
-		"message": "it's to late",
-	})
-	return
-}
 }
 
 func GetBetsByUserId(c *gin.Context) {
@@ -118,6 +116,44 @@ func GetBetsOfUserByGroupID(c *gin.Context) {
 
 	c.JSON(200, gin.H{
 		"message": Bet,
+	})
+}
+
+func GetBetsOfUserByGroupIDOfThisWeek(c *gin.Context) {
+	groupId := c.Param("GroupID")
+	userId := c.Param("UserID")
+	date := helper.GetMondayOfCurrentWeek()
+
+	var Bets []models.Bet
+	database.DB.Where("Group_ID = ?", groupId).Where("User_ID = ?", userId).Where("Time_Start = ?", date).Find(&Bets)
+	c.JSON(200, gin.H{
+		"message": Bets,
+	})
+}
+
+func GetBetsOfUserByGroupIDByDate(c *gin.Context) {
+	groupId := c.Param("GroupID")
+	userId := c.Param("UserID")
+	dateInParam := c.Param("DateOfMondayOfSearchWeek")
+	parsedate := strings.Split(dateInParam, "-")
+	year, err := strconv.Atoi(parsedate[0])
+	if err != nil {
+		fmt.Println(err)
+	}
+	month, err := strconv.Atoi(parsedate[1])
+	if err != nil {
+		fmt.Println(err)
+	}
+	day, err := strconv.Atoi(parsedate[2])
+	if err != nil {
+		fmt.Println(err)
+	}
+	date := time.Date(year, time.Month(month), day, 00, 00, 00, 00, time.Local)
+
+	var Bets []models.Bet
+	database.DB.Where("Group_ID = ?", groupId).Where("User_ID = ?", userId).Where("Time_Start = ?", date).Find(&Bets)
+	c.JSON(200, gin.H{
+		"message": Bets,
 	})
 }
 
