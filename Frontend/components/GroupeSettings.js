@@ -8,72 +8,65 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 
-const GroupDetail = ({ route }) => {
-  const userId = 2;
+const GroupeSettings = ({ route, user }) => {
+  const userId = user.user.ID;
   const group = route.params;
-
+  const groupId = route.params.ID;
   const [groups, setGroups] = useState([]);
   const [searchedMember, setSearchedMember] = useState("");
   const [inviteeName, setInviteeName] = useState("");
   const [allUsers, setAllUsers] = useState("");
   const [GroupID, setGroupId] = useState("");
+  const [userToAddId, setUserToAddId] = useState("");
 
-  const useEffect = async () => {
-    const response = await fetch(`http://172.20.10.3:3001/user/allUsers`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+  useEffect(() => {
+    const fetchAllUsers = () => {
+      fetch(`http://${IP}:3001/user/allUsers`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then(response => response.json())
+      .then(json => setAllUsers(json.message));
+    };
+    
+    fetchAllUsers();
+  },[]);
+
+
+  const searchMember = () => {
+    allUsers.forEach((user) => {
+      if (user.Firstname == searchedMember) {
+        inviteMember(user.ID);
+        return user.id;
+      }
     });
-
-    setAllUsers = await response.json();
   };
-  [];
 
-  console.log("??",group);
-
-  const inviteMember = async (GroupID, UserID) => {
+  const inviteMember = async (userToAddId) => {
     try {
       const response = await fetch(
-        `http://172.20.10.3:3001/group/addUserToGroup/${GroupID}/${UserID}`,
+        `http://${IP}:3001/group/addUserToGroup/${groupId}/${userToAddId}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            Firstname: searchedMember,
-            Pseudo: inviteeName,
-          }),
         }
       );
-
-      const searchMember = () => {
-        allUsers.forEach((element) => {
-          if (element == searchedMember) {
-            return element.id;
-          }
-        });
-      };
 
       if (!response.ok) {
         throw new Error(
           `Erreur lors de l'invitation du membre (statut ${response.status})`
         );
       }
-
-      const updatedGroups = groupData.map((group) =>
-        group.id === GroupID
-          ? {
-              ...group,
-              members: [...group.members, { id: UserID, Pseudo: inviteeName }],
-            }
-          : group
-      );
-
-      setGroups(updatedGroups);
+      if(response.status === 200){
+        Alert.alert("User bien ajouté au groupe");
+      }
       setInviteeName("");
       setSearchedMember("");
     } catch (error) {
@@ -150,7 +143,7 @@ const GroupDetail = ({ route }) => {
       />
       <TouchableOpacity
         style={{ bottom: 100, fontSize: 100 }}
-        onPress={() => inviteMember(GroupID, UserID)}
+        onPress={() => searchMember()}
       >
         <Text style={{ paddingTop: 10, fontSize: 20 }}>Inviter le membre</Text>
       </TouchableOpacity>
@@ -158,5 +151,5 @@ const GroupDetail = ({ route }) => {
   );
 };
 
-export default GroupDetail;
+export default GroupeSettings;
 const styles = StyleSheet.create({});

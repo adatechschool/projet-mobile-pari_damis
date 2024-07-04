@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Match from "../components/Match"
 import Bet from "../components/Bet"
 import Classement from '../components/Classement';
+import GroupeSettings from '../components/GroupeSettings';
 const MyTopTabs = ({route, user}) => {
     const Tab = createMaterialTopTabNavigator()
     const Stack = createNativeStackNavigator()
@@ -53,6 +54,19 @@ const MyTopTabs = ({route, user}) => {
         {()=><Stack.Navigator >
      <Stack.Screen name={"Classement"} options={{ headerShown: false }}>
        {(props)=><Classement {...props} route={route} user={user} />}
+     </Stack.Screen>
+     </Stack.Navigator>
+      }
+     </Tab.Screen>
+     <Tab.Screen
+      name={"bottomNavGroupeSettings"}
+      options={{
+        tabBarLabel: "GroupeSettings",
+      }}
+     >
+        {()=><Stack.Navigator >
+     <Stack.Screen name={"GroupeSettings"} options={{ headerShown: false }}>
+       {(props)=><GroupeSettings {...props} route={route} user={user}/>}
      </Stack.Screen>
      </Stack.Navigator>
       }
