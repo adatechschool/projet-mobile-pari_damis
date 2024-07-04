@@ -16,21 +16,26 @@ import { useFocusEffect } from "@react-navigation/native";
 
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
-const Bet = () => {
+const Bet = ({route, user}) => {
   const [renderFlag, setRenderFlag] = useState(false);
   const UfcSilhouetteRightStance =
-    "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-right-silhouette.png";
+  "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-right-silhouette.png";
   const UfcSilhouetteLeftStance =
-    "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-left-silhouette.png";
+  "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-left-silhouette.png";
   const [matchIdOfUser, setMatchId] = useState(null);
   const [matchIdOfEventByDate, setMatchIdOfEventByDate] = useState(null);
   const [fightersName, setFightersName] = useState([]);
+  const groupId = route.params.ID
+  const userId = user.user.ID
+  
 
-  useEffect(() => {
-    const getBetOfUserByGroupId = async () => {
+
+  useFocusEffect(
+    React.useCallback(() => {
+    const getBetOfUserByGroupId  = async () => {
       try {
         const response = await fetch(
-          `http://${IP}:3001/bet/betOfUserByGroup/1/1`,
+          `http://${IP}:3001/bet/betOfUserByGroupOfThisWeek/${groupId}/${userId}/`,
           {
             method: "GET",
             headers: {
@@ -46,6 +51,8 @@ const Bet = () => {
         console.log("Error message", error);
       }
     };
+
+
     function strNoAccent(str) {
       return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     }
@@ -53,7 +60,8 @@ const Bet = () => {
     const getIdOfMatchByEventDate = async () => {
       try {
         const response = await fetch(
-          `https://api.sportradar.com/mma/trial/v2/fr/schedules/2024-02-04/summaries.json?api_key=VI4XTB8j7q7bqM2Bpfv990xVtuA9Tx47b7fC9Nve`,
+          //faudra toujours accorder levent a la bonne date de la semaine pour faire la comparaison avec les paris de la semaine 
+          `https://api.sportradar.com/mma/trial/v2/fr/schedules/2024-06-30/summaries.json?api_key=VI4XTB8j7q7bqM2Bpfv990xVtuA9Tx47b7fC9Nve`,
           {
             method: "GET",
             headers: {
@@ -97,7 +105,9 @@ const Bet = () => {
     if (renderFlag) {
       getFightersNameOfBet();
     }
-  }, [renderFlag]);
+  }, [renderFlag]))
+
+
 
   // console.log(fightersName);
   // const handeTextClick = () => {};

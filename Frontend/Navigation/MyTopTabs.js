@@ -40,7 +40,7 @@ const MyTopTabs = ({route, user}) => {
      >
         {()=><Stack.Navigator >
      <Stack.Screen name={"Bet"} options={{ headerShown: false }}>
-       {(props)=><Bet {...props} />}
+       {(props)=><Bet {...props} route={route} user={user} />}
      </Stack.Screen>
      </Stack.Navigator>
       }
