@@ -44,7 +44,7 @@ type Response struct {
 
 func Match() (string, error) {
 
-	resp, err := http.Get("https://api.sportradar.com/mma/trial/v2/fr/schedules/2024-02-04/summaries.json?api_key=NJLPJJ0QzW9CSb26DmAE9a0j54ce8Kkq46d84rDl")
+	resp, err := http.Get("https://api.sportradar.com/mma/trial/v2/fr/schedules/2024-02-04/summaries.json?api_key=VI4XTB8j7q7bqM2Bpfv990xVtuA9Tx47b7fC9Nve")
 	if err != nil {
 		log.Fatalln(err)
 		return "", err

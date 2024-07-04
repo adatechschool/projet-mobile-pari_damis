@@ -8,7 +8,7 @@ import Search from "../components/Search"
 import GroupeList from "../components/GroupeList"
 import Account from "../components/Account"
 
-const MyTabs = ({setUser}) => {
+const MyTabs = ({setUser, user}) => {
     const Tab = createBottomTabNavigator()
     const Stack = createNativeStackNavigator()
   return (
@@ -72,13 +72,13 @@ const MyTabs = ({setUser}) => {
         <Tab.Screen
       name={"bottomNavGroup"}
       options={{
-        tabBarLabel: "GroupList",
+        tabBarLabel: "Groupe(s)",
         tabBarIcon: ({ color, size }) => (<MaterialIcons name="group" color={color} size={size} />)
       }}
      >
         {()=><Stack.Navigator >
      <Stack.Screen name={"Groupes"} options={{ headerShown: false }}>
-       {(props)=><GroupeList {...props} />}
+       {(props)=><GroupeList {...props} user={user} />}
      </Stack.Screen>
      </Stack.Navigator>
       }

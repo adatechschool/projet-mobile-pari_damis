@@ -6,6 +6,7 @@ const Classement = ({ route, user }) => {
   const [ranking, setRanking] = useState([]);
   const groupId = route.params.ID;
   const userId = user.user.Firstname;
+  console.log("test ip 3", IP);
 
   useEffect(() => {
     const fetchBets = async () => {

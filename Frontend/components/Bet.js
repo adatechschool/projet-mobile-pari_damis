@@ -53,7 +53,7 @@ const Bet = () => {
     const getIdOfMatchByEventDate = async () => {
       try {
         const response = await fetch(
-          `https://api.sportradar.com/mma/trial/v2/fr/schedules/2024-02-04/summaries.json?api_key=nrmu6fxvt5e5bzdzhx2845fq`,
+          `https://api.sportradar.com/mma/trial/v2/fr/schedules/2024-02-04/summaries.json?api_key=VI4XTB8j7q7bqM2Bpfv990xVtuA9Tx47b7fC9Nve`,
           {
             method: "GET",
             headers: {

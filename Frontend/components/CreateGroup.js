@@ -6,14 +6,15 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 import { IP } from '@env';
 import React, { useState } from "react";
 
-const CreateGroup = ({ navigation }) => {
+const CreateGroup = ({ navigation, user }) => {
   const [groupName, setGroupName] = useState("");
   const [numberOfMembers, setNumberOfMembers] = useState("");
-  const userId = 2;
+  const userId = user.user.ID;
 
   const createGroupAndNavigate = async () => {
     const membersCount = parseInt(numberOfMembers, 10);
@@ -42,6 +43,10 @@ const CreateGroup = ({ navigation }) => {
         throw new Error(
           `Erreur lors de la création du groupe (statut ${response.status})`
         );
+      }
+      if (response.status === 200) {
+        Alert.alert("Groupe créer avec succès");
+        navigation.navigate("Groupes");
       }
 
       const newGroup = await response.json();

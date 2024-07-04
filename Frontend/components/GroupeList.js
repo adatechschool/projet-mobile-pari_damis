@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { IP } from '@env';
 import axios from "axios";
+import { IP } from '@env';
 import { useFocusEffect } from "@react-navigation/native";
 import {
   View,
@@ -14,15 +14,17 @@ import {
 } from "react-native";
 
 
-const MyGroupScreen = ({ navigation }) => {
+const MyGroupScreen = ({ navigation, user }) => {
+  console.log("test ip 2", IP);
+  const userID = user.user.ID
+  console.log(userID);
   const [allgroupsOfUser, setAllGroupsOfUser] = useState([]);
-  const userId = 2;
 
   useFocusEffect(
     React.useCallback(() => {
       const requestGroup = async () => {
         let requete = await axios.get(
-          `http://${IP}:3001/user/groupsOfOneUser/${userId}`
+          `http://${IP}:3001/user/groupsOfOneUser/${userID}`
         );
         // console.log(requete.data);
         if (requete.data) setAllGroupsOfUser(requete.data.UserGroup);

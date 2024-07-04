@@ -18,7 +18,8 @@ import {
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
 const Signup = ({ navigation }) => {
-  
+  console.log("test ip", IP);
+
   const formik = useFormik({
     initialValues: {
       Firstname: "",
