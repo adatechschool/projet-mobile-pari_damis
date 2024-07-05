@@ -11,7 +11,10 @@ import {
   Alert,
 } from "react-native";
 
-const GroupeSettings = ({ route, user }) => {
+
+
+const GroupeSettings = ({ navigation,route, user }) => {
+  const creatorId = route.params.CreatorId;
   const userId = user.user.ID;
   const group = route.params;
   const groupId = route.params.ID;
@@ -19,10 +22,25 @@ const GroupeSettings = ({ route, user }) => {
   const [searchedMember, setSearchedMember] = useState("");
   const [inviteeName, setInviteeName] = useState("");
   const [allUsers, setAllUsers] = useState("");
-  const [GroupID, setGroupId] = useState("");
-  const [userToAddId, setUserToAddId] = useState("");
+  const [usersOfOneGroup, setUsersOfOneGroup] = useState("");
+
+  const isItCreator = userId == creatorId;
+
+  console.log("Creator ???",isItCreator);
+  console.log("creator id", creatorId);
+  console.log("userid", userId);
 
   useEffect(() => {
+    const fetchUsersOfGroup = () =>{
+      fetch(`http://${IP}:3001/group/usersOfOneGroup/${groupId}`,{
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then(response => response.json())
+      .then(json => setUsersOfOneGroup(json.message.users))
+    } 
     const fetchAllUsers = () => {
       fetch(`http://${IP}:3001/user/allUsers`, {
         method: "GET",
@@ -33,15 +51,19 @@ const GroupeSettings = ({ route, user }) => {
       .then(response => response.json())
       .then(json => setAllUsers(json.message));
     };
-    
+    fetchUsersOfGroup()
     fetchAllUsers();
   },[]);
 
+  console.log('userofgroup', usersOfOneGroup);
 
   const searchMember = () => {
     allUsers.forEach((user) => {
-      if (user.Firstname == searchedMember) {
+      if (user.Pseudo == searchedMember) {
         inviteMember(user.ID);
+        setUsersOfOneGroup((previous) => [
+          ...previous, user
+        ])
         return user.id;
       }
     });
@@ -74,12 +96,11 @@ const GroupeSettings = ({ route, user }) => {
     }
   };
 
-  const deleteGroup = async (groupDelete) => {
+  const deleteGroup = async () => {
     try {
-      console.log("groupDelete avant la requête :", groupDelete);
-
+      console.log("id du groupe qu'on supprime", groupId);
       const response = await fetch(
-        `http://172.20.10.3:3001/group/deleteOneGroup/${groupDelete}/${userId}`,
+        `http://${IP}:3001/group/deleteOneGroup/${groupId}/${creatorId}`,
         {
           method: "DELETE",
           headers: {
@@ -87,13 +108,9 @@ const GroupeSettings = ({ route, user }) => {
           },
         }
       );
-
-      console.log("Réponse du serveur:", response.status);
-
-      if (!response.ok) {
-        throw new Error(
-          `Erreur lors de la suppression du groupe (statut ${response.status})`
-        );
+      if(response.status === 200){
+        Alert.alert("Groupe supprimé")
+        navigation.navigate("Groupes");
       }
     } catch (error) {
       console.error("Erreur lors de la suppression du groupe", error);
@@ -102,52 +119,69 @@ const GroupeSettings = ({ route, user }) => {
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text style={{ fontSize: 20, textAlign: "center", top: 50 }}>
-        Nom du groupe
-      </Text>
-      <Button title="Supprimer" onPress={() => deleteGroup(group.ID)} />
-
-      <FlatList
-        data={groups}
-        renderItem={({ item }) => (
-          <View>
-            <Text>Nombre de membres : {item.LimitMembers}</Text>
-            <Text>Membres :</Text>
-            <FlatList
-              data={item.Users}
-              keyExtractor={(user) => user.id.toString()}
-              renderItem={({ item: user }) => (
-                <View>
-                  <Text>{user.Pseudo}</Text>
-                </View>
-              )}
-            />
-          </View>
-        )}
+    {isItCreator && (
+      <View>
+        <Text style={{ fontSize: 20, textAlign: "center", top: 350 }}>
+          Nom du groupe
+        </Text>
+        <Button title="Supprimer" onPress={() => deleteGroup(group.ID)} />
+  
+        <FlatList
+          data={groups}
+          renderItem={({ item }) => (
+            <View>
+              <Text>Nombre de membres : {item.LimitMembers}</Text>
+              <Text>Membres :</Text>
+              <FlatList
+                data={item.Users}
+                keyExtractor={(user) => user.id.toString()}
+                renderItem={({ item: user }) => (
+                  <View>
+                    <Text>{user.Pseudo}</Text>
+                  </View>
+                )}
+              />
+            </View>
+          )}
+        />
+  
+        <Text style={{ bottom: 200, fontSize: 20 }}>
+          Rechercher un membre et l'inviter :
+        </Text>
+        <TextInput
+          style={{ bottom: 200, fontSize: 15, paddingTop: 10 }}
+          placeholder="Pseudo du membre à ajouté"
+          value={searchedMember}
+          onChangeText={setSearchedMember}
+        />
+        <TextInput
+          style={{ bottom: 200, fontSize: 15 }}
+          placeholder="Nom du membre à inviter"
+          value={inviteeName}
+          onChangeText={setInviteeName}
+        />
+        <TouchableOpacity
+          style={{ bottom: 150, fontSize: 100 }}
+          onPress={() => searchMember()}
+        >
+          <Text style={{ paddingTop: 10, fontSize: 20 }}>Inviter le membre</Text>
+        </TouchableOpacity>
+      </View>
+)}
+  {<View>
+    <FlatList
+      data={usersOfOneGroup}
+      keyExtractor={(user) => user.ID.toString()}
+      renderItem={({item: user}) => (
+        <View>
+          <Text>
+            {user.Pseudo}
+          </Text>
+        </View>
+      )}
       />
-
-      <Text style={{ bottom: 100, fontSize: 20 }}>
-        Rechercher un membre et l'inviter :
-      </Text>
-      <TextInput
-        style={{ bottom: 100, fontSize: 15, paddingTop: 10 }}
-        placeholder="Nom du membre à rechercher"
-        value={searchedMember}
-        onChangeText={setSearchedMember}
-      />
-      <TextInput
-        style={{ bottom: 100, fontSize: 15 }}
-        placeholder="Nom du membre à inviter"
-        value={inviteeName}
-        onChangeText={setInviteeName}
-      />
-      <TouchableOpacity
-        style={{ bottom: 100, fontSize: 100 }}
-        onPress={() => searchMember()}
-      >
-        <Text style={{ paddingTop: 10, fontSize: 20 }}>Inviter le membre</Text>
-      </TouchableOpacity>
-    </View>
+    </View>}
+  </View> 
   );
 };
 
