@@ -116,11 +116,11 @@ func UpdateGroup(c *gin.Context) {
 
 func DeleteOneGroup(c *gin.Context) {
 	groupId := c.Param("GroupID")
-	userId := c.Param("UserID")
+	creatorId := c.Param("CreatorID")
 	var Group models.Group
 
 	database.DB.First(&Group, groupId)
-	if Group.CreatorId == userId {
+	if Group.CreatorId == creatorId  {
 		database.DB.Delete(&Group, groupId)
 		c.JSON(200, gin.H{
 			"message": "Group Deleted",
