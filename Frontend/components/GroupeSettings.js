@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
+import SearchFilterUser from './Searchfilteruser';
 
 
 
@@ -21,8 +22,8 @@ const GroupeSettings = ({ navigation,route, user }) => {
   const [groups, setGroups] = useState([]);
   const [searchedMember, setSearchedMember] = useState("");
   const [inviteeName, setInviteeName] = useState("");
-  const [allUsers, setAllUsers] = useState("");
-  const [usersOfOneGroup, setUsersOfOneGroup] = useState("");
+  const [allUsers, setAllUsers] = useState([]);
+  const [usersOfOneGroup, setUsersOfOneGroup] = useState([]);
 
   const isItCreator = userId == creatorId;
 
@@ -55,18 +56,20 @@ const GroupeSettings = ({ navigation,route, user }) => {
     fetchAllUsers();
   },[]);
 
-  console.log('userofgroup', usersOfOneGroup);
+
+  const filteredUsers = allUsers.filter(
+    (user) => !usersOfOneGroup.some((groupUser) => groupUser.ID === user.ID)
+  );
 
   const searchMember = () => {
-    allUsers.forEach((user) => {
-      if (user.Pseudo == searchedMember) {
-        inviteMember(user.ID);
-        setUsersOfOneGroup((previous) => [
-          ...previous, user
-        ])
-        return user.id;
-      }
-    });
+    const foundUser = filteredUsers.find((user) => user.Pseudo.toLowerCase() === searchedMember.toLowerCase());
+    if (foundUser) {
+      inviteMember(foundUser.ID);
+      setUsersOfOneGroup((previous) => [...previous, foundUser]);
+      setSearchedMember("");
+    } else {
+      Alert.alert("Utilisateur non trouvé");
+    }
   };
 
   const inviteMember = async (userToAddId) => {
@@ -118,10 +121,10 @@ const GroupeSettings = ({ navigation,route, user }) => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View>
     {isItCreator && (
-      <View>
-        <Text style={{ fontSize: 20, textAlign: "center", top: 350 }}>
+      <View style={{marginTop:20}}>
+        <Text style={{ fontSize: 20, textAlign: "center"}}>
           Nom du groupe
         </Text>
         <Button title="Supprimer" onPress={() => deleteGroup(group.ID)} />
@@ -145,30 +148,26 @@ const GroupeSettings = ({ navigation,route, user }) => {
           )}
         />
   
-        <Text style={{ bottom: 200, fontSize: 20 }}>
+        <Text style={{ marginTop:20,fontSize: 20 }}>
           Rechercher un membre et l'inviter :
         </Text>
         <TextInput
-          style={{ bottom: 200, fontSize: 15, paddingTop: 10 }}
+          style={{ bottom:20, fontSize: 15, paddingTop: 50 }}
           placeholder="Pseudo du membre à ajouté"
           value={searchedMember}
           onChangeText={setSearchedMember}
         />
-        <TextInput
-          style={{ bottom: 200, fontSize: 15 }}
-          placeholder="Nom du membre à inviter"
-          value={inviteeName}
-          onChangeText={setInviteeName}
-        />
+        <SearchFilterUser data={filteredUsers} input={searchedMember} setInput={setSearchedMember}/>
         <TouchableOpacity
-          style={{ bottom: 150, fontSize: 100 }}
+          style={{ bottom: 15, fontSize: 100 }}
           onPress={() => searchMember()}
         >
           <Text style={{ paddingTop: 10, fontSize: 20 }}>Inviter le membre</Text>
         </TouchableOpacity>
       </View>
 )}
-  {<View>
+<View>
+  {
     <FlatList
       data={usersOfOneGroup}
       keyExtractor={(user) => user.ID.toString()}
@@ -180,7 +179,8 @@ const GroupeSettings = ({ navigation,route, user }) => {
         </View>
       )}
       />
-    </View>}
+    }
+    </View>
   </View> 
   );
 };
