@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"fmt"
+	// "fmt"
 	"net/http"
 	"os"
 	"time"
@@ -149,10 +149,7 @@ func ShowGroupsOfOneUser(c *gin.Context) {
 
 	database.DB.Preload("Groups").First(&User, userId)
 
-	fmt.Println(User)
-
 	c.JSON(200, gin.H{
-		"message": User,
 		"UserGroup": User.Groups,
 	})
 }

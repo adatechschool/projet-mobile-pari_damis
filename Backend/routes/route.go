@@ -42,8 +42,10 @@ func Routes(route *gin.Engine) {
 	group.PUT("/updateGroup/:GroupID", controllers.UpdateGroup)
 	group.GET("/oneGroup/:GroupID", controllers.OneGroup)
 	group.DELETE("/deleteOneGroup/:GroupID/:CreatorID", controllers.DeleteOneGroup)
+	group.PUT("/addUserToGroupByCreatorId/:GroupID/:UserID/:CreatorID", controllers.AddUserToGroupByCreatorId)
 	//relation User
 	group.GET("/usersOfOneGroup/:GroupID", controllers.ShowUsersOfOneGroup)
+	group.DELETE("/deleteUserOfGroupByCreatorId/:GroupID/:UserID/:CreatorID", controllers.DeleteUserOfGroupByCreatorId)
 
 	bet := route.Group("/bet")
 

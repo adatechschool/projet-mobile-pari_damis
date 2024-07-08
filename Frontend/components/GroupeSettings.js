@@ -11,11 +11,12 @@ import {
   Alert,
 } from "react-native";
 import SearchFilterUser from './Searchfilteruser';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 
 const GroupeSettings = ({ navigation,route, user }) => {
-  const creatorId = route.params.CreatorId;
+  const creatorIdOfGroup = route.params.CreatorId;
   const userId = user.user.ID;
   const group = route.params;
   const groupId = route.params.ID;
@@ -25,11 +26,13 @@ const GroupeSettings = ({ navigation,route, user }) => {
   const [allUsers, setAllUsers] = useState([]);
   const [usersOfOneGroup, setUsersOfOneGroup] = useState([]);
 
-  const isItCreator = userId == creatorId;
+  const isItCreator = userId == creatorIdOfGroup;
+  console.log("test creator", group.CreatorId);
 
   console.log("Creator ???",isItCreator);
-  console.log("creator id", creatorId);
+  console.log("creator id", creatorIdOfGroup);
   console.log("userid", userId);
+  console.log(group);
 
   useEffect(() => {
     const fetchUsersOfGroup = () =>{
@@ -75,7 +78,7 @@ const GroupeSettings = ({ navigation,route, user }) => {
   const inviteMember = async (userToAddId) => {
     try {
       const response = await fetch(
-        `http://${IP}:3001/group/addUserToGroup/${groupId}/${userToAddId}`,
+        `http://${IP}:3001/group/addUserToGroupByCreatorId/${groupId}/${userToAddId}/${userId}`,
         {
           method: "PUT",
           headers: {
@@ -99,33 +102,82 @@ const GroupeSettings = ({ navigation,route, user }) => {
     }
   };
 
-  const deleteGroup = async () => {
-    try {
-      console.log("id du groupe qu'on supprime", groupId);
-      const response = await fetch(
-        `http://${IP}:3001/group/deleteOneGroup/${groupId}/${creatorId}`,
+  const deleteGroup = () => {
+      const userResponse = Alert.alert("Avertissement", "Voulez vous vraiment supprimer ce groupe ?",[
         {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
+          text: 'not ok',
+          onPress: () => {
+            Alert.alert("Suppression de groupe annulé");
           },
-        }
-      );
-      if(response.status === 200){
-        Alert.alert("Groupe supprimé")
-        navigation.navigate("Groupes");
-      }
-    } catch (error) {
-      console.error("Erreur lors de la suppression du groupe", error);
-    }
+        },
+        {
+          text: 'ok',
+          onPress: async () => {
+            try {
+              console.log("alert ",userResponse);
+              console.log("id du groupe qu'on supprime", groupId);
+              const response = await fetch(`http://${IP}:3001/group/deleteOneGroup/${groupId}/${userId}`,{
+                method: "DELETE",
+                headers: {
+                "Content-Type": "application/json",
+                },
+              }
+              );
+              if(response.status === 200){
+              Alert.alert("Groupe supprimé")
+              navigation.navigate("Groupes");
+              }
+            } catch (error) {
+              console.error("Erreur lors de la suppression du groupe", error);
+            }
+          }
+        },
+      ],
+    )
   };
+
+  const deleteUserOfGroup = async (userToDelete) => {
+      const userResponse = Alert.alert("Avertissement", "Voulez vous vraiment supprimer cet utilisateur du groupe ?",[
+        {
+          text: 'not ok',
+          onPress: () => {
+            Alert.alert("Suppression de l'utilisateur annulé");
+          },
+        },
+        {
+          text: 'ok',
+          onPress: async () => {
+            try {
+              const response = await fetch(`http://${IP}:3001/group/deleteUserOfGroupByCreatorId/${groupId}/${userToDelete.ID}/${userId}`,{
+                method:"DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              })
+              if(response.ok){
+                const result = await response.json()
+                console.log("message si la requête s'est bien effectué", result.message);
+                setUsersOfOneGroup(usersOfOneGroup.filter(userofgroup => userofgroup.ID != userToDelete.ID));
+                Alert.alert("Utilisateur supprimé du groupe")
+              }else{
+                const error = await response.json();
+                console.error("erreur lors de la requête", error)
+                Alert.alert("Erreur lors de la suppression de l'utilisateur")
+              }
+            } catch (error) {
+              console.error("Erreur lors de la suppression de l'utilisateur", error)
+            }
+          },
+        },
+      ])
+  }
 
   return (
     <View>
     {isItCreator && (
       <View style={{marginTop:20}}>
         <Text style={{ fontSize: 20, textAlign: "center"}}>
-          Nom du groupe
+          {group.Name}
         </Text>
         <Button title="Supprimer" onPress={() => deleteGroup(group.ID)} />
   
@@ -172,11 +224,29 @@ const GroupeSettings = ({ navigation,route, user }) => {
       data={usersOfOneGroup}
       keyExtractor={(user) => user.ID.toString()}
       renderItem={({item: user}) => (
-        <View>
-          <Text>
-            {user.Pseudo}
-          </Text>
-        </View>
+        userId != user.ID &&(
+          <View style={styles.userRow}>
+            <Text>
+              {user.Pseudo}
+              {user.ID == group.CreatorId &&(
+              `(Admin du groupe)`
+              )} 
+            </Text>
+            {isItCreator && (
+            <TouchableOpacity style={styles.button}
+            onPress={() => deleteUserOfGroup(user)}
+            >
+              <Icon
+              name="close"
+              color="red"
+              background="none"
+              size={15}
+              borderRadius={20}
+              />
+            </TouchableOpacity>
+            )}
+          </View>
+        )
       )}
       />
     }
@@ -186,4 +256,18 @@ const GroupeSettings = ({ navigation,route, user }) => {
 };
 
 export default GroupeSettings;
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  userRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  button:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 5,
+  }
+});

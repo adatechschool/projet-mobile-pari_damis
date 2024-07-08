@@ -61,7 +61,7 @@ const MyTopTabs = ({route, user}) => {
      <Tab.Screen
       name={"bottomNavGroupeSettings"}
       options={{
-        tabBarLabel: "GroupeSettings",
+        tabBarLabel: "Paramètres",
       }}
      >
         {()=><Stack.Navigator >

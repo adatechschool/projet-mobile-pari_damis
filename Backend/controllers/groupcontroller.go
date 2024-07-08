@@ -64,6 +64,41 @@ func AddUserToGroup(c *gin.Context) {
 	})
 }
 
+func AddUserToGroupByCreatorId(c *gin.Context) {
+	groupId := c.Param("GroupID")
+	userId := c.Param("UserID")
+	creatorId := c.Param("CreatorID")
+	var Group models.Group
+	var User models.User
+	database.DB.First(&User, userId)
+	database.DB.First(&Group, groupId)
+	database.DB.First(&Group, creatorId)
+
+	if err:= database.DB.First(&Group, groupId).Error; err != nil{
+		c.JSON(404, gin.H{"error":"Group not found"})
+		return
+	}
+	if Group.CreatorId != creatorId{
+		c.JSON(403, gin.H{"error":"Only the creator can add users"})
+		return
+	}
+	if userId == creatorId {
+        c.JSON(403, gin.H{"error": "Creator cannot add themselve to the group"})
+        return
+    }
+	if err := database.DB.First(&User, userId).Error; err != nil{
+		c.JSON(404, gin.H{"error":"User not found"})
+		return
+	}
+	if err := database.DB.Model(&Group).Association("Users").Append(&User); err != nil{
+		c.JSON(400, gin.H{"error":"Error adding user to group"})
+		return
+	}
+	c.JSON(200, gin.H{
+		"message": Group,
+	})
+}
+
 func ShowUsersOfOneGroup(c *gin.Context) {
 	groupId := c.Param("GroupID")
 	var Group models.Group
@@ -131,4 +166,39 @@ func DeleteOneGroup(c *gin.Context) {
 		"message": "Unauthorized",
 	})
 	return
+}
+
+func DeleteUserOfGroupByCreatorId(c *gin.Context) {
+	groupId := c.Param("GroupID")
+	userId := c.Param("UserID")
+	creatorId := c.Param("CreatorID")
+	var Group models.Group
+	var User models.User
+	database.DB.First(&User, userId)
+	database.DB.First(&Group, groupId)
+	database.DB.First(&Group, creatorId)
+
+	if err:= database.DB.First(&Group, groupId).Error; err != nil{
+		c.JSON(404, gin.H{"error":"Group not found"})
+		return
+	}
+	if Group.CreatorId != creatorId{
+		c.JSON(403, gin.H{"error":"Only the creator can delete users"})
+		return
+	}
+	if userId == creatorId {
+        c.JSON(403, gin.H{"error": "Creator cannot remove themselve from the group"})
+        return
+    }
+	if err := database.DB.First(&User, userId).Error; err != nil{
+		c.JSON(404, gin.H{"error":"User not found"})
+		return
+	}
+	if err := database.DB.Model(&Group).Association("Users").Delete(&User); err != nil{
+		c.JSON(400, gin.H{"error":"Error deleting user from group"})
+		return
+	}
+	c.JSON(200, gin.H{
+		"message": Group,
+	})
 }
