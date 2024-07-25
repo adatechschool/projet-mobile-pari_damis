@@ -50,7 +50,7 @@ func GetNextWeekdayDate(weekday time.Weekday) string {
 	return nextWeekday.Format("2006-01-02")
 }
 
-func GetMatchesForDate(date string) ([]byte, error) {
+func GetMatchesForDate(date string) ([]MatchOfWeekEnd, error) {
 	url := fmt.Sprintf("https://api.sportradar.com/mma/trial/v2/en/schedules/%s/summaries.json?api_key=%s", date, os.Getenv("APIKEY"))
 	resp, err := http.Get(url)
 	if err != nil {
@@ -62,7 +62,10 @@ func GetMatchesForDate(date string) ([]byte, error) {
 		Summaries []MatchOfWeekEnd `json:"summaries"`
 	}
 	err = json.NewDecoder(resp.Body).Decode(&result)
-	return []byte(fmt.Sprintf("%v", result)), err
+	if err != nil {
+		log.Println(err)
+	}
+	return result.Summaries, nil
 }
 
 func GetMatchFromJsonToStruct() ([]MatchOfWeekEnd, error) {

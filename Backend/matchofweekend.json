@@ -1,1 +1,173 @@
-"e1t7e3NyOnNwb3J0X2V2ZW50OjUwNDUxMTMzIFt7RHVuY2FuLCBDaHJpc30ge0JyeWN6ZWssIFJvYmVydH1dfSB7MyBtaWRkbGV3ZWlnaHQoMTcxLTE4NSkgZmFsc2UgZmFsc2V9fSB7e3NyOnNwb3J0X2V2ZW50OjUwNDUxMTg3IFt7QmFubm9uLCBTaGF1bmF9IHtPbGl2ZWlyYSBNb3JhaXMsIFJhdmVuYX1dfSB7MyBzdHJhd3dlaWdodCgxMDYtMTE1KSBmYWxzZSBmYWxzZX19IHt7c3I6c3BvcnRfZXZlbnQ6NTA0NTExOTMgW3tMb3VnaHJhbiwgQ2FvbGFufSB7VGF2ZXJhcywgUmFtb259XX0gezMgYmFudGFtd2VpZ2h0KDEyNi0xMzUpIGZhbHNlIGZhbHNlfX0ge3tzcjpzcG9ydF9ldmVudDo1MDcwMDk2OSBbe0R1bmNhbiwgQ2hyaXN0aWFufSB7QnJ5Y3playwgUm9iZXJ0fV19IHszIG1pZGRsZXdlaWdodCgxNzEtMTg1KSBmYWxzZSBmYWxzZX19IHt7c3I6c3BvcnRfZXZlbnQ6NTE3OTAzNzEgW3tCYW5ub24sIFNoYXVuYX0ge0FyZGVsZWFuLCBBbGljZX1dfSB7MyBzdHJhd3dlaWdodCgxMDYtMTE1KSBmYWxzZSBmYWxzZX19IHt7c3I6c3BvcnRfZXZlbnQ6NTA0NTExMzcgW3tQYXJraW4sIE1pY2hhZWx9IHtCcnplc2tpLCBMdWthc3p9XX0gezMgaGVhdnl3ZWlnaHQoMjA2LTI2NSkgZmFsc2UgZmFsc2V9fSB7e3NyOnNwb3J0X2V2ZW50OjUwNDUxMTI5IFt7UGF0dGVyc29uLCBTYW19IHtDcm9zYmllLCBLaWVmZXJ9XX0gezMgd2VsdGVyd2VpZ2h0KDE1Ni0xNzApIGZhbHNlIGZhbHNlfX0ge3tzcjpzcG9ydF9ldmVudDo1MDE0ODUyOSBbe01va2FldiwgTXVoYW1tYWR9IHtLYXBlLCBNYW5lbH1dfSB7MyBmbHl3ZWlnaHQoMTE2LTEyNSkgZmFsc2UgZmFsc2V9fSB7e3NyOnNwb3J0X2V2ZW50OjUwNDUxMTM1IFt7RWxsaW90dCwgT2Jhbn0ge1BhcnNvbnMsIFByZXN0b259XX0gezMgd2VsdGVyd2VpZ2h0KDE1Ni0xNzApIGZhbHNlIGZhbHNlfX1dfXtbXX0="
+[
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50451133",
+      "competitors": [
+        {
+          "name": "Duncan, Chris"
+        },
+        {
+          "name": "Bryczek, Robert"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "middleweight(171-185)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50451187",
+      "competitors": [
+        {
+          "name": "Bannon, Shauna"
+        },
+        {
+          "name": "Oliveira Morais, Ravena"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "strawweight(106-115)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50451193",
+      "competitors": [
+        {
+          "name": "Loughran, Caolan"
+        },
+        {
+          "name": "Taveras, Ramon"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "bantamweight(126-135)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50700969",
+      "competitors": [
+        {
+          "name": "Duncan, Christian"
+        },
+        {
+          "name": "Bryczek, Robert"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "middleweight(171-185)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:51790371",
+      "competitors": [
+        {
+          "name": "Bannon, Shauna"
+        },
+        {
+          "name": "Ardelean, Alice"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "strawweight(106-115)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50451137",
+      "competitors": [
+        {
+          "name": "Parkin, Michael"
+        },
+        {
+          "name": "Brzeski, Lukasz"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "heavyweight(206-265)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50451129",
+      "competitors": [
+        {
+          "name": "Patterson, Sam"
+        },
+        {
+          "name": "Crosbie, Kiefer"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "welterweight(156-170)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50148529",
+      "competitors": [
+        {
+          "name": "Mokaev, Muhammad"
+        },
+        {
+          "name": "Kape, Manel"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "flyweight(116-125)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50451135",
+      "competitors": [
+        {
+          "name": "Elliott, Oban"
+        },
+        {
+          "name": "Parsons, Preston"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "welterweight(156-170)",
+      "title_fight": false,
+      "main_event": false
+    }
+  }
+]
