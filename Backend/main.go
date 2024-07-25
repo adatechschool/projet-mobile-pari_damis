@@ -6,7 +6,6 @@ import (
 	// scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
 
 	// // scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
-	// scrapping "github.com/adatechschool/projet-mobile-pari_damis/Scrapping"
 	scrapping "github.com/adatechschool/projet-mobile-pari_damis/Scrapping"
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
 	helper "github.com/adatechschool/projet-mobile-pari_damis/helper"
@@ -34,9 +33,9 @@ func main() {
 
 	fmt.Println("Server online")
 	routes.Routes(r)
-	scrapping.FillFightersDb()
 	// scheduler.Match()
 	// scheduler.PointPerBet()
+	scrapping.ScrappingMainEvent();
 	fmt.Println("Monday of the current week:", helper.GetMondayOfCurrentWeek())
 	fmt.Println("Friday of the current week:", helper.GetFridayOfCurrentWeek())
 	r.Run("0.0.0.0:3001") //

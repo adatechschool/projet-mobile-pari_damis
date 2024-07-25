@@ -17,9 +17,6 @@ import {
   Dimensions,
 } from "react-native";
 
-
-
-
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
@@ -82,63 +79,78 @@ const Login = ({ navigation }) => {
         navigation.navigate("PageConfirmation", responseData);
         // Alert.alert("vous êtes connecté");
       } catch (error) {
+        console.log("erreur", error);
         console.error("Erreur lors de l'envoi des données", error.message);
       }
     },
-
-    // onSubmit: (values) => {
-    //   if (Object.keys(formik.errors).length === 0) {
-    //     console.log("Soumis", values.Email, values.Password);
-    //     formik.resetForm();
-    //     navigation.navigate("MyTabs");
-    //   }
-    // },
   });
+
   const onPress = () => {
     formik.handleSubmit();
   };
 
+  const isFormValid = formik.values.Password.length > 0;
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "black",
-      }}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.form}
     >
-      <View>
-        <Text style={styles.Login}>Login</Text>
-      </View>
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.form}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}>
-        <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.Email}
-          placeholder="Email"
-          placeholderTextColor="gray"
-          value={formik.values.Email}
-          onChangeText={formik.handleChange("Email")}
-        />
-        <Text style={{ color: "red" }}>{formik.errors.Email}</Text>
-
-        <TextInput
-          style={styles.MotDePasse}
-          placeholder="Password"
-          placeholderTextColor="gray"
-          secureTextEntry
-          value={formik.values.Password}
-          onChangeText={formik.handleChange("Password")}
-        />
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <View>
+          <Text style={styles.Login}>Login</Text>
         </View>
-        <Text style={{ color: "red" }}>{formik.errors.Password}</Text>
-
-        <TouchableOpacity style={styles.customButton} onPress={onPress}>
+        <View style={styles.inputContainer}>
+          <View style={styles.inputWrapper}>
+            <TextInput
+              style={styles.Email}
+              placeholder="Email"
+              placeholderTextColor="gray"
+              value={formik.values.Email}
+              onChangeText={formik.handleChange("Email")}
+            />
+            {formik.errors.Email ? (
+              <Text style={styles.errorText}>{formik.errors.Email}</Text>
+            ) : null}
+          </View>
+          <View style={styles.inputWrapper}>
+            <TextInput
+              style={styles.MotDePasse}
+              placeholder="Password"
+              placeholderTextColor="gray"
+              secureTextEntry
+              value={formik.values.Password}
+              onChangeText={formik.handleChange("Password")}
+            />
+            {formik.errors.Password ? (
+              <Text style={styles.errorText}>{formik.errors.Password}</Text>
+            ) : null}
+          </View>
+        </View>
+        <TouchableOpacity
+          style={[
+            styles.customButton,
+            !isFormValid && styles.disabledButton,
+          ]}
+          onPress={onPress}
+          disabled={!isFormValid}
+        >
+          
           <Text style={styles.buttonText}>SE CONNECTER</Text>
         </TouchableOpacity>
-        
-        <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Text style={{ color: "white" }}>Vous n'avez pas de compte ?</Text>
           <Button
             title="S'inscrire"
@@ -147,13 +159,11 @@ const Login = ({ navigation }) => {
             onPress={() => navigation.navigate("Signup")}
           />
         </View>
-        
         <View style={{ marginVertical: 10 }}>
           <Text style={{ color: "red" }}>Mot de passe oublié</Text>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
-  </View>
   );
 };
 
@@ -162,19 +172,18 @@ export default Login;
 const styles = StyleSheet.create({
   Login: {
     color: "white",
-    bottom: 100,
+    bottom: 50,
     fontSize: 30,
     padding: 5,
     margin: 5,
     fontWeight: "800",
     textAlign: "center",
-    top: 150,
   },
   form: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-
+    backgroundColor: "black",
     width: "100%",
     gap: 20,
   },
@@ -182,13 +191,15 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
+  inputWrapper: {
+    width: windowWidth * 0.9,
+    marginBottom: 10,
+  },
   Email: {
     borderWidth: 1,
     borderBottomColor: "white",
     padding: 10,
     margin: 5,
-    width: windowWidth * 0.9,
-    height: windowHeight * 0.06,
     color: "white",
     fontSize: 20,
     textAlign: "center",
@@ -198,8 +209,6 @@ const styles = StyleSheet.create({
     borderBottomColor: "white",
     padding: 10,
     margin: 5,
-    width: windowWidth * 0.9,
-    height: windowHeight * 0.06,
     color: "white",
     fontSize: 20,
     textAlign: "center",
@@ -213,10 +222,18 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: "90%",
   },
+  disabledButton: {
+    backgroundColor: "lightgray",
+  },
   buttonText: {
     color: "white",
     fontWeight: "700",
     alignItems: "center",
     textAlign: "center",
+  },
+  errorText: {
+    color: "red",
+    textAlign: "center",
+    marginTop: 5,
   },
 });

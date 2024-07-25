@@ -27,12 +27,12 @@ const GroupeSettings = ({ navigation,route, user }) => {
   const [usersOfOneGroup, setUsersOfOneGroup] = useState([]);
 
   const isItCreator = userId == creatorIdOfGroup;
-  console.log("test creator", group.CreatorId);
+  // console.log("test creator", group.CreatorId);
 
-  console.log("Creator ???",isItCreator);
-  console.log("creator id", creatorIdOfGroup);
-  console.log("userid", userId);
-  console.log(group);
+  // console.log("Creator ???",isItCreator);
+  // console.log("creator id", creatorIdOfGroup);
+  // console.log("userid", userId);
+  // console.log(group);
 
   useEffect(() => {
     const fetchUsersOfGroup = () =>{
@@ -173,52 +173,42 @@ const GroupeSettings = ({ navigation,route, user }) => {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
     {isItCreator && (
-      <View style={{marginTop:20}}>
-        <Text style={{ fontSize: 20, textAlign: "center"}}>
-          {group.Name}
+      <View style={styles.searchContainer}>
+        <Button title="Supprimer le groupe" onPress={() => deleteGroup(group.ID)} />
+        <Text style={styles.firstTitle}>
+          Nom du groupe : {group.Name}
         </Text>
-        <Button title="Supprimer" onPress={() => deleteGroup(group.ID)} />
+        <Text style={styles.secondTitle}>
+          Rechercher un membre et l'inviter :
+        </Text>
+        <TextInput style={styles.input} placeholder="Pseudo du membre à ajouté" value={searchedMember} onChangeText={setSearchedMember}/>
+        <SearchFilterUser data={filteredUsers} input={searchedMember} setInput={setSearchedMember}/>
+        <TouchableOpacity style={styles.inviteButton} onPress={() => searchMember()}>
+          <Text style={styles.inviteButtonText}>Inviter le membre</Text>
+        </TouchableOpacity>
   
         <FlatList
           data={groups}
           renderItem={({ item }) => (
             <View>
-              <Text>Nombre de membres : {item.LimitMembers}</Text>
-              <Text>Membres :</Text>
               <FlatList
                 data={item.Users}
                 keyExtractor={(user) => user.id.toString()}
                 renderItem={({ item: user }) => (
                   <View>
-                    <Text>{user.Pseudo}</Text>
+                    <Text style={styles.list}>{user.Pseudo}</Text>
                   </View>
                 )}
               />
             </View>
           )}
         />
-  
-        <Text style={{ marginTop:20,fontSize: 20 }}>
-          Rechercher un membre et l'inviter :
-        </Text>
-        <TextInput
-          style={{ bottom:20, fontSize: 15, paddingTop: 50 }}
-          placeholder="Pseudo du membre à ajouté"
-          value={searchedMember}
-          onChangeText={setSearchedMember}
-        />
-        <SearchFilterUser data={filteredUsers} input={searchedMember} setInput={setSearchedMember}/>
-        <TouchableOpacity
-          style={{ bottom: 15, fontSize: 100 }}
-          onPress={() => searchMember()}
-        >
-          <Text style={{ paddingTop: 10, fontSize: 20 }}>Inviter le membre</Text>
-        </TouchableOpacity>
+
       </View>
 )}
-<View>
+<View style={styles.secondContainer}>
   {
     <FlatList
       data={usersOfOneGroup}
@@ -226,7 +216,7 @@ const GroupeSettings = ({ navigation,route, user }) => {
       renderItem={({item: user}) => (
         userId != user.ID &&(
           <View style={styles.userRow}>
-            <Text>
+            <Text style={styles.pseudo}>
               {user.Pseudo}
               {user.ID == group.CreatorId &&(
               `(Admin du groupe)`
@@ -257,6 +247,50 @@ const GroupeSettings = ({ navigation,route, user }) => {
 
 export default GroupeSettings;
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: -30,
+    paddingTop: 5,
+    height: "100%",
+    backgroundColor:"white",
+  },
+  secondContainer:{
+    marginTop: 70,  
+  },
+  firstTitle:{
+    fontSize: 22,
+    color: "black",
+    fontWeight: 'bold',
+  },
+  secondTitle:{
+    fontSize:18,
+    color: "black",
+  },
+  searchContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 100,
+    height: "10%",
+  },
+  input: {
+    fontSize: 20,
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    width: '80%',
+    textAlign: 'center',
+  },
+  inviteButton: {
+    marginTop: 0,
+    padding: 10,
+    backgroundColor: 'red',
+    borderRadius: 15,
+  },
+  inviteButtonText: {
+    fontSize: 20,
+    color: 'white',
+    textAlign: 'center',
+  },
   userRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -264,6 +298,9 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+  },
+  pseudo:{
+    color:"black",
   },
   button:{
     justifyContent: 'center',

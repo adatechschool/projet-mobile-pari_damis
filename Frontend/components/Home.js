@@ -7,6 +7,7 @@ import {
   Button,
   Image,
 } from "react-native";
+import mainEventImage from '../assets/mainEvents.json';
 
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
@@ -33,6 +34,7 @@ const Home = () => {
       text: "URBINA VS RADTKE",
     },
   ];
+
   return (
     <View style={{ flex: 1, backgroundColor: "black" }}>
       <ScrollView>
@@ -40,7 +42,7 @@ const Home = () => {
           <View style={{ marginBottom: 16 }}>
             <Image
               style={{ width: "100%", height: 200, top: 40 }}
-              source={require("../assets/vedette.jpeg")}
+              source= {{uri: mainEventImage[mainEventImage.length-1].ImagePath}}
             />
             <View style={{ flexDirection: "row" }}>
               <View style={{ marginLeft: 16 }}>

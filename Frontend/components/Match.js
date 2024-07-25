@@ -6,6 +6,7 @@ import {
   View,
   Image,
 } from "react-native";
+import { IP, APIKEY } from '@env';
 import React, { useEffect, useState } from "react";
 import { useFocusEffect } from '@react-navigation/native';
 import { Dimensions } from "react-native";
@@ -14,75 +15,105 @@ import _ from "lodash";
 
 const windowWidth = Dimensions.get("window").width;
 
-const Match = ({ route, navigation }) => {
+const Match = ({ route, navigation, user }) => {
   const [matchs, setMatchs] = useState(null);
+  const [filteredMatchs, setFilteredMatchs] = useState([]);
+  const [betOfUserByMatchId, setBetOfUserByMatchId] = useState([]);
+
+  const userId = user.user.ID
   const UfcSilhouetteRightStance =
     "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-right-silhouette.png";
   const UfcSilhouetteLeftStance =
     "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-left-silhouette.png";
   const groupID = route.params.ID;
-  useFocusEffect(
-    React.useCallback(() => {
-      const getNextSundayDate = () => {
-        const today = new Date();
-        const dayOfWeek = today.getDay();
-        const diff = 7 - dayOfWeek;
-        const nextSunday = new Date(today);
-        nextSunday.setDate(today.getDate() + diff);
-        return nextSunday.toISOString().slice(0, 10);
-      };
-      const getNextSaturdayDate = () => {
-        const today = new Date();
-        const dayOfWeek = today.getDay();
-        const diff = 6 - dayOfWeek;
-        const nextSunday = new Date(today);
-        nextSunday.setDate(today.getDate() + diff);
-        return nextSunday.toISOString().slice(0, 10);
-      };
-      const nextSundayDate = getNextSundayDate();
-      const nextSaturdayDate = getNextSaturdayDate()
-      // console.log(nextSundayDate);
-      try {
-        Promise.all([
-          fetch(
-            `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSaturdayDate}/summaries.json?api_key=VI4XTB8j7q7bqM2Bpfv990xVtuA9Tx47b7fC9Nve`,
-            {
-              method: "GET",
-              headers: {
-                "Content-type": "application/json",
-              },
-            }
-          ).then((response) => response.json()),
-          fetch(
-            `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSundayDate}/summaries.json?api_key=VI4XTB8j7q7bqM2Bpfv990xVtuA9Tx47b7fC9Nve`,
-            {
-              method: "GET",
-              headers: {
-                "Content-type": "application/json",
-              },
-            }
-          ).then((response) => response.json())
-        ]).then(([saturdayJson, sundayJson]) => {
-          console.log('dimanche et samedi', saturdayJson, sundayJson);
-          const allMatchs = [...saturdayJson.summaries, ...sundayJson.summaries];
-          setMatchs(allMatchs);
-        });
-      } catch (error) {
-        console.log("Error message", error);
-      }
-    }, [])
-  );
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     // const getNextSundayDate = () => {
+  //     //   const today = new Date();
+  //     //   const dayOfWeek = today.getDay();
+  //     //   const diff = 7 - dayOfWeek;
+  //     //   const nextSunday = new Date(today);
+  //     //   nextSunday.setDate(today.getDate() + diff);
+  //     //   return nextSunday.toISOString().slice(0, 10);
+  //     // };
+  //     // const getNextSaturdayDate = () => {
+  //     //   const today = new Date();
+  //     //   const dayOfWeek = today.getDay();
+  //     //   const diff = 6 - dayOfWeek;
+  //     //   const nextSunday = new Date(today);
+  //     //   nextSunday.setDate(today.getDate() + diff);
+  //     //   return nextSunday.toISOString().slice(0, 10);
+  //     // };
+  //     // const nextSundayDate = getNextSundayDate();
+  //     // const nextSaturdayDate = getNextSaturdayDate();
+  //     // // console.log(nextSundayDate);
+  //     // try {
+  //     //   Promise.all([
+  //     //     fetch(
+  //     //       `http://${IP}:3001/bet/betOfUserByGroupOfThisWeek/${groupID}/${userId}/`,
+  //     //       {
+  //     //         method: "GET",
+  //     //         headers: {
+  //     //           "Content-type": "application/json",
+  //     //         },
+  //     //       }
+  //     //     ).then(response => response.json()),
+  //     //     fetch(
+  //     //       `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSaturdayDate}/summaries.json?api_key=${APIKEY}`,
+  //     //       {
+  //     //         method: "GET",
+  //     //         headers: {
+  //     //           "Content-type": "application/json",
+  //     //         },
+  //     //       }
+  //     //     ).then((response) => response.json()),
+  //     //     fetch(
+  //     //       `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSundayDate}/summaries.json?api_key=${APIKEY}`,
+  //     //       {
+  //     //         method: "GET",
+  //     //         headers: {
+  //     //           "Content-type": "application/json",
+  //     //         },
+  //     //       }
+  //     //     ).then((response) => response.json())
+  //     //   ]).then(([betOfUserByMatchJson, saturdayJson, sundayJson]) => {
+  //     //     // console.log('dimanche et samedi', saturdayJson, sundayJson);
+  //     //     const allMatchs = [...saturdayJson.summaries, ...sundayJson.summaries];
+  //     //     const matchIdOfUser = betOfUserByMatchJson.message.map((id) => id.MatchID);
+  //     //     setBetOfUserByMatchId(matchIdOfUser);
+  //     //     const allmatchfiltered = allMatchs.filter((matchInAllMatchs) => !matchIdOfUser.includes(matchInAllMatchs.sport_event.id))
+  //     //     setMatchs(allmatchfiltered);
+  //     //     console.log(allMatchs);
+  //     //   });
+  //     // } catch (error) {
+  //     //   console.log("Error message", error);
+  //     // }
+  //   }, [])
+  // );
+  
+  // useEffect(() => {
+  //   if(matchs){
+  //     setFilteredMatchs(matchs.reverse());
+  //   }
+  // }, [matchs])
  
     
-  function strNoAccent(str) {
-    return str
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/-/g, " ");
-  }
+  // function strNoAccent(str) {
+  //   return str
+  //     .normalize("NFD")
+  //     .replace(/[\u0300-\u036f]/g, "")
+  //     .replace(/-/g, " ");
+  // }
   return (
     <ScrollView style={styles.container}>
-      {matchs?.reverse().map((match, idx) => {
+        <TouchableOpacity>
+      <View style={styles.infosBox}>
+              <Text>Test</Text>
+              <Text>VS</Text>
+              <Text>Test</Text>
+        </View>
+        </TouchableOpacity>
+      {/* {filteredMatchs?.map((match, idx) => {
         const nameOfFirstFighter = match.sport_event.competitors[0].name
           .split(",")
           .reverse()
@@ -144,7 +175,7 @@ const Match = ({ route, navigation }) => {
             </View>
           </TouchableOpacity>
         );
-      })}
+      })} */}
     </ScrollView>
   );
 };
@@ -174,6 +205,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     gap: 15,
+    color: "white",
   },
   Image: {
     width: 90,

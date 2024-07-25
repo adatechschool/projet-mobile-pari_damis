@@ -6,14 +6,13 @@ import {
   View,
   Image,
 } from "react-native";
-import { IP } from '@env';
+import { IP, APIKEY } from '@env';
 import React, { useState, useEffect } from "react";
 import { Dimensions } from "react-native";
 import Fightersjson from "../allFighters.json";
 
 const windowWidth = Dimensions.get("window").width;
 import { useFocusEffect } from "@react-navigation/native";
-
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
 const Bet = ({route, user}) => {
@@ -22,16 +21,41 @@ const Bet = ({route, user}) => {
   "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-right-silhouette.png";
   const UfcSilhouetteLeftStance =
   "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-left-silhouette.png";
-  const [matchIdOfUser, setMatchId] = useState(null);
+  const [matchIdOfUser, setMatchId] = useState([]);
   const [matchIdOfEventByDate, setMatchIdOfEventByDate] = useState(null);
   const [fightersName, setFightersName] = useState([]);
+  const [ allMatchIdOfEventByDate, setAllMatchIdOfEventByDate ] = useState([]);
   const groupId = route.params.ID
   const userId = user.user.ID
   
 
+  const cleanArr = () => {
+    setFightersName([])
+  }
+
 
   useFocusEffect(
     React.useCallback(() => {
+
+      const getNextSundayDate = () => {
+        const today = new Date();
+        const dayOfWeek = today.getDay();
+        const diff = 7 - dayOfWeek;
+        const nextSunday = new Date(today);
+        nextSunday.setDate(today.getDate() + diff);
+        return nextSunday.toISOString().slice(0, 10);
+      };
+      const getNextSaturdayDate = () => {
+        const today = new Date();
+        const dayOfWeek = today.getDay();
+        const diff = 6 - dayOfWeek;
+        const nextSunday = new Date(today);
+        nextSunday.setDate(today.getDate() + diff);
+        return nextSunday.toISOString().slice(0, 10);
+      };
+      const nextSundayDate = getNextSundayDate();
+      const nextSaturdayDate = getNextSaturdayDate();
+
     const getBetOfUserByGroupId  = async () => {
       try {
         const response = await fetch(
@@ -46,7 +70,6 @@ const Bet = ({route, user}) => {
         const json = await response.json();
         const matchIdOfUser = json.message.map((id) => id.MatchID);
         setMatchId(matchIdOfUser);
-        // console.log("match id of bet of user", matchIdOfUser);
       } catch (error) {
         console.log("Error message", error);
       }
@@ -57,36 +80,49 @@ const Bet = ({route, user}) => {
       return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     }
 
-    const getIdOfMatchByEventDate = async () => {
-      try {
-        const response = await fetch(
-          //faudra toujours accorder levent a la bonne date de la semaine pour faire la comparaison avec les paris de la semaine 
-          `https://api.sportradar.com/mma/trial/v2/fr/schedules/2024-06-30/summaries.json?api_key=VI4XTB8j7q7bqM2Bpfv990xVtuA9Tx47b7fC9Nve`,
-          {
-            method: "GET",
-            headers: {
-              "Content-type": "application/json",
-            },
-          }
-        );
-        const json = await response.json();
-        const matchIdOfEventByDate = await json.summaries.map((sportEvent) => {
-          const obj = {};
-          obj["sportEventID"] = sportEvent.sport_event.id;
-          obj["sportEventCombatant1"] =
-            strNoAccent(sportEvent.sport_event.competitors[0].name);
-          obj["sportEventCombatant2"] =
-            strNoAccent(sportEvent.sport_event.competitors[1].name);
-          return obj;
-        });
-
-        setMatchIdOfEventByDate([matchIdOfEventByDate]);
-        setRenderFlag(true);
-      } catch (error) {
-        console.log("Error message", error);
-      }
-    };
-
+    // const getIdOfMatchByEventDate = () => {
+    //     try {
+    //       Promise.all([
+    //         fetch(
+    //           `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSaturdayDate}/summaries.json?api_key=${APIKEY}`,
+    //           {
+    //             method: "GET",
+    //             headers: {
+    //               "Content-type": "application/json",
+    //             },
+    //           }
+    //         ).then((response) => response.json()),
+    //         fetch(
+    //           `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSundayDate}/summaries.json?api_key=${APIKEY}`,
+    //           {
+    //             method: "GET",
+    //             headers: {
+    //               "Content-type": "application/json",
+    //             },
+    //           }
+    //         ).then((response) => response.json())
+    //       ])
+    //       .then(([saturdayJson, sundayJson]) =>{
+    //         const allmatch = [...saturdayJson.summaries, ...sundayJson.summaries];
+    //         setAllMatchIdOfEventByDate(allmatch);
+    //         console.log("mes match", allmatch);
+    //       })
+          
+    //       const matchIdOfEventByDate = allMatchIdOfEventByDate.map((sportEvent) => {
+    //         const obj = {};
+    //         obj["sportEventID"] = sportEvent.sport_event.id;
+    //         obj["sportEventCombatant1"] =
+    //           strNoAccent(sportEvent.sport_event.competitors[0].name);
+    //         obj["sportEventCombatant2"] =
+    //           strNoAccent(sportEvent.sport_event.competitors[1].name);
+    //         return obj;
+    //       });
+    //       setMatchIdOfEventByDate([matchIdOfEventByDate]);
+    //       setRenderFlag(true);
+    //     } catch (error) {
+    //       console.log("Error message", error);
+    //     }
+    // };
     const getFightersNameOfBet = async () => {
       try {
         if (matchIdOfEventByDate && matchIdOfUser) {
@@ -105,7 +141,9 @@ const Bet = ({route, user}) => {
     if (renderFlag) {
       getFightersNameOfBet();
     }
-  }, [renderFlag]))
+    return cleanArr;
+  }, [allMatchIdOfEventByDate]))
+
 
 
 
@@ -173,7 +211,7 @@ export default Bet;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "white",
     width: windowWidth,
     paddingHorizontal: 10,
     paddingTop: 20,
@@ -184,10 +222,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     height: 150,
-    backgroundColor: "red",
+    backgroundColor: "#8FCE00",
     padding: 5,
     marginBottom: 30,
     borderRadius: 20,
+    shadowColor: "black",
+    shadowOffset: {width: 0,height: 10,},
+    shadowOpacity: 0.70,
+    shadowRadius: 4,
+
+elevation: 21,
   },
   infosBox: {
     flexDirection: "column",

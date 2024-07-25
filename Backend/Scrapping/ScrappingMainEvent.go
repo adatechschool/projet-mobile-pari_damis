@@ -71,7 +71,7 @@ func ScrappingMainEvent() {
 				log.Fatal(err)
 			}
 			fmt.Println("Writing data to file  ", mainEvents)
-			if err := os.WriteFile("mainEvents.json", js, 0664); err == nil {
+			if err := os.WriteFile("../Frontend/assets/mainEvents.json", js, 0664); err == nil {
 				fmt.Println("Data written to file successfully")
 			}
 		}
@@ -82,7 +82,7 @@ func ScrappingMainEvent() {
 }
 
 func loadingMainEventFile() ([]MainEvent, error) {
-	file, err := os.ReadFile("mainEvents.json")
+	file, err := os.ReadFile("../Frontend/assets/mainEvents.json")
 	if err != nil {
 		return nil, err
 	}

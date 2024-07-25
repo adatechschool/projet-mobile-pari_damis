@@ -1,6 +1,9 @@
 import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import SettingIcon from 'react-native-vector-icons/FontAwesome';
+import PodiumIcon from "react-native-vector-icons/MaterialCommunityIcons";
+import MatchNBetIcon from "react-native-vector-icons/MaterialIcons";
 import Match from "../components/Match"
 import Bet from "../components/Bet"
 import Classement from '../components/Classement';
@@ -22,12 +25,17 @@ const MyTopTabs = ({route, user}) => {
         <Tab.Screen
       name={"bottomNavMatch"}
       options={{
-        tabBarLabel: "Match",
+        tabBarLabel: "match",
+        tabBarIcon: ({ color }) => (<MatchNBetIcon name="sports-mma" color={color} size={28} />),
+        unmountOnBlur: true,
+        tabBarLabelStyle: {
+          fontSize: 10,
+        }
       }}
      >
         {()=><Stack.Navigator >
      <Stack.Screen name={"Match"} options={{ headerShown: false }}>
-       {(props)=><Match {...props}route={route} />}
+       {(props)=><Match {...props}route={route}user={user} />}
      </Stack.Screen>
      </Stack.Navigator>
       }
@@ -35,7 +43,12 @@ const MyTopTabs = ({route, user}) => {
         <Tab.Screen
       name={"bottomNavBet"}
       options={{
-        tabBarLabel: "Bet",
+        tabBarLabel: "bet",
+        tabBarIcon: ({ color }) => (<MatchNBetIcon name="casino" color={color} size={25} />),
+        unmountOnBlur: true,
+        tabBarLabelStyle: {
+          fontSize: 10,
+        }
       }}
      >
         {()=><Stack.Navigator >
@@ -49,6 +62,10 @@ const MyTopTabs = ({route, user}) => {
       name={"bottomNavClassement"}
       options={{
         tabBarLabel: "Classement",
+        tabBarIcon: ({ color }) => (<PodiumIcon name="podium" color={color} size={25} />),
+        tabBarLabelStyle: {
+          fontSize: 10,
+        }
       }}
      >
         {()=><Stack.Navigator >
@@ -62,6 +79,10 @@ const MyTopTabs = ({route, user}) => {
       name={"bottomNavGroupeSettings"}
       options={{
         tabBarLabel: "Paramètres",
+        tabBarIcon: ({ color }) => (<SettingIcon name="gear" color={color} size={25} />),
+        tabBarLabelStyle: {
+          fontSize: 10,
+        }
       }}
      >
         {()=><Stack.Navigator >
