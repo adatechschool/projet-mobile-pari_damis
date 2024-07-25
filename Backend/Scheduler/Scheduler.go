@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
@@ -43,8 +44,8 @@ type Response struct {
 }
 
 func Match() (string, error) {
-
-	resp, err := http.Get("https://api.sportradar.com/mma/trial/v2/fr/schedules/2024-02-04/summaries.json?api_key=4wLWBuuQ5q95GY49ccjXZ9RQlUWfzpbI8nHNHY0q")
+	url := fmt.Sprintf("https://api.sportradar.com/mma/trial/v2/fr/schedules/2024-02-04/summaries.json?api_key=%s", os.Getenv("APIKEY"))
+	resp, err := http.Get(url)
 	if err != nil {
 		log.Fatalln(err)
 		return "", err
@@ -71,7 +72,7 @@ func Match() (string, error) {
 			matchcancelled := "Match cancelled"
 			resultofbet := models.ResultOfBet{
 				MatchCancelled: &matchcancelled,
-				MatchID:   summary.SportEvent.SportEventId,
+				MatchID:        summary.SportEvent.SportEventId,
 			}
 			database.DB.Where("Match_id = ? AND result_of_bet_id IS NULL", summary.SportEvent.SportEventId).Find(&Bets)
 			//appliqué un filter sur &bet qui selectionne touts les bets ou les resultofbet sont inexistants

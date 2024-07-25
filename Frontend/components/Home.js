@@ -44,7 +44,7 @@ const Home = () => {
               style={{ width: "100%", height: 200, top: 40 }}
               source= {{uri: mainEventImage[mainEventImage.length-1].ImagePath}}
             />
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "column" }}>
               <View style={{ marginLeft: 16 }}>
                 <Text
                   style={{
@@ -55,10 +55,10 @@ const Home = () => {
                     color: "white",
                   }}
                 >
-                  Combat Vedette
+                  {mainEventImage[mainEventImage.length-1].Name}
                 </Text>
                 <Text style={{ top: 60, textAlign: "center", color: "white" }}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  {mainEventImage[mainEventImage.length-1].Fight}
                 </Text>
               </View>
             </View>

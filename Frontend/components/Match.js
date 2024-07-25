@@ -26,94 +26,27 @@ const Match = ({ route, navigation, user }) => {
   const UfcSilhouetteLeftStance =
     "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-left-silhouette.png";
   const groupID = route.params.ID;
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     // const getNextSundayDate = () => {
-  //     //   const today = new Date();
-  //     //   const dayOfWeek = today.getDay();
-  //     //   const diff = 7 - dayOfWeek;
-  //     //   const nextSunday = new Date(today);
-  //     //   nextSunday.setDate(today.getDate() + diff);
-  //     //   return nextSunday.toISOString().slice(0, 10);
-  //     // };
-  //     // const getNextSaturdayDate = () => {
-  //     //   const today = new Date();
-  //     //   const dayOfWeek = today.getDay();
-  //     //   const diff = 6 - dayOfWeek;
-  //     //   const nextSunday = new Date(today);
-  //     //   nextSunday.setDate(today.getDate() + diff);
-  //     //   return nextSunday.toISOString().slice(0, 10);
-  //     // };
-  //     // const nextSundayDate = getNextSundayDate();
-  //     // const nextSaturdayDate = getNextSaturdayDate();
-  //     // // console.log(nextSundayDate);
-  //     // try {
-  //     //   Promise.all([
-  //     //     fetch(
-  //     //       `http://${IP}:3001/bet/betOfUserByGroupOfThisWeek/${groupID}/${userId}/`,
-  //     //       {
-  //     //         method: "GET",
-  //     //         headers: {
-  //     //           "Content-type": "application/json",
-  //     //         },
-  //     //       }
-  //     //     ).then(response => response.json()),
-  //     //     fetch(
-  //     //       `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSaturdayDate}/summaries.json?api_key=${APIKEY}`,
-  //     //       {
-  //     //         method: "GET",
-  //     //         headers: {
-  //     //           "Content-type": "application/json",
-  //     //         },
-  //     //       }
-  //     //     ).then((response) => response.json()),
-  //     //     fetch(
-  //     //       `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSundayDate}/summaries.json?api_key=${APIKEY}`,
-  //     //       {
-  //     //         method: "GET",
-  //     //         headers: {
-  //     //           "Content-type": "application/json",
-  //     //         },
-  //     //       }
-  //     //     ).then((response) => response.json())
-  //     //   ]).then(([betOfUserByMatchJson, saturdayJson, sundayJson]) => {
-  //     //     // console.log('dimanche et samedi', saturdayJson, sundayJson);
-  //     //     const allMatchs = [...saturdayJson.summaries, ...sundayJson.summaries];
-  //     //     const matchIdOfUser = betOfUserByMatchJson.message.map((id) => id.MatchID);
-  //     //     setBetOfUserByMatchId(matchIdOfUser);
-  //     //     const allmatchfiltered = allMatchs.filter((matchInAllMatchs) => !matchIdOfUser.includes(matchInAllMatchs.sport_event.id))
-  //     //     setMatchs(allmatchfiltered);
-  //     //     console.log(allMatchs);
-  //     //   });
-  //     // } catch (error) {
-  //     //   console.log("Error message", error);
-  //     // }
-  //   }, [])
-  // );
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetch(`http://localhost:3001/matchsofthewe/${groupID}/${userId}`,{
   
-  // useEffect(() => {
-  //   if(matchs){
-  //     setFilteredMatchs(matchs.reverse());
-  //   }
-  // }, [matchs])
- 
-    
-  // function strNoAccent(str) {
-  //   return str
-  //     .normalize("NFD")
-  //     .replace(/[\u0300-\u036f]/g, "")
-  //     .replace(/-/g, " ");
-  // }
+      }).then(response => response.json())
+      .then(json => setFilteredMatchs(json.matches))
+    },[]
+  ))
+
+  console.log("mes match ?", filteredMatchs);
+   
+  function strNoAccent(str) {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/-/g, " ");
+  }
   return (
     <ScrollView style={styles.container}>
-        <TouchableOpacity>
-      <View style={styles.infosBox}>
-              <Text>Test</Text>
-              <Text>VS</Text>
-              <Text>Test</Text>
-        </View>
-        </TouchableOpacity>
-      {/* {filteredMatchs?.map((match, idx) => {
+      {filteredMatchs?.map((match, idx) => {
         const nameOfFirstFighter = match.sport_event.competitors[0].name
           .split(",")
           .reverse()
@@ -175,7 +108,7 @@ const Match = ({ route, navigation, user }) => {
             </View>
           </TouchableOpacity>
         );
-      })} */}
+      })}
     </ScrollView>
   );
 };
@@ -205,7 +138,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     gap: 15,
-    color: "white",
   },
   Image: {
     width: 90,
