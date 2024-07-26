@@ -59,7 +59,7 @@ const Bet = ({route, user}) => {
     const getBetOfUserByGroupId  = async () => {
       try {
         const response = await fetch(
-          `http://${IP}:3001/bet/betOfUserByGroupOfThisWeek/${groupId}/${userId}/`,
+          `http://0.0.0.0:3001/bet/betOfUserByGroupOfThisWeek/${groupId}/${userId}/`,
           {
             method: "GET",
             headers: {
@@ -80,53 +80,31 @@ const Bet = ({route, user}) => {
       return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     }
 
-    // const getIdOfMatchByEventDate = () => {
-    //     try {
-    //       Promise.all([
-    //         fetch(
-    //           `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSaturdayDate}/summaries.json?api_key=${APIKEY}`,
-    //           {
-    //             method: "GET",
-    //             headers: {
-    //               "Content-type": "application/json",
-    //             },
-    //           }
-    //         ).then((response) => response.json()),
-    //         fetch(
-    //           `https://api.sportradar.com/mma/trial/v2/en/schedules/${nextSundayDate}/summaries.json?api_key=${APIKEY}`,
-    //           {
-    //             method: "GET",
-    //             headers: {
-    //               "Content-type": "application/json",
-    //             },
-    //           }
-    //         ).then((response) => response.json())
-    //       ])
-    //       .then(([saturdayJson, sundayJson]) =>{
-    //         const allmatch = [...saturdayJson.summaries, ...sundayJson.summaries];
-    //         setAllMatchIdOfEventByDate(allmatch);
-    //         console.log("mes match", allmatch);
-    //       })
-          
-    //       const matchIdOfEventByDate = allMatchIdOfEventByDate.map((sportEvent) => {
-    //         const obj = {};
-    //         obj["sportEventID"] = sportEvent.sport_event.id;
-    //         obj["sportEventCombatant1"] =
-    //           strNoAccent(sportEvent.sport_event.competitors[0].name);
-    //         obj["sportEventCombatant2"] =
-    //           strNoAccent(sportEvent.sport_event.competitors[1].name);
-    //         return obj;
-    //       });
-    //       setMatchIdOfEventByDate([matchIdOfEventByDate]);
-    //       setRenderFlag(true);
-    //     } catch (error) {
-    //       console.log("Error message", error);
-    //     }
-    // };
+    const getIdOfMatchByEventDate = () => {
+        try {
+          fetch(`http://localhost:3001/matchsofthewe/whithoutFilter`,{
+          }).then(response => response.json())
+          .then(json => setAllMatchIdOfEventByDate([...json.matches]))
+          const matchIdOfEventByDate = allMatchIdOfEventByDate.map((sportEvent) => {
+            const obj = {};
+            obj["sportEventID"] = sportEvent.sport_event.id;
+            obj["sportEventCombatant1"] =
+              strNoAccent(sportEvent.sport_event.competitors[0].name);
+            obj["sportEventCombatant2"] =
+              strNoAccent(sportEvent.sport_event.competitors[1].name);
+            return obj;
+          });
+          setMatchIdOfEventByDate([...matchIdOfEventByDate]);
+          console.log(matchIdOfEventByDate)
+          setRenderFlag(true);
+        } catch (error) {
+          console.log("Error message", error);
+        }
+    };
     const getFightersNameOfBet = async () => {
       try {
         if (matchIdOfEventByDate && matchIdOfUser) {
-          matchIdOfEventByDate[0].map((matchOfEvent, i) => {
+          matchIdOfEventByDate.map((matchOfEvent, i) => {
             if (matchIdOfUser.includes(matchOfEvent["sportEventID"])) {
               setFightersName((prev) => [...prev, matchOfEvent]);
             }
@@ -147,7 +125,7 @@ const Bet = ({route, user}) => {
 
 
 
-  // console.log(fightersName);
+  console.log(fightersName);
   // const handeTextClick = () => {};
   return (
     <ScrollView style={styles.container}>
