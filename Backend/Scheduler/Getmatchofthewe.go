@@ -77,3 +77,14 @@ func filterMatches(allMatches []MatchOfWeekEnd, betOfUserByGroupID []BetOfUser) 
 	}
 	return filteredMatches
 }
+
+
+
+func GetMatchesOfTheWeekEndWhithoutFilter(c *gin.Context) {
+	allMatches, err := GetMatchFromJsonToStruct()
+	if err != nil {
+		log.Println(err)
+	}
+	
+	c.JSON(http.StatusOK, gin.H{"matches": allMatches})
+}

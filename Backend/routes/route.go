@@ -65,4 +65,6 @@ func Routes(route *gin.Engine) {
 
 	matchsofthewe := route.Group("/matchsofthewe")
 	matchsofthewe.GET("/:GroupID/:UserID", scheduler.GetMatchesOfTheWeekEnd)
+	matchsofthewe.GET("/whithoutFilter", scheduler.GetMatchesOfTheWeekEndWhithoutFilter)
+
 }
