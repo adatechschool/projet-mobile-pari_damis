@@ -1,13 +1,13 @@
 [
   {
     "sport_event": {
-      "id": "sr:sport_event:50451133",
+      "id": "sr:sport_event:51490621",
       "competitors": [
         {
-          "name": "Duncan, Chris"
+          "name": "Dumas, Sedriques"
         },
         {
-          "name": "Bryczek, Robert"
+          "name": "Tiuliulin, Denis"
         }
       ]
     },
@@ -20,127 +20,13 @@
   },
   {
     "sport_event": {
-      "id": "sr:sport_event:50451187",
+      "id": "sr:sport_event:51490617",
       "competitors": [
         {
-          "name": "Bannon, Shauna"
+          "name": "Maksum, Azat"
         },
         {
-          "name": "Oliveira Morais, Ravena"
-        }
-      ]
-    },
-    "sport_event_status": {
-      "scheduled_length": 3,
-      "weight_class": "strawweight(106-115)",
-      "title_fight": false,
-      "main_event": false
-    }
-  },
-  {
-    "sport_event": {
-      "id": "sr:sport_event:50451193",
-      "competitors": [
-        {
-          "name": "Loughran, Caolan"
-        },
-        {
-          "name": "Taveras, Ramon"
-        }
-      ]
-    },
-    "sport_event_status": {
-      "scheduled_length": 3,
-      "weight_class": "bantamweight(126-135)",
-      "title_fight": false,
-      "main_event": false
-    }
-  },
-  {
-    "sport_event": {
-      "id": "sr:sport_event:50700969",
-      "competitors": [
-        {
-          "name": "Duncan, Christian"
-        },
-        {
-          "name": "Bryczek, Robert"
-        }
-      ]
-    },
-    "sport_event_status": {
-      "scheduled_length": 3,
-      "weight_class": "middleweight(171-185)",
-      "title_fight": false,
-      "main_event": false
-    }
-  },
-  {
-    "sport_event": {
-      "id": "sr:sport_event:51790371",
-      "competitors": [
-        {
-          "name": "Bannon, Shauna"
-        },
-        {
-          "name": "Ardelean, Alice"
-        }
-      ]
-    },
-    "sport_event_status": {
-      "scheduled_length": 3,
-      "weight_class": "strawweight(106-115)",
-      "title_fight": false,
-      "main_event": false
-    }
-  },
-  {
-    "sport_event": {
-      "id": "sr:sport_event:50451137",
-      "competitors": [
-        {
-          "name": "Parkin, Michael"
-        },
-        {
-          "name": "Brzeski, Lukasz"
-        }
-      ]
-    },
-    "sport_event_status": {
-      "scheduled_length": 3,
-      "weight_class": "heavyweight(206-265)",
-      "title_fight": false,
-      "main_event": false
-    }
-  },
-  {
-    "sport_event": {
-      "id": "sr:sport_event:50451129",
-      "competitors": [
-        {
-          "name": "Patterson, Sam"
-        },
-        {
-          "name": "Crosbie, Kiefer"
-        }
-      ]
-    },
-    "sport_event_status": {
-      "scheduled_length": 3,
-      "weight_class": "welterweight(156-170)",
-      "title_fight": false,
-      "main_event": false
-    }
-  },
-  {
-    "sport_event": {
-      "id": "sr:sport_event:50148529",
-      "competitors": [
-        {
-          "name": "Mokaev, Muhammad"
-        },
-        {
-          "name": "Kape, Manel"
+          "name": "Vergara, Carlos"
         }
       ]
     },
@@ -153,13 +39,184 @@
   },
   {
     "sport_event": {
-      "id": "sr:sport_event:50451135",
+      "id": "sr:sport_event:51490627",
       "competitors": [
         {
-          "name": "Elliott, Oban"
+          "name": "Herbert, Jai"
         },
         {
-          "name": "Parsons, Preston"
+          "name": "Bedoya, Rolando"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "lightweight(146-155)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:51490615",
+      "competitors": [
+        {
+          "name": "Dudakova, Viktoriia"
+        },
+        {
+          "name": "Hughes, Sam"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "strawweight(106-115)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:51490625",
+      "competitors": [
+        {
+          "name": "Alselwady, Abdul Kareem"
+        },
+        {
+          "name": "Kutateladze, Guram"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "lightweight(146-155)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:51490623",
+      "competitors": [
+        {
+          "name": "Gaziev, Shamil"
+        },
+        {
+          "name": "Mayes, Dontale"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "heavyweight(206-265)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:51490619",
+      "competitors": [
+        {
+          "name": "Yahya, Mohammed"
+        },
+        {
+          "name": "Fernandes, Kaue"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "lightweight(146-155)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:51490635",
+      "competitors": [
+        {
+          "name": "Menifield, Alonzo"
+        },
+        {
+          "name": "Murzakanov, Azamat"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "light_heavyweight(186-205)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:51490633",
+      "competitors": [
+        {
+          "name": "Gutierrez, Chris"
+        },
+        {
+          "name": "Basharat, Javid"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "bantamweight(126-135)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:51490629",
+      "competitors": [
+        {
+          "name": "Alvarez, Joel"
+        },
+        {
+          "name": "Brener, Elves"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "lightweight(146-155)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50449387",
+      "competitors": [
+        {
+          "name": "Dern, Mackenzie"
+        },
+        {
+          "name": "Godinez, Lupita"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "strawweight(106-115)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50449385",
+      "competitors": [
+        {
+          "name": "Ferguson, Tony"
+        },
+        {
+          "name": "Chiesa, Michael"
         }
       ]
     },
@@ -168,6 +225,253 @@
       "weight_class": "welterweight(156-170)",
       "title_fight": false,
       "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50449403",
+      "competitors": [
+        {
+          "name": "Vera, Marlon"
+        },
+        {
+          "name": "Figueiredo, Deiveson"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "bantamweight(126-135)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50449407",
+      "competitors": [
+        {
+          "name": "Luque, Vicente"
+        },
+        {
+          "name": "Diaz, Nick"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 5,
+      "weight_class": "welterweight(156-170)",
+      "title_fight": false,
+      "main_event": true
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:51817591",
+      "competitors": [
+        {
+          "name": "Magomedov, Sharaputdin"
+        },
+        {
+          "name": "Oleksiejczuk, Michal"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "middleweight(171-185)",
+      "title_fight": false,
+      "main_event": true
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50449413",
+      "competitors": [
+        {
+          "name": "Sandhagen, Cory"
+        },
+        {
+          "name": "Nurmagomedov, Umar"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 5,
+      "weight_class": "bantamweight(126-135)",
+      "title_fight": false,
+      "main_event": true
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50451131",
+      "competitors": [
+        {
+          "name": "Bukauskas, Modestas"
+        },
+        {
+          "name": "Prachnio, Marcin"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "light_heavyweight(186-205)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:51790369",
+      "competitors": [
+        {
+          "name": "Loughran, Caolan"
+        },
+        {
+          "name": "Hadley, Jake"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "bantamweight(126-135)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50451195",
+      "competitors": [
+        {
+          "name": "McCann, Molly"
+        },
+        {
+          "name": "Brasil, Bruna"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "strawweight(106-115)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50451139",
+      "competitors": [
+        {
+          "name": "Wood, Nathaniel"
+        },
+        {
+          "name": "Pineda, Daniel"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "featherweight(136-145)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50148527",
+      "competitors": [
+        {
+          "name": "Allen, Arnold"
+        },
+        {
+          "name": "Chikadze, Giga"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "featherweight(136-145)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:51289835",
+      "competitors": [
+        {
+          "name": "Duncan, Christian"
+        },
+        {
+          "name": "Rodrigues, Gregory"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "middleweight(171-185)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50148533",
+      "competitors": [
+        {
+          "name": "Green, Bobby"
+        },
+        {
+          "name": "Pimblett, Paddy"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 3,
+      "weight_class": "lightweight(146-155)",
+      "title_fight": false,
+      "main_event": false
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50148535",
+      "competitors": [
+        {
+          "name": "Aspinall, Tom"
+        },
+        {
+          "name": "Blaydes, Curtis"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 5,
+      "weight_class": "heavyweight(206-265)",
+      "title_fight": true,
+      "main_event": true
+    }
+  },
+  {
+    "sport_event": {
+      "id": "sr:sport_event:50148537",
+      "competitors": [
+        {
+          "name": "Edwards, Leon"
+        },
+        {
+          "name": "Muhammad, Belal"
+        }
+      ]
+    },
+    "sport_event_status": {
+      "scheduled_length": 5,
+      "weight_class": "welterweight(156-170)",
+      "title_fight": true,
+      "main_event": true
     }
   }
 ]

@@ -14,22 +14,24 @@ func GetMatchAndSaveThemInJson() {
 	if err != nil {
 		log.Println(err)
 	}
+	time.Sleep(time.Duration(time.Second) * 4)
+
 	sundayMatches, err := GetMatchesForDate(GetNextSundayDate())
 	if err != nil {
 		log.Println(err)
 	}
 
 	allmatch := append(saturdayMatches, sundayMatches...)
-	allmatchfinish , err := json.MarshalIndent(allmatch, "", "  ")
-	if err != nil{
+	allmatchfinish, err := json.MarshalIndent(allmatch, "", "  ")
+	if err != nil {
 		log.Println(err)
 		return
 	}
 	err = os.WriteFile("matchofweekend.json", allmatchfinish, 0644)
-    if err != nil {
-        log.Println("Error writing to file:", err)
-        return
-    }
+	if err != nil {
+		log.Println("Error writing to file:", err)
+		return
+	}
 }
 
 func GetNextSaturdayDate() string {
