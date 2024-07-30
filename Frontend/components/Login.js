@@ -21,7 +21,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const Login = ({ navigation }) => {
-  console.log("test ip", IP);
+  // console.log("test ip", IP);
 
   const formik = useFormik({
     initialValues: {
