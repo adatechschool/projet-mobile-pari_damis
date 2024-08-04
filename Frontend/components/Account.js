@@ -1,6 +1,8 @@
-import { StyleSheet, Text, View, TouchableOpacity,SafeAreaView,TextInput,Button} from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity,SafeAreaView,TextInput,Button,Image} from 'react-native'
 import React, { useState } from 'react'
+import { IP } from '@env';
 import * as SecureStore from 'expo-secure-store';
+
 
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
@@ -88,6 +90,10 @@ const Account = ({setUser,user}) => {
         onChangeText={(txt)=>handleInputChange("Firstname",txt)}
         keyboardType="numeric"
       />
+     <Image 
+  source={{ uri: `http://${IP}:3001/static/avatar/${User.PathOfAvatar}`}}
+  style={{width: 200, height: 200}}
+/>
        <Button title="Submit" onPress={handleSubmit} />
     </SafeAreaView>
  
