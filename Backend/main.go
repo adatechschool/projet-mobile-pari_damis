@@ -8,7 +8,6 @@ import (
 	// // scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
 	// scrapping "github.com/adatechschool/projet-mobile-pari_damis/Scrapping"
 
-
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
 	helper "github.com/adatechschool/projet-mobile-pari_damis/helper"
 	"github.com/adatechschool/projet-mobile-pari_damis/routes"
@@ -32,6 +31,7 @@ func init() {
 }
 func main() {
 	r := gin.Default()
+	r.Static("/static", "./static")
 
 	fmt.Println("Server online")
 	routes.Routes(r)

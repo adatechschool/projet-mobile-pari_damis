@@ -8,7 +8,8 @@ import (
 )
 
 func UploadFile(c *gin.Context, file *multipart.FileHeader) (string, error) {
-	dst := "./views/assets/image/" + file.Filename
+
+	dst := "./static/avatar/" + file.Filename
 	err := c.SaveUploadedFile(file, dst)
 	if err != nil {
 		return "", err
