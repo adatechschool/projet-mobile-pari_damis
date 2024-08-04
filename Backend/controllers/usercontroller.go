@@ -179,7 +179,6 @@ func UpdateUser(c *gin.Context) {
 		Firstname string
 		Lastname  string
 		Email     string
-		Password  string
 	}
 	c.Bind(&body)
 
@@ -198,7 +197,7 @@ func UpdateUser(c *gin.Context) {
 	var User models.User
 	database.DB.First(&User, id)
 
-	database.DB.Model(&User).Updates(models.User{Firstname: body.Firstname, Lastname: body.Lastname, Email: body.Email, Password: body.Password, PathOfAvatar: pathOfAvatar})
+	database.DB.Model(&User).Updates(models.User{Firstname: body.Firstname, Lastname: body.Lastname, Email: body.Email, PathOfAvatar: pathOfAvatar})
 
 	c.JSON(200, gin.H{
 		"message": User,
