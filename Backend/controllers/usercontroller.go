@@ -204,6 +204,31 @@ func UpdateUser(c *gin.Context) {
 	})
 }
 
+func UpdateAvatarOfUser(c *gin.Context) {
+	id := c.Param("UserID")
+	var pathOfAvatar string
+	file, err := c.FormFile("Avatar")
+	if err != nil {
+		if err == http.ErrMissingFile {
+			log.Println("Pas d'avatar uploader")
+		}
+	} else {
+		pathOfAvatar, err = helper.UploadFile(c, file)
+		if err != nil {
+			log.Println("probleme lors de l'upload de l'avatar")
+		}
+	}
+
+	var User models.User
+	database.DB.First(&User, id)
+
+	database.DB.Model(&User).Updates(models.User{PathOfAvatar: pathOfAvatar})
+
+	c.JSON(200, gin.H{
+		"message": User,
+	})
+}
+
 func DeleteOneUser(c *gin.Context) {
 	id := c.Param("UserID")
 	var User models.User
