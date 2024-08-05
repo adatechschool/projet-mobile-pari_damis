@@ -6,10 +6,11 @@ import {
   ScrollView,
   Button,
   Image,
+  Dimensions,
 } from "react-native";
 import mainEventImage from '../assets/mainEvents.json';
 
-//const {width, height} = Dimensions.get('window') //detection dela dimension ecran
+const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
 const Home = () => {
   const data = [
@@ -36,12 +37,12 @@ const Home = () => {
   ];
 
   return (
-    <View style={{ flex: 1, backgroundColor: "black" }}>
+    <View style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView>
-        <View style={{ padding: 16 }}>
+        <View style={{ padding: 0,marginTop: 8 }}>
           <View style={{ marginBottom: 16 }}>
             <Image
-              style={{ width: "100%", height: 200, top: 40 }}
+              style={{ width: width, height: 200, top: 40 }}
               source= {{uri: mainEventImage[mainEventImage.length-1].ImagePath}}
             />
             <View style={{ flexDirection: "column" }}>
@@ -52,12 +53,12 @@ const Home = () => {
                     fontWeight: "bold",
                     top: 50,
                     textAlign: "center",
-                    color: "white",
+                    color: "black",
                   }}
                 >
                   {mainEventImage[mainEventImage.length-1].Name}
                 </Text>
-                <Text style={{ top: 60, textAlign: "center", color: "white" }}>
+                <Text style={{ top: 60, textAlign: "center", color: "black" }}>
                   {mainEventImage[mainEventImage.length-1].Fight}
                 </Text>
               </View>
@@ -74,7 +75,7 @@ const Home = () => {
                   fontWeight: "bold",
                   top: 100,
                   textAlign: "left",
-                  color: "white",
+                  color: "black",
                 }}
               >
                 Catégorie 1
@@ -85,7 +86,7 @@ const Home = () => {
                   fontWeight: "300",
                   top: 105,
                   textAlign: "right",
-                  color: "white",
+                  color: "black",
                 }}
               >
                 Voir plus
@@ -113,7 +114,7 @@ const Home = () => {
                   fontWeight: "bold",
                   top: 100,
                   textAlign: "left",
-                  color: "white",
+                  color: "black",
                 }}
               >
                 Catégorie 2
@@ -124,7 +125,7 @@ const Home = () => {
                   fontWeight: "300",
                   top: 105,
                   textAlign: "right",
-                  color: "white",
+                  color: "black",
                 }}
               >
                 Voir plus

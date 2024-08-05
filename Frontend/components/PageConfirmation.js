@@ -35,18 +35,18 @@ export default PageConfirmation;
 const styles = StyleSheet.create({
     container:{
       flex: 1,
-      backgroundColor: "black",
+      backgroundColor: "white",
       alignItems:"center",
       
     },
     Confirmer:{
-      color: "white",
+      color: "black",
       textAlign: "left",
       fontSize: 20,
       marginLeft: 30,
     },
     pa:{
-      color: "red",
+      color: "black",
       textAlign: "center",
       fontSize: 100,
       fontWeight: "bold",
@@ -54,14 +54,14 @@ const styles = StyleSheet.create({
       
     },
     connecter:{
-      color: "white",
+      color: "black",
       fontSize: 30,
       textAlign: "center",
       top:120
     },
     customButton: {
-      borderBottomColor: "red",
-      backgroundColor: "red",
+      borderBottomColor: "black",
+      backgroundColor: "black",
       padding: 10,
       margin: 5,
       marginTop: 20,

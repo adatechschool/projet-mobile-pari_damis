@@ -10,9 +10,11 @@ import {
   FlatList,
   TouchableOpacity,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  Dimensions,
 } from "react-native";
 
+const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
 const MyGroupScreen = ({ navigation, user }) => {
   console.log("test ip 2", IP);
@@ -44,11 +46,12 @@ const MyGroupScreen = ({ navigation, user }) => {
         flex: 1,
         alignContent: "center",
         justifyContent: "center",
-        backgroundColor: "black",
+        backgroundColor: "white",
+        height: height,
       }}
     >
       <View style={{ flexDirection: "colum" }}>
-        <Text style={{  fontSize: 20, paddingTop: 150, color: "white",fontWeight:"bold" }}>
+        <Text style={{  fontSize: 20, paddingTop: 150, color: "black",fontWeight:"bold" }}>
           Nom du groupe :
         </Text>
       
@@ -79,14 +82,14 @@ const MyGroupScreen = ({ navigation, user }) => {
 export default MyGroupScreen;
 const styles = StyleSheet.create({
   detailcCustomButton: {
-    backgroundColor: "red",
+    backgroundColor: "white",
     padding: 5,
     marginTop: 20,
     width: "100%",
-    color: "white",
+    color: "black",
     fontSize: 20,
     fontWeight:"bold",
-    borderColor: "red",
+    borderColor: "black",
     borderRadius: 10,
     borderWidth: 1,
     overflow: "hidden",
@@ -103,7 +106,7 @@ const styles = StyleSheet.create({
   },
   customButton: {
    
-    backgroundColor: "red",
+    backgroundColor: "white",
     padding: 5,
     margin: 5,
     marginTop: 20,
@@ -114,11 +117,10 @@ const styles = StyleSheet.create({
     
   },
   buttonText: {
-    color: "white",
+    color: "black",
     fontWeight: "700",
     alignItems: "center",
     textAlign: "center",
     fontSize: 15,
-    
   },
 });

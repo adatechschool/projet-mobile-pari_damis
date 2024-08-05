@@ -95,7 +95,7 @@ const Bet = ({route, user}) => {
             return obj;
           });
           setMatchIdOfEventByDate([...matchIdOfEventByDate]);
-          console.log(matchIdOfEventByDate)
+          // console.log(matchIdOfEventByDate)
           setRenderFlag(true);
         } catch (error) {
           console.log("Error message", error);
@@ -120,12 +120,12 @@ const Bet = ({route, user}) => {
       getFightersNameOfBet();
     }
     return cleanArr;
-  }, [allMatchIdOfEventByDate]))
+  }, []))
 
 
 
 
-  console.log(fightersName);
+  // console.log(fightersName);
   // const handeTextClick = () => {};
   return (
     <ScrollView style={styles.container}>

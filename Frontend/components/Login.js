@@ -111,7 +111,7 @@ const Login = ({ navigation }) => {
             <TextInput
               style={styles.Email}
               placeholder="Email"
-              placeholderTextColor="gray"
+              placeholderTextColor="black"
               value={formik.values.Email}
               onChangeText={formik.handleChange("Email")}
             />
@@ -123,7 +123,7 @@ const Login = ({ navigation }) => {
             <TextInput
               style={styles.MotDePasse}
               placeholder="Password"
-              placeholderTextColor="gray"
+              placeholderTextColor="black"
               secureTextEntry
               value={formik.values.Password}
               onChangeText={formik.handleChange("Password")}
@@ -151,16 +151,16 @@ const Login = ({ navigation }) => {
             alignItems: "center",
           }}
         >
-          <Text style={{ color: "white" }}>Vous n'avez pas de compte ?</Text>
+          <Text style={{ color: "black" }}>Vous n'avez pas de compte ?</Text>
           <Button
             title="S'inscrire"
-            color="red"
+            color="blue"
             titleStyle={{ textAlignVertical: "center" }}
             onPress={() => navigation.navigate("Signup")}
           />
         </View>
         <View style={{ marginVertical: 10 }}>
-          <Text style={{ color: "red" }}>Mot de passe oublié</Text>
+          <Text style={{ color: "blue" }}>Mot de passe oublié</Text>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -171,7 +171,7 @@ export default Login;
 
 const styles = StyleSheet.create({
   Login: {
-    color: "white",
+    color: "black",
     bottom: 50,
     fontSize: 30,
     padding: 5,
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "black",
+    backgroundColor: "white",
     width: "100%",
     gap: 20,
   },
@@ -197,25 +197,25 @@ const styles = StyleSheet.create({
   },
   Email: {
     borderWidth: 1,
-    borderBottomColor: "white",
+    borderBottomColor: "black",
     padding: 10,
     margin: 5,
-    color: "white",
+    color: "black",
     fontSize: 20,
     textAlign: "center",
   },
   MotDePasse: {
     borderWidth: 1,
-    borderBottomColor: "white",
+    borderBottomColor: "black",
     padding: 10,
     margin: 5,
-    color: "white",
+    color: "black",
     fontSize: 20,
     textAlign: "center",
   },
   customButton: {
-    borderBottomColor: "red",
-    backgroundColor: "red",
+    borderBottomColor: "black",
+    backgroundColor: "black",
     padding: 10,
     margin: 5,
     marginTop: 20,

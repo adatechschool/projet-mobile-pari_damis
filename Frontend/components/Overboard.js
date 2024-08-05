@@ -19,18 +19,18 @@ const Overboard = ({ navigation }) => {
       "Jouer comporte des risques : ENDETTEMENT, ISOLEMENT,DÉPENDANCE.  ",
 
       [
+        { text: "Cancel", onPress: () => navigation.navigate("Overboard") },
         {
           text: "Accepter",
           onPress: () => navigation.navigate(page),
         },
-        { text: "Cancel", onPress: () => navigation.navigate("Overboard") },
       ],
       { cancelable: false }
     );
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "black" }}>
+    <View style={{ flex: 1, backgroundColor: "white" }}>
       <Text style={styles.title}>Pari d'Amis</Text>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <View
@@ -99,7 +99,7 @@ const Overboard = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => showAlert("Login")}>
             {/* onPress={() => navigation.navigate("Login")} */}
-            <Text style={{ color: "red", paddingTop: 10 }}>SE CONNECTER</Text>
+            <Text style={{ color: "black", paddingTop: 10 }}>SE CONNECTER</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -111,15 +111,15 @@ export default Overboard;
 
 const styles = StyleSheet.create({
   title: {
-    color: "red",
+    color: "black",
     fontSize: 50,
     fontWeight: "bold",
     textAlign: "center",
     // bottom: 150,
   },
   customButton: {
-    borderBottomColor: "red",
-    backgroundColor: "red",
+    borderBottomColor: "black",
+    backgroundColor: "black",
     padding: 10,
     margin: 5,
     marginTop: 20,

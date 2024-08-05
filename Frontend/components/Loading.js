@@ -21,13 +21,13 @@ const Loading = ({navigation}) => {
 
   return (
     <View
-      style={{ backgroundColor: "black", flex: 1, justifyContent: "center" }}
+      style={{ backgroundColor: "white", flex: 1, justifyContent: "center" }}
     >
       <Image style={styles.Image} source={require("../assets/nature.gif")} />
       <View style={styles.overlay}>
         <Text
           style={{
-            color: "red",
+            color: "black",
             fontSize: 50,
             fontWeight: "bold",
             textAlign: "center",
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0, 0, 0, .95)",
+    backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",
   },

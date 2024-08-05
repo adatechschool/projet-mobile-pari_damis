@@ -6,7 +6,6 @@ import * as SecureStore from 'expo-secure-store';
 const Account = ({setUser}) => {
   return (
     <View style={styles.container}>
-      <Text>Account</Text>
       <TouchableOpacity style={styles.customButton} onPress={async()=>{
         await SecureStore.deleteItemAsync("user")
         setUser(null)
@@ -20,14 +19,14 @@ export default Account
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor: "black",
+    backgroundColor: "white",
     alignItems:"center",
     justifyContent: "center",
     
   },
   customButton: {
-    borderBottomColor: "red",
-    backgroundColor: "red",
+    borderBottomColor: "black",
+    backgroundColor: "black",
     padding: 10,
     margin: 5,
     marginTop: 20,

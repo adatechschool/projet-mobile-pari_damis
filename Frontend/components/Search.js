@@ -25,7 +25,7 @@ const Item = ({ NomCombattant, ImagePath, onPressItem }) => (
     <Image source={{ uri: ImagePath }} style={{ width: 80, height: 80 }} />
     <Text
       style={{
-        color: "red",
+        color: "black",
         fontWeight: "bold",
         fontSize: 20,
         textAlign: "center",
@@ -75,10 +75,10 @@ class Search extends Component {
         <SearchBar
           placeholder="chercher votre combattant..."
           fontSize={25}
-          placeholderTextColor="red"
-          color="red"
-          containerStyle={{ backgroundColor: "black" }}
-          backgroundColor="black"
+          placeholderTextColor="black"
+          color="black"
+          containerStyle={{ backgroundColor: "white" }}
+          backgroundColor="white"
           value={this.state.searchValue}
           onChangeText={(text) => this.searchFunction(text)}
           autoCorrect={false}
@@ -100,13 +100,13 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 30,
     padding: 2,
-    backgroundColor: "black",
+    backgroundColor: "white",
     top: 20,
   },
   item: {
     padding: 10,
     marginHorizontal: 16,
-    borderBottomColor: "white",
+    borderBottomColor: "black",
     borderBottomWidth: 1,
     flexDirection: "row",
     justifyContent: "space-between",
