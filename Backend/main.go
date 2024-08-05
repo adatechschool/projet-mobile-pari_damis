@@ -27,6 +27,7 @@ func init() {
 }
 func main() {
 	r := gin.Default()
+	r.Static("/static", "./static")
 
 	fmt.Println("Server online")
 	routes.Routes(r)

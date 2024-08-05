@@ -27,6 +27,7 @@ func Routes(route *gin.Engine) {
 	user.GET("/allUsers", controllers.AllUsers)
 	user.GET("/oneUser/:UserID", controllers.OneUser)
 	user.PUT("/updateUser/:UserID", controllers.UpdateUser)
+	user.PUT("/updateAvatarOfUser/:UserID", controllers.UpdateAvatarOfUser)
 	user.DELETE("/deleteOneUser/:UserID", controllers.DeleteOneUser)
 	//relation groupe
 	user.GET("/groupsOfOneUser/:UserID", controllers.ShowGroupsOfOneUser)

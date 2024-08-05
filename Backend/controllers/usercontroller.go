@@ -2,11 +2,14 @@ package controllers
 
 import (
 	// "fmt"
+
+	"log"
 	"net/http"
 	"os"
 	"time"
 
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
+	"github.com/adatechschool/projet-mobile-pari_damis/helper"
 	"github.com/adatechschool/projet-mobile-pari_damis/models"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
@@ -71,10 +74,11 @@ func Login(c *gin.Context) {
 	c.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
 
 	AddTokenToUser(c, User, tokenString, body.Device, body.Os)
-	
+
 }
 
 func SignUp(c *gin.Context) {
+	var pathOfAvatar string
 	var body struct {
 		Firstname string
 		Lastname  string
@@ -96,7 +100,21 @@ func SignUp(c *gin.Context) {
 		})
 		return
 	}
-	user := models.User{Firstname: body.Firstname, Lastname: body.Lastname, Pseudo: body.Pseudo, Email: body.Email, Password: string(hash)}
+
+	file, err := c.FormFile("Avatar")
+	if err != nil {
+		if err == http.ErrMissingFile {
+			log.Println("Pas d'avatar uploader")
+		}
+	} else {
+		{
+			pathOfAvatar, error = helper.UploadFile(c, file)
+			if error != nil {
+				log.Println("probleme lors de l'upload de l'avatar")
+			}
+		}
+	}
+	user := models.User{Firstname: body.Firstname, Lastname: body.Lastname, Pseudo: body.Pseudo, Email: body.Email, Password: string(hash), PathOfAvatar: pathOfAvatar}
 	result := database.DB.Create(&user)
 	if result.Error != nil {
 		c.Status(400)
@@ -156,17 +174,59 @@ func ShowGroupsOfOneUser(c *gin.Context) {
 
 func UpdateUser(c *gin.Context) {
 	id := c.Param("UserID")
+	var pathOfAvatar string
 	var body struct {
 		Firstname string
+		Lastname  string
 		Email     string
-		Password  string
 	}
 	c.Bind(&body)
+
+	file, err := c.FormFile("Avatar")
+	if err != nil {
+		if err == http.ErrMissingFile {
+			log.Println("Pas d'avatar uploader")
+		}
+	} else {
+		pathOfAvatar, err = helper.UploadFile(c, file)
+		if err != nil {
+			log.Println("probleme lors de l'upload de l'avatar")
+		}
+	}
 
 	var User models.User
 	database.DB.First(&User, id)
 
-	database.DB.Model(&User).Updates(models.User{Firstname: body.Firstname, Email: body.Email, Password: body.Password})
+	database.DB.Model(&User).Updates(models.User{Firstname: body.Firstname, Lastname: body.Lastname, Email: body.Email, PathOfAvatar: pathOfAvatar})
+
+	c.JSON(200, gin.H{
+		"message": User,
+	})
+}
+
+func UpdateAvatarOfUser(c *gin.Context) {
+	id := c.Param("UserID")
+	var pathOfAvatar string
+	file, err := c.FormFile("Avatar")
+	if err != nil {
+		if err == http.ErrMissingFile {
+			c.JSON(http.StatusFailedDependency, gin.H{
+				"message": "Pas d'image trouvé",
+			})
+			log.Println("Pas d'avatar uploader")
+		}
+	} else {
+		pathOfAvatar, err = helper.UploadFile(c, file)
+		if err != nil {
+			log.Println("probleme lors de l'upload de l'avatar")
+			
+		}
+	}
+
+	var User models.User
+	database.DB.First(&User, id)
+
+	database.DB.Model(&User).Updates(models.User{PathOfAvatar: pathOfAvatar})
 
 	c.JSON(200, gin.H{
 		"message": User,
