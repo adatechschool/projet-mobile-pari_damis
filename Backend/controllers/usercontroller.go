@@ -210,12 +210,16 @@ func UpdateAvatarOfUser(c *gin.Context) {
 	file, err := c.FormFile("Avatar")
 	if err != nil {
 		if err == http.ErrMissingFile {
+			c.JSON(http.StatusFailedDependency, gin.H{
+				"message": "Pas d'image trouvé",
+			})
 			log.Println("Pas d'avatar uploader")
 		}
 	} else {
 		pathOfAvatar, err = helper.UploadFile(c, file)
 		if err != nil {
 			log.Println("probleme lors de l'upload de l'avatar")
+			
 		}
 	}
 
