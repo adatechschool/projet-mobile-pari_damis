@@ -38,15 +38,14 @@ func ScrappingImageAllFightersInfo() {
 		namefighter := e.ChildText(".hero-profile__name")
 		println("Name Fighter: %s\n", namefighter)
 		detailURL := e.Request.URL.String()
-		for i := range matchs{
+		for i := range matchs {
+			numberOfSection := 1
+			numberOfSubgroup := 1
 			if matchs[i].DetailsURL == detailURL {
 				matchs[i].NomCombattant = e.ChildText(".hero-profile__name")
 				matchs[i].ImagePath = e.ChildAttr("img", "src")
 				matchs[i].Category = e.ChildText(".hero-profile__division-title")
 				matchs[i].Wld = e.ChildText(".hero-profile__division-body")
-				matchs[i].MethodWinKO = e.ChildText(".c-stat-3bar__value")
-				matchs[i].MethodWinDec = e.ChildText(".c-stat-3bar__value")
-				matchs[i].MethodWinSub = e.ChildText(".c-stat-3bar__value")
 				matchs[i].Status = e.ChildText(".c-bio__text")
 				matchs[i].Pob = e.ChildText(".c-bio__text")
 				matchs[i].Age = e.ChildText(".field--name-age .field__item")
@@ -55,18 +54,60 @@ func ScrappingImageAllFightersInfo() {
 				fmt.Printf("Details for %s:\n", matchs[i].NomCombattant)
 				fmt.Printf("Category: %s\n", matchs[i].Category)
 				fmt.Printf("WLD: %s\n", matchs[i].Wld)
-				fmt.Printf("Method Win KO: %s\n", matchs[i].MethodWinKO)
-				fmt.Printf("Method Win Dec: %s\n", matchs[i].MethodWinDec)
-				fmt.Printf("Method Win Sub: %s\n", matchs[i].MethodWinSub)
+
 				fmt.Printf("Status: %s\n", matchs[i].Status)
 				fmt.Printf("Place of Birth: %s\n", matchs[i].Pob)
 				fmt.Printf("Age: %s\n", matchs[i].Age)
 				fmt.Printf("Weight: %s\n", matchs[i].Weigth)
+				e.ForEach(".c-stat-3bar__legend", func(y int, g *colly.HTMLElement) {
+
+					g.ForEach(".c-stat-3bar__group", func(y int, h *colly.HTMLElement) {
+						switch numberOfSection {
+						case 1:
+							fmt.Println("premiere section ")
+							switch numberOfSubgroup {
+							case 1:
+
+								fmt.Println("premiere section ")
+								fmt.Println("et premier group ")
+
+							case 2:
+								fmt.Println("premiere section ")
+
+							case 3:
+								fmt.Println("premiere section ")
+
+							}
+						case 2:
+							switch numberOfSubgroup {
+							case 1:
+								fmt.Println("deuxieme section ")
+								fmt.Println("et premier group ")
+								matchs[i].MethodWinKO = h.ChildText(".c-stat-3bar__value")
+
+							case 2:
+								fmt.Println("deuxieme section ")
+								fmt.Println("et deuxieme group ")
+								matchs[i].MethodWinDec = h.ChildText(".c-stat-3bar__value")
+							case 3:
+								fmt.Println("deuxieme section ")
+								fmt.Println("et troisieme group ")
+								matchs[i].MethodWinSub = h.ChildText(".c-stat-3bar__value")
+							}
+							numberOfSubgroup++
+						}
+
+					
+					})
+					numberOfSection++
+				})
+				fmt.Printf("Method Win KO: %s\n", matchs[i].MethodWinKO)
+				fmt.Printf("Method Win Dec: %s\n", matchs[i].MethodWinDec)
+				fmt.Printf("Method Win Sub: %s\n", matchs[i].MethodWinSub)
 				break
 			}
 		}
 	})
-
 
 	c.OnHTML(".view-items-outer-wrp", func(e *colly.HTMLElement) {
 		e.ForEach(".c-listing-athlete-flipcard__back", func(y int, g *colly.HTMLElement) {
@@ -74,11 +115,11 @@ func ScrappingImageAllFightersInfo() {
 			DetailsURL := g.ChildAttr(".e-button--black ", "href")
 			Item.DetailsURL = baseURL + DetailsURL
 			fmt.Printf("Details URL avant add: %s\n", Item.DetailsURL)
-			
+
 			fmt.Printf("Found fighter: %s\n", Item.NomCombattant)
 			fmt.Printf("Image URL: %s\n", Item.ImagePath)
 			fmt.Printf("Details URL: %s\n", Item.DetailsURL)
-			
+
 			matchs = append(matchs, Item)
 
 			if Item.DetailsURL != "" {
