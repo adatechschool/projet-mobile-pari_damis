@@ -25,87 +25,73 @@ type MatchAllFighters struct {
 	Weigth        string
 }
 
-var Item MatchAllFighters
-
 func ScrappingImageAllFightersInfo() {
 	c := colly.NewCollector()
 	c.SetRequestTimeout(120 * time.Second)
 	matchs := make([]MatchAllFighters, 0)
 
-	// Base URL pour compléter les URLs relatives
 	baseURL := "https://www.ufc.com"
 
-	// Cloner le collecteur principal pour les détails des combattants
 	detailCollector := c.Clone()
 
-	// Callbacks pour la collecte des détails des combattants
 	detailCollector.OnHTML("body", func(e *colly.HTMLElement) {
-		titre := e.ChildText(".hero-profile__name")
-		println(titre)
+		namefighter := e.ChildText(".hero-profile__name")
+		println("Name Fighter: %s\n", namefighter)
+		detailURL := e.Request.URL.String()
+		for i := range matchs{
+			if matchs[i].DetailsURL == detailURL {
+				matchs[i].NomCombattant = e.ChildText(".hero-profile__name")
+				matchs[i].ImagePath = e.ChildAttr("img", "src")
+				matchs[i].Category = e.ChildText(".hero-profile__division-title")
+				matchs[i].Wld = e.ChildText(".hero-profile__division-body")
+				matchs[i].MethodWinKO = e.ChildText(".c-stat-3bar__value")
+				matchs[i].MethodWinDec = e.ChildText(".c-stat-3bar__value")
+				matchs[i].MethodWinSub = e.ChildText(".c-stat-3bar__value")
+				matchs[i].Status = e.ChildText(".c-bio__text")
+				matchs[i].Pob = e.ChildText(".c-bio__text")
+				matchs[i].Age = e.ChildText(".field--name-age .field__item")
+				matchs[i].Weigth = e.ChildText(".c-bio__text")
 
-		fighterIndex := -1
-		for i, fighter := range matchs {
-			if e.Request.URL.String() == fighter.DetailsURL {
-				fighterIndex = i
+				fmt.Printf("Details for %s:\n", matchs[i].NomCombattant)
+				fmt.Printf("Category: %s\n", matchs[i].Category)
+				fmt.Printf("WLD: %s\n", matchs[i].Wld)
+				fmt.Printf("Method Win KO: %s\n", matchs[i].MethodWinKO)
+				fmt.Printf("Method Win Dec: %s\n", matchs[i].MethodWinDec)
+				fmt.Printf("Method Win Sub: %s\n", matchs[i].MethodWinSub)
+				fmt.Printf("Status: %s\n", matchs[i].Status)
+				fmt.Printf("Place of Birth: %s\n", matchs[i].Pob)
+				fmt.Printf("Age: %s\n", matchs[i].Age)
+				fmt.Printf("Weight: %s\n", matchs[i].Weigth)
 				break
 			}
 		}
-		if fighterIndex == -1 {
-			return
-		}
-
-		// Extraire les informations supplémentaires
-		// matchs[fighterIndex].Category = e.ChildText(".hero-profile__division-title")
-		// matchs[fighterIndex].Wld = e.ChildText(".hero-profile__division-body")
-		// matchs[fighterIndex].MethodWinKO = e.ChildText(".c-stat-3bar__value")
-		// matchs[fighterIndex].MethodWinDec = e.ChildText(".c-stat-3bar__value")
-		// matchs[fighterIndex].MethodWinSub = e.ChildText(".c-stat-3bar__value")
-		// matchs[fighterIndex].Status = e.ChildText(".c-bio__text")
-		// matchs[fighterIndex].Pob = e.ChildText(".c-bio__text")
-		// matchs[fighterIndex].Age = e.ChildText(".field--name-age .field__item")
-		// matchs[fighterIndex].Weigth = e.ChildText(".c-bio__text")
-
-		// Affichage des informations pour vérifier l'extraction
-		// fmt.Printf("Details for %s:\n", matchs[fighterIndex].NomCombattant)
-		// fmt.Printf("Category: %s\n", matchs[fighterIndex].Category)
-		// fmt.Printf("WLD: %s\n", matchs[fighterIndex].Wld)
-		// fmt.Printf("Method Win KO: %s\n", matchs[fighterIndex].MethodWinKO)
-		// fmt.Printf("Method Win Dec: %s\n", matchs[fighterIndex].MethodWinDec)
-		// fmt.Printf("Method Win Sub: %s\n", matchs[fighterIndex].MethodWinSub)
-		// fmt.Printf("Status: %s\n", matchs[fighterIndex].Status)
-		// fmt.Printf("Place of Birth: %s\n", matchs[fighterIndex].Pob)
-		// fmt.Printf("Age: %s\n", matchs[fighterIndex].Age)
-		// fmt.Printf("Weight: %s\n", matchs[fighterIndex].Weigth)
 	})
 
-	// Callbacks pour la page principale
+
 	c.OnHTML(".view-items-outer-wrp", func(e *colly.HTMLElement) {
-		e.ForEach(".c-listing-athlete-flipcard__front", func(y int, g *colly.HTMLElement) {
-			Item.NomCombattant = g.ChildText(".c-listing-athlete__name")
-			Item.ImagePath = g.ChildAttr("img", "src")
-
-			// Récupérer le href du bouton ou lien avec la classe e-button--black
-		})
 		e.ForEach(".c-listing-athlete-flipcard__back", func(y int, g *colly.HTMLElement) {
+			Item := MatchAllFighters{}
 			DetailsURL := g.ChildAttr(".e-button--black ", "href")
-			fmt.Printf("Details URL avant add: %s\n", Item.DetailsURL)
 			Item.DetailsURL = baseURL + DetailsURL
-
-			// Affichage des informations de base pour chaque combattant
+			fmt.Printf("Details URL avant add: %s\n", Item.DetailsURL)
+			
 			fmt.Printf("Found fighter: %s\n", Item.NomCombattant)
 			fmt.Printf("Image URL: %s\n", Item.ImagePath)
 			fmt.Printf("Details URL: %s\n", Item.DetailsURL)
+			
+			matchs = append(matchs, Item)
 
-			// Visiter la page de détails de chaque combattant
 			if Item.DetailsURL != "" {
 				detailCollector.Visit(Item.DetailsURL)
 			}
 		})
-		matchs = append(matchs, Item)
-		Item = MatchAllFighters{}
 	})
 
-	// Sauvegarder les données finales après avoir scrappé tous les détails
+	c.OnHTML(".button", func(e *colly.HTMLElement) {
+		nextPage := e.Attr("href")
+		c.Visit(e.Request.AbsoluteURL(nextPage))
+	})
+
 	c.OnScraped(func(r *colly.Response) {
 		js, err := json.MarshalIndent(matchs, "", "    ")
 		if err != nil {
@@ -117,11 +103,9 @@ func ScrappingImageAllFightersInfo() {
 		}
 	})
 
-	// Gestion des erreurs
 	c.OnError(func(r *colly.Response, e error) {
 		fmt.Println("Got this error:", e)
 	})
 
-	// Démarrer le scrapping
 	c.Visit("https://www.ufc.com/athletes/all?filters%5B0%5D=status%3A23")
 }
