@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	// scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
-	scrapping "github.com/adatechschool/projet-mobile-pari_damis/Scrapping"
+
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
 
 	// helper "github.com/adatechschool/projet-mobile-pari_damis/helper"
