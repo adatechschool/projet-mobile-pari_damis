@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { View, FlatList, TouchableOpacity, StyleSheet, Text,Image,TextInput } from "react-native";
 import SearchFilterFighter from "./SearchfilterFighter";
+import Detail from "./CombattantDetail";
 import allFightersFile from "../allFighters.json";
 
 const SearchFighter = ({ navigation, route, user }) => {
   const [searchedFighter, setSearchedFighter] = useState("");
-  const [allFighters, setAllFighters] = useState(allFightersFile.map((fighter, index) => ({
-    ...fighter,
-    id: index.toString(),
-  })))
+  const [allFighters, setAllFighters] = useState(allFightersFile)
 
 
   useEffect(() => {
@@ -16,7 +14,8 @@ const SearchFighter = ({ navigation, route, user }) => {
   },[searchedFighter]);
 
   const searchFunction = (input) => {
-    setAllFighters(allFighters.filter((item) => item.nom_combattant.toLowerCase().includes(input.toLowerCase())))
+     console.log(input)
+    setAllFighters(allFightersFile.filter((item) => item.nom_combattant.toLowerCase().includes(input.toLowerCase())))
   };
 
 
@@ -24,21 +23,21 @@ const SearchFighter = ({ navigation, route, user }) => {
     <View style={styles.container}>
       <View style={styles.searchContainer}>
       <TextInput style={styles.input} placeholder="Nom du combatant" value={searchedFighter} onChangeText={setSearchedFighter}/>
-      <SearchFilterFighter
-        data={allFighters}
+      {/* <SearchFilterFighter
+        data={allFightersFile}
         input={searchedFighter}
         setInput={setSearchedFighter}
-      />
+      /> */}
       </View>
 
       <FlatList
         data={allFighters}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item,index) => index}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => console.log(item.id)}>
+          <TouchableOpacity onPress={() => navigation.navigate("CombattantDetail", { item })}>
             <View style={styles.itemContainer}>
               {item.image_path && (
-              <Image source={{ uri: item.image_path }} style={styles.image} />
+              <Image source={{ uri: item.image_path }} style={styles.image}  resizeMode="contain"/>
             )}
               <Text style={styles.list}>{item.nom_combattant}</Text>
             </View>

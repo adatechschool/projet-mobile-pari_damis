@@ -7,11 +7,75 @@ const Detail = ({ route }) => {
 
   return (
     <View style={styles.card}>
+      {item.image_path && (
       <Image
-        source={{ uri: item.ImagePath }}
-        style={{ width: 200, height: 200}}
+        source={{ uri: item.image_path }}
+        style={styles.imageBackground}
+        resizeMode="contain"
       />
-      <Text style={styles.title}>{item.NomCombattant}</Text>
+      )}
+      <Text style={styles.title}>{item.nom_combattant}</Text>
+      {item.category && (
+        <>
+      <Text style={styles.info}>Catégory:{item.category}</Text>
+      <Text style={styles.info}>{item.category}</Text>
+      </>
+    )}
+    {item.wld && (
+      <>
+      <Text style={styles.info}>Victoire/egalité/Defaite:</Text>
+      <Text style={styles.info}>{item.wld}</Text>
+      </>
+    )}
+    {item.age&& (
+      <>
+     <Text style={styles.info}>Age:</Text>
+     <Text style={styles.info}>{item.age}</Text>
+     </>
+    )}
+    {item.method_win_ko && (
+      <>
+      <Text style={styles.info}>Pourcentage de ko:</Text>
+      <Text style={styles.info}>{item.method_win_ko}</Text>
+      </>
+    )}
+    {item.method_win_dec&& (
+      <>
+      <Text style={styles.info}>Pourcentage de victoire au points:</Text>
+      <Text style={styles.info}>{item.method_win_dec}</Text>
+      </>
+    )}
+    {item.method_win_sub&& (
+      <>
+      <Text style={styles.info}>Pourcentage de soumission:</Text>
+      <Text style={styles.info}>{item.method_win_sub}</Text>
+      </>
+    )}
+    {item.status&& (
+      <>
+      <Text style={styles.info}>Status:</Text>
+      <Text style={styles.info}>{item.status}</Text>
+      </>
+    )}
+    {item.pob&& (
+      <>
+      <Text style={styles.info}>Lieu de naissance:</Text>
+      <Text style={styles.info}>{item.pob}</Text>
+      </>
+    )}
+     {item.fight_style&& (
+      <>
+      <Text style={styles.info}>Style de combat:</Text>
+      <Text style={styles.info}>{item.fight_style}</Text>
+      </>
+     )}
+      {item.weight&& (
+        <>
+      <Text style={styles.info}>Poids:</Text>
+      <Text style={styles.info}>{item.weight}</Text>
+      </>
+      )}
+
       {/* <View style={{ right: 100, marginLeft: 10 }}>
         <Text style={styles.text}>{item.text}</Text>
       </View> */}
@@ -25,6 +89,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "black",
     flexDirection: "column",
+    
     // justifyContent: "center",
     alignItems: "center",
     height:"100%",
@@ -41,5 +106,17 @@ const styles = StyleSheet.create({
     marginTop: 50,
     fontSize: 20,
     height: "55%",
+  },
+  imageBackground: {
+    marginTop:100,
+    width: 200,
+    height: 200,
+    justifyContent: 'flex-start', // Assure que le contenu est aligné en haut
+  },
+  info: {
+    textAlign: "center",
+    color: "white",
+    fontSize: 15,
+    fontWeight: "bold",
   },
 });
