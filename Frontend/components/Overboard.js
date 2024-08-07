@@ -11,6 +11,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import Swiper from "react-native-swiper";
 import { Alert } from "react-native";
+import mainEventImage from '../assets/mainEvents.json';
 
 const Overboard = ({ navigation }) => {
   const showAlert = (page) => {
@@ -51,8 +52,17 @@ const Overboard = ({ navigation }) => {
             >
               <ImageBackground
                 style={styles.Image}
-                source={require("../assets/combat1.jpg")}
+                source= {{uri: mainEventImage[mainEventImage.length-1].ImagePath}}
               />
+              <Text>
+              {mainEventImage[mainEventImage.length-1].Name}
+              </Text>
+              <Text>
+              {mainEventImage[mainEventImage.length-1].Fight}
+              </Text>
+              <Text>
+              {mainEventImage[mainEventImage.length-1].Date}
+              </Text>
             </View>
             <View
               style={{
@@ -63,8 +73,17 @@ const Overboard = ({ navigation }) => {
             >
               <Image
                 style={styles.Image}
-                source={require("../assets/combat2.jpg")}
+                source= {{uri: mainEventImage[mainEventImage.length-2].ImagePath}}
               />
+              <Text>
+              {mainEventImage[mainEventImage.length-2].Name}
+              </Text>
+              <Text>
+              {mainEventImage[mainEventImage.length-2].Fight}
+              </Text>
+              <Text>
+              {mainEventImage[mainEventImage.length-2].Date}
+              </Text>
             </View>
             <View
               style={{
@@ -75,8 +94,17 @@ const Overboard = ({ navigation }) => {
             >
               <Image
                 style={styles.Image}
-                source={require("../assets/combat3.jpg")}
-              />
+                source= {{uri: mainEventImage[mainEventImage.length-3].ImagePath}}
+                />
+                <Text>
+              {mainEventImage[mainEventImage.length-3].Name}
+              </Text>
+              <Text>
+              {mainEventImage[mainEventImage.length-3].Fight}
+              </Text>
+              <Text>
+              {mainEventImage[mainEventImage.length-3].Date}
+              </Text>
             </View>
           </Swiper>
         </View>
@@ -115,7 +143,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
     fontWeight: "bold",
     textAlign: "center",
-    // bottom: 150,
+    top: 100,
   },
   customButton: {
     borderBottomColor: "black",

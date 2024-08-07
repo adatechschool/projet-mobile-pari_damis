@@ -53,22 +53,6 @@ const MyTabs = ({setUser, user}) => {
      </Stack.Navigator>
       }
      </Tab.Screen>
-
-        <Tab.Screen
-      name={"bottomNavBet"}
-      options={{
-        tabBarLabel: "Parier",
-        tabBarIcon: ({ color, size }) => (<MaterialIcons name="shopping-basket" color={color} size={size} />)
-      }}
-     >
-        {()=><Stack.Navigator >
-     <Stack.Screen name={"Parier"} options={{ headerShown: false }}>
-       {(props)=><Bet {...props} />}
-     </Stack.Screen>
-     </Stack.Navigator>
-      }
-     </Tab.Screen>
-       
         <Tab.Screen
       name={"bottomNavGroup"}
       options={{

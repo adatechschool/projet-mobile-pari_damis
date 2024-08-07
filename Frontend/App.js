@@ -31,11 +31,7 @@ export default function App() {
       <Stack.Navigator
         initialRouteName="Loading"
         screenOptions={{
-          headerStyle: {
-            backgroundColor: "black",
-          },
           headerBackTitleStyle: { fontSize: 20 },
-          headerTitleStyle: { color: "black" },
           headerBackTitleVisible: false,
         }}
       >
@@ -44,14 +40,9 @@ export default function App() {
             <Stack.Screen
               name="Loading"
               component={Loading}
-              options={{
-                headerStyle: {
-                  backgroundColor: "black",
-                },
-                headerTintColor: "black",
-              }}
+              options={{ headerShown: false }}
             />
-            <Stack.Screen name="Overboard" component={Overboard} />
+            <Stack.Screen name="Overboard" component={Overboard} options={{ headerShown: false }}/>
             <Stack.Screen name="PageConfirmation">
               {(props) => <PageConfirmation {...props} setUser={setUser} />}
             </Stack.Screen>

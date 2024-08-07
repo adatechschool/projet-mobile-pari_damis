@@ -33,9 +33,9 @@ func main() {
 	routes.Routes(r)
 	// scheduler.Match()
 	// scheduler.PointPerBet()
-	// scrapping.ScrappingMainEvent()
+	scrapping.ScrappingMainEvent()
 	// scheduler.GetMatchAndSaveThemInJson()
-	scrapping.ScrappingImageAllFightersInfo()
+	// scrapping.ScrappingImageAllFightersInfo()
 	// fmt.Println("Monday of the current week:", helper.GetMondayOfCurrentWeek())
 	// fmt.Println("Friday of the current week:", helper.GetFridayOfCurrentWeek())
 	r.Run("0.0.0.0:3001") //
