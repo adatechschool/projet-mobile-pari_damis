@@ -3,8 +3,9 @@ package main
 import (
 	"fmt"
 	// scheduler "github.com/adatechschool/projet-mobile-pari_damis/Scheduler"
-	scrapping "github.com/adatechschool/projet-mobile-pari_damis/Scrapping"
+
 	"github.com/adatechschool/projet-mobile-pari_damis/database"
+
 	// helper "github.com/adatechschool/projet-mobile-pari_damis/helper"
 	"github.com/adatechschool/projet-mobile-pari_damis/routes"
 	"github.com/gin-gonic/gin"
@@ -33,9 +34,9 @@ func main() {
 	routes.Routes(r)
 	// scheduler.Match()
 	// scheduler.PointPerBet()
-	scrapping.ScrappingMainEvent()
+	// scrapping.ScrappingMainEvent()
 	// scheduler.GetMatchAndSaveThemInJson()
-	// scrapping.ScrappingImageAllFightersInfo()
+	// scrapping.ScrappingAllFightersInfos()
 	// fmt.Println("Monday of the current week:", helper.GetMondayOfCurrentWeek())
 	// fmt.Println("Friday of the current week:", helper.GetFridayOfCurrentWeek())
 	r.Run("0.0.0.0:3001") //
