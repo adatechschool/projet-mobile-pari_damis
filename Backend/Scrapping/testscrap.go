@@ -46,38 +46,38 @@ func ScrappingImageAllFightersInfo() {
 				matchs[i].ImagePath = e.ChildAttr("img", "src")
 				matchs[i].Category = e.ChildText(".hero-profile__division-title")
 				matchs[i].Wld = e.ChildText(".hero-profile__division-body")
-				matchs[i].Status = e.ChildText(".c-bio__text")
-				matchs[i].Pob = e.ChildText(".c-bio__text")
-				matchs[i].Age = e.ChildText(".field--name-age .field__item")
-				matchs[i].Weigth = e.ChildText(".c-bio__text")
 
-				fmt.Printf("Details for %s:\n", matchs[i].NomCombattant)
-				fmt.Printf("Category: %s\n", matchs[i].Category)
-				fmt.Printf("WLD: %s\n", matchs[i].Wld)
+				// fmt.Printf("Details for %s:\n", matchs[i].NomCombattant)
+				// fmt.Printf("Category: %s\n", matchs[i].Category)
+				// fmt.Printf("WLD: %s\n", matchs[i].Wld)
 
-				fmt.Printf("Status: %s\n", matchs[i].Status)
-				fmt.Printf("Place of Birth: %s\n", matchs[i].Pob)
-				fmt.Printf("Age: %s\n", matchs[i].Age)
-				fmt.Printf("Weight: %s\n", matchs[i].Weigth)
+				// fmt.Printf("Status: %s\n", matchs[i].Status)
+				// fmt.Printf("Place of Birth: %s\n", matchs[i].Pob)
+				// fmt.Printf("Age: %s\n", matchs[i].Age)
+				// fmt.Printf("Weight: %s\n", matchs[i].Weigth)
+
+				e.ForEach(".c-bio__field", func(y int, g *colly.HTMLElement) {
+					label := g.ChildText(".c-bio__label")
+					fmt.Println("label", label)
+					value := g.ChildText(".c-bio__text")
+					fmt.Println("value", value)
+					switch label {
+					case "Lieu de naissance":
+						matchs[i].Pob = value
+					case "Âge":
+						matchs[i].Age = value
+					case "Poids":
+						matchs[i].Weigth = value
+					case "Status":
+						matchs[i].Status = value
+					}
+
+				})
+
 				e.ForEach(".c-stat-3bar__legend", func(y int, g *colly.HTMLElement) {
 
 					g.ForEach(".c-stat-3bar__group", func(y int, h *colly.HTMLElement) {
 						switch numberOfSection {
-						case 1:
-							fmt.Println("premiere section ")
-							switch numberOfSubgroup {
-							case 1:
-
-								fmt.Println("premiere section ")
-								fmt.Println("et premier group ")
-
-							case 2:
-								fmt.Println("premiere section ")
-
-							case 3:
-								fmt.Println("premiere section ")
-
-							}
 						case 2:
 							switch numberOfSubgroup {
 							case 1:
@@ -97,7 +97,6 @@ func ScrappingImageAllFightersInfo() {
 							numberOfSubgroup++
 						}
 
-					
 					})
 					numberOfSection++
 				})
@@ -128,10 +127,10 @@ func ScrappingImageAllFightersInfo() {
 		})
 	})
 
-	c.OnHTML(".button", func(e *colly.HTMLElement) {
-		nextPage := e.Attr("href")
-		c.Visit(e.Request.AbsoluteURL(nextPage))
-	})
+	// c.OnHTML(".button", func(e *colly.HTMLElement) {
+	// 	nextPage := e.Attr("href")
+	// 	c.Visit(e.Request.AbsoluteURL(nextPage))
+	// })
 
 	c.OnScraped(func(r *colly.Response) {
 		js, err := json.MarshalIndent(matchs, "", "    ")
