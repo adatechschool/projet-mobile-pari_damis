@@ -52,8 +52,8 @@ const Classement = ({ route, user }) => {
       <Text style={styles.title}>Classement</Text>
       <View style={styles.rankBox}>
       {ranking.map((user, index) => (
-        <View style={styles.rankChildBox}>
-          <Text style={styles.index} key={index}>
+        <View style={styles.rankChildBox}key={index}>
+          <Text style={styles.index} >
             {index + 1}
           </Text>
           <Text style={styles.user}>
