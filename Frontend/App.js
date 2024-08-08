@@ -68,7 +68,11 @@ export default function App() {
             <Stack.Screen name="CreateGroup" options={{}}>
               {(props) => <CreateGroup {...props} user={user}/>}
             </Stack.Screen>
-            <Stack.Screen name="CombattantDetail" options={{}}>
+            <Stack.Screen name="CombattantDetail" options={{
+              headerBackTitle: "Tous",
+              headerTitle: "",
+              headerTransparent: true,
+              headerBackTitleVisible: true}}>
               {(props) => <CombattantDetail {...props} />}
             </Stack.Screen>
             <Stack.Screen name="CreateBet" options={{}}>

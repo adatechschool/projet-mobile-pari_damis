@@ -1,115 +1,117 @@
-import React, { Component, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {
-  View,
-  FlatList,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  Text,
-} from "react-native";
-import { SearchBar } from "react-native-elements";
-import allFighters from "../allFighters.json";
-//const {width, height} = Dimensions.get('window') //detection dela dimension ecran
+import React, { useEffect, useState } from "react";
+import { View, FlatList, TouchableOpacity, StyleSheet, Text,Image,TextInput } from "react-native";
+import SearchFilterFighter from "./SearchfilterFighter";
+import Detail from "./CombattantDetail";
+import allFightersFile from "../allFighters.json";
 
-const dataWithIds = allFighters.map((fighter, index) => ({
-  ...fighter,
-  id: index.toString(),
-}));
+const SearchFighter = ({ navigation, route, user }) => {
+  const [searchedFighter, setSearchedFighter] = useState("");
+  const [allFighters, setAllFighters] = useState(allFightersFile);
+  const UfcSilhouetteRightStance =
+    "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-right-silhouette.png";
 
 
+  useEffect(() => {
+    searchFunction(searchedFighter)
+  },[searchedFighter]);
 
-const Item = ({ NomCombattant, ImagePath, onPressItem }) => (
-  <TouchableOpacity style={styles.item} onPress={onPressItem}>
-    <Image source={{ uri: ImagePath }} style={{ width: 80, height: 80 }} />
-    <Text
-      style={{
-        color: "black",
-        fontWeight: "bold",
-        fontSize: 20,
-        textAlign: "center",
-      }}
-    >
-      {NomCombattant}
-    </Text>
-  </TouchableOpacity>
-);
-
-class Search extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: dataWithIds,
-      searchValue: "",
-    };
-    this.arrayholder = dataWithIds;
-  }
-
-  searchFunction = (text) => {
-    const updatedData = this.arrayholder.filter((item) => {
-      const item_data = `${item.NomCombattant.toUpperCase()}`;
-      const text_data = text.toUpperCase();
-      return item_data.indexOf(text_data) > -1;
-    });
-    this.setState({ data: updatedData, searchValue: text });
+  const searchFunction = (input) => {
+     console.log(input)
+    setAllFighters(allFightersFile.filter((item) => item.nom_combattant.toLowerCase().includes(input.toLowerCase())))
   };
 
-  handleItemPress = (itemId) => {
-    const selectedItem = this.arrayholder.find((item) => item.id === itemId);
-    this.props.navigation.navigate("CombattantDetail", { item: selectedItem });
-    console.log(`Item ${itemId} pressé`);
-  };
 
-  renderItem = ({ item }) => (
-    <Item
-      NomCombattant={item.NomCombattant}
-      ImagePath={item.ImagePath}
-      onPressItem={() => this.handleItemPress(item.id)}
-    />
-  );
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <SearchBar
-          placeholder="chercher votre combattant..."
-          fontSize={25}
-          placeholderTextColor="black"
-          color="black"
-          containerStyle={{ backgroundColor: "white" }}
-          backgroundColor="white"
-          value={this.state.searchValue}
-          onChangeText={(text) => this.searchFunction(text)}
-          autoCorrect={false}
-        />
-        <FlatList
-          style={{ height: "100%" }}
-          data={this.state.data}
-          renderItem={this.renderItem}
-          keyExtractor={(item) => item.id}
-        />
+  return (
+    <View style={styles.container}>
+      <View style={styles.searchContainer}>
+      <TextInput style={styles.input} placeholder="Nom du combatant" value={searchedFighter} onChangeText={setSearchedFighter}/>
+      {/* <SearchFilterFighter
+        data={allFightersFile}
+        input={searchedFighter}
+        setInput={setSearchedFighter}
+      /> */}
       </View>
-    );
-  }
-}
 
-export default Search;
+      <FlatList
+        data={allFighters}
+        keyExtractor={(item,index) => index}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => navigation.navigate("CombattantDetail", { item })}>
+            <View style={styles.itemContainer}>
+              {item.image_path? (
+              <Image source={{ uri: item.image_path }} style={styles.image}  resizeMode="contain"/>
+            ):(
+              <Image source={{ uri: UfcSilhouetteRightStance }} style={styles.image}  resizeMode="contain"/>
+            )}
+              <Text style={styles.list}>{item.nom_combattant}</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+      />
+    </View>
+  );
+};
+
+export default SearchFighter;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
-    padding: 2,
+    flex: 1,
+    marginTop: -30,
+    paddingTop: 5,
+    height: "100%",
     backgroundColor: "white",
-    top: 20,
   },
-  item: {
+  searchContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 100,
+    height: "10%",
+  },
+  input: {
+    fontSize: 20,
     padding: 10,
-    marginHorizontal: 16,
-    borderBottomColor: "black",
     borderBottomWidth: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    borderBottomColor: '#ccc',
+    width: '80%',
+    textAlign: 'center',
+  },
+  pseudo: {
+    color: "black",
+  },
+  button: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 5,
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  searchContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 100,
+    height: "10%",
+  },
+  input: {
+    fontSize: 20,
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    width: '80%',
+    textAlign: 'center',
+  },
+  list: {
+    fontSize: 18,
+    marginLeft: 10,
+  },
+  image: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
   },
 });
