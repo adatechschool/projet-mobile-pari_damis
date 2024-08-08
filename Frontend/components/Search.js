@@ -6,7 +6,9 @@ import allFightersFile from "../allFighters.json";
 
 const SearchFighter = ({ navigation, route, user }) => {
   const [searchedFighter, setSearchedFighter] = useState("");
-  const [allFighters, setAllFighters] = useState(allFightersFile)
+  const [allFighters, setAllFighters] = useState(allFightersFile);
+  const UfcSilhouetteRightStance =
+    "https://www.ufc.com/themes/custom/ufc/assets/img/standing-stance-right-silhouette.png";
 
 
   useEffect(() => {
@@ -36,8 +38,10 @@ const SearchFighter = ({ navigation, route, user }) => {
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => navigation.navigate("CombattantDetail", { item })}>
             <View style={styles.itemContainer}>
-              {item.image_path && (
+              {item.image_path? (
               <Image source={{ uri: item.image_path }} style={styles.image}  resizeMode="contain"/>
+            ):(
+              <Image source={{ uri: UfcSilhouetteRightStance }} style={styles.image}  resizeMode="contain"/>
             )}
               <Text style={styles.list}>{item.nom_combattant}</Text>
             </View>
