@@ -49,12 +49,12 @@ export default function App() {
             <Stack.Screen
               name="Signup"
               component={Signup}
-              options={{ headerBackTitle: "Accueil", title: null }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="Login"
               component={Login}
-              options={{ title: null }}
+              options={{ headerShown: false }}
             />
           </>
         ) : (

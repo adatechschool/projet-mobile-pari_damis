@@ -18,7 +18,7 @@ import {
 //const {width, height} = Dimensions.get('window') //detection dela dimension ecran
 
 const Signup = ({ navigation }) => {
-  console.log("test ip", IP);
+  // console.log("test ip", IP);
 
   const formik = useFormik({
     initialValues: {
@@ -94,7 +94,7 @@ const Signup = ({ navigation }) => {
 
 
   return (
-    <View style={{ flex: 1, backgroundColor: "black" }}>
+    <View style={{ flex: 1, backgroundColor: "white" , top:80}}>
       <StatusBar 
         hidden="Visible"
       />
@@ -105,7 +105,7 @@ const Signup = ({ navigation }) => {
         <TextInput
           style={styles.text}
           placeholder="Firstname"
-          placeholderTextColor="gray"
+          placeholderTextColor="black"
           value={formik.values.Firstname}
           onChangeText={formik.handleChange("Firstname")}
         />
@@ -115,7 +115,7 @@ const Signup = ({ navigation }) => {
         <TextInput
           style={styles.text}
           placeholder="Lastname"
-          placeholderTextColor="gray"
+          placeholderTextColor="black"
           value={formik.values.Lastname}
           onChangeText={formik.handleChange("Lastname")}
         />
@@ -125,7 +125,7 @@ const Signup = ({ navigation }) => {
         <TextInput
           style={styles.text}
           placeholder="Pseudo"
-          placeholderTextColor="gray"
+          placeholderTextColor="black"
           value={formik.values.Pseudo}
           onChangeText={formik.handleChange("Pseudo")}
         />
@@ -135,7 +135,7 @@ const Signup = ({ navigation }) => {
         <TextInput
           style={styles.text}
           placeholder="Email "
-          placeholderTextColor="gray"
+          placeholderTextColor="black"
           value={formik.values.Email}
           onChangeText={formik.handleChange("Email")}
         />
@@ -145,7 +145,7 @@ const Signup = ({ navigation }) => {
         <TextInput
           style={styles.text}
           placeholder="Password"
-          placeholderTextColor="gray"
+          placeholderTextColor="black"
           secureTextEntry={true}
           value={formik.values.Password}
           onChangeText={formik.handleChange("Password")}
@@ -158,7 +158,6 @@ const Signup = ({ navigation }) => {
         </TouchableOpacity>
         <View
           style={{
-            flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
           }}
@@ -168,7 +167,7 @@ const Signup = ({ navigation }) => {
           </Text>
           <Button
             title="Se connecter"
-            color="red"
+            color="blue"
             onPress={() => navigation.navigate("Login")}
           />
         </View>
@@ -181,7 +180,7 @@ export default Signup;
 
 const styles = StyleSheet.create({
   inscription: {
-    color: "white",
+    color: "black",
     top: 7,
     fontSize: 30,
     padding: 5,
@@ -190,8 +189,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   customButton: {
-    borderBottomColor: "red",
-    backgroundColor: "red",
+    borderBottomColor: "black",
+    backgroundColor: "black",
     padding: 10,
     margin: 5,
     marginTop: 20,
@@ -214,12 +213,12 @@ const styles = StyleSheet.create({
   },
   text: {
     borderWidth: 1,
-    borderBottomColor: "white",
+    borderBottomColor: "black",
     padding: 10,
     margin: 5,
     width: "90%",
     height: 50,
-    color: "white",
+    color: "black",
     fontSize: 20,
     textAlign: "center",
   },

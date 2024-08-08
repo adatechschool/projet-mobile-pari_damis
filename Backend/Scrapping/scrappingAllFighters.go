@@ -105,10 +105,10 @@ func ScrappingAllFightersInfos() {
 		})
 	})
 
-	// c.OnHTML(".button", func(e *colly.HTMLElement) {
-	// 	nextPage := e.Attr("href")
-	// 	c.Visit(e.Request.AbsoluteURL(nextPage))
-	// })
+	c.OnHTML(".button", func(e *colly.HTMLElement) {
+		nextPage := e.Attr("href")
+		c.Visit(e.Request.AbsoluteURL(nextPage))
+	})
 
 	c.OnScraped(func(r *colly.Response) {
 		result := make([]*MatchAllFighters, 0)

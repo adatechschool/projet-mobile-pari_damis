@@ -38,7 +38,7 @@ const SearchFighter = ({ navigation, route, user }) => {
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => navigation.navigate("CombattantDetail", { item })}>
             <View style={styles.itemContainer}>
-              {item.image_path? (
+              {item.image_path && item.image_path !== "/themes/custom/ufc/assets/img/no-profile-image.png" ?(
               <Image source={{ uri: item.image_path }} style={styles.image}  resizeMode="contain"/>
             ):(
               <Image source={{ uri: UfcSilhouetteRightStance }} style={styles.image}  resizeMode="contain"/>
