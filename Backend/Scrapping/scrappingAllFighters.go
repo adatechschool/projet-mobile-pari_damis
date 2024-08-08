@@ -43,6 +43,7 @@ func ScrappingAllFightersInfos() {
 	detailCollector.OnHTML("body", func(e *colly.HTMLElement) {
 		detailURL := e.Request.URL.String()
 		match := &MatchAllFighters{DetailsURL: detailURL}
+		fmt.Println(detailURL)
 		match.NomCombattant = e.ChildText(".hero-profile__name")
 		fmt.Println("nom du fighter :",match.NomCombattant)
 		match.ImagePath = e.ChildAttr("img", "src")
@@ -82,16 +83,32 @@ func ScrappingAllFightersInfos() {
 	})
 
 	c.OnHTML(".view-items-outer-wrp", func(e *colly.HTMLElement) {
+		fighterImages := make(map[string]string)
+		e.ForEach(".c-listing-athlete-flipcard__front", func(_ int, b *colly.HTMLElement){
+			pic := b.ChildAttr("img", "src")
+			fighternames := b.ChildText(".c-listing-athlete__name")
+			fighterImages[fighternames] = pic
+			
+			fmt.Println("image fighter ? :",pic)
+			fmt.Println("name fighter ? :",fighternames)
+		})
 		e.ForEach(".c-listing-athlete-flipcard__back", func(_ int, g *colly.HTMLElement) {
 			detailsURL := baseURL + g.ChildAttr(".e-button--black ", "href")
 			detailCollector.Visit(detailsURL)
+
+			if match, ok := matchs.Load(detailsURL); ok{
+				fighter := match.(*MatchAllFighters)
+				if img, found := fighterImages[fighter.NomCombattant]; found {
+					fighter.ImagePath = img
+				}
+			}
 		})
 	})
 
-	c.OnHTML(".button", func(e *colly.HTMLElement) {
-		nextPage := e.Attr("href")
-		c.Visit(e.Request.AbsoluteURL(nextPage))
-	})
+	// c.OnHTML(".button", func(e *colly.HTMLElement) {
+	// 	nextPage := e.Attr("href")
+	// 	c.Visit(e.Request.AbsoluteURL(nextPage))
+	// })
 
 	c.OnScraped(func(r *colly.Response) {
 		result := make([]*MatchAllFighters, 0)
