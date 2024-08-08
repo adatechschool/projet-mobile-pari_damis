@@ -59,7 +59,7 @@ const Bet = ({route, user}) => {
     const getBetOfUserByGroupId  = async () => {
       try {
         const response = await fetch(
-          `http://0.0.0.0:3001/bet/betOfUserByGroupOfThisWeek/${groupId}/${userId}/`,
+          `http://${IP}:3001/bet/betOfUserByGroupOfThisWeek/${groupId}/${userId}/`,
           {
             method: "GET",
             headers: {
