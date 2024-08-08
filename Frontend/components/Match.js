@@ -62,10 +62,10 @@ const Match = ({ route, navigation, user }) => {
         //   strNoAccent(nameOfsecondFighter.trim())
         // );
         const indexOfFirstFigther = Fightersjson.map((fighter) =>
-          strNoAccent(fighter.NomCombattant)
+          strNoAccent(fighter.nom_combattant)
         ).indexOf(strNoAccent(nameOfFirstFighter.trim()));
         const indexOfSecondFigther = Fightersjson.map((fighter) =>
-          strNoAccent(fighter.NomCombattant)
+          strNoAccent(fighter.nom_combattant)
         ).indexOf(strNoAccent(nameOfsecondFighter.trim()));
         // console.log("mmm", indexOfFirstFigther, indexOfSecondFigther);
         return (
@@ -84,8 +84,8 @@ const Match = ({ route, navigation, user }) => {
                 style={styles.Image}
                 source={{
                   uri:
-                    indexOfFirstFigther !== -1 && Fightersjson[indexOfFirstFigther].ImagePath != ""
-                      ? Fightersjson[indexOfFirstFigther].ImagePath
+                    indexOfFirstFigther !== -1 && Fightersjson[indexOfFirstFigther].image_path != ""
+                      ? Fightersjson[indexOfFirstFigther].image_path
                       : UfcSilhouetteRightStance,
                 }}
               />
@@ -100,8 +100,8 @@ const Match = ({ route, navigation, user }) => {
                 style={styles.Image}
                 source={{
                   uri:
-                    indexOfSecondFigther !== -1 && Fightersjson[indexOfSecondFigther].ImagePath != ""
-                      ? Fightersjson[indexOfSecondFigther].ImagePath
+                    indexOfSecondFigther !== -1 && Fightersjson[indexOfSecondFigther].image_path != ""
+                      ? Fightersjson[indexOfSecondFigther].image_path
                       : UfcSilhouetteLeftStance,
                 }}
               />

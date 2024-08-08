@@ -120,7 +120,7 @@ const Bet = ({route, user}) => {
       getFightersNameOfBet();
     }
     return cleanArr;
-  }, []))
+  }, [matchIdOfUser]))
 
 
 
@@ -139,16 +139,16 @@ const Bet = ({route, user}) => {
           .reverse()
           .join(" ");
         const indexOfFirstFigther = Fightersjson.map(
-          (fighter) => fighter.NomCombattant
+          (fighter) => fighter.nom_combattant
         ).indexOf(nameOfFirstFighter.trim());
         const indexOfSecondFigther = Fightersjson.map(
-          (fighter) => fighter.NomCombattant
+          (fighter) => fighter.nom_combattant
         ).indexOf(nameOfsecondFighter.trim());
         return (
           <TouchableOpacity
             key={idx}
             style={styles.matchBox}
-            onPress={() => navigation.navigate("CreateBet", groupID)}
+            onPress={() => navigation.navigate("CreateBet", groupId)}
           >
             <View>
               <Image
@@ -156,7 +156,7 @@ const Bet = ({route, user}) => {
                 source={{
                   uri:
                     indexOfFirstFigther !== -1
-                      ? Fightersjson[indexOfFirstFigther].ImagePath
+                      ? Fightersjson[indexOfFirstFigther].image_path
                       : UfcSilhouetteRightStance,
                 }}
               />
@@ -172,7 +172,7 @@ const Bet = ({route, user}) => {
                 source={{
                   uri:
                     indexOfSecondFigther !== -1
-                      ? Fightersjson[indexOfSecondFigther].ImagePath
+                      ? Fightersjson[indexOfSecondFigther].image_path
                       : UfcSilhouetteLeftStance,
                 }}
               />
