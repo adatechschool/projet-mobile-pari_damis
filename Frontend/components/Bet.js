@@ -82,7 +82,7 @@ const Bet = ({route, user}) => {
 
     const getIdOfMatchByEventDate = () => {
         try {
-          fetch(`http://localhost:3001/matchsofthewe/whithoutFilter`,{
+          fetch(`http://${IP}:3001/matchsofthewe/whithoutFilter`,{
           }).then(response => response.json())
           .then(json => setAllMatchIdOfEventByDate([...json.matches]))
           const matchIdOfEventByDate = allMatchIdOfEventByDate.map((sportEvent) => {

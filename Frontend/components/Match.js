@@ -29,7 +29,7 @@ const Match = ({ route, navigation, user }) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      fetch(`http://localhost:3001/matchsofthewe/${groupID}/${userId}`,{
+      fetch(`http://${IP}:3001/matchsofthewe/${groupID}/${userId}`,{
   
       }).then(response => response.json())
       .then(json => setFilteredMatchs(json.matches))
