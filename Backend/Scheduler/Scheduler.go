@@ -210,7 +210,6 @@ func PointPerBet() {
 		fmt.Println("==========================================================")
 		// à décommenter pour pushé les points
 		database.DB.Model(&Bets[i]).UpdateColumn("PointPerBet", &points)
-
 	}
 
 }
